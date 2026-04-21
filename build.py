@@ -37,6 +37,18 @@ last_7_showings_map = {
     "17301-biscayne-boulevard-unit-1401": "1"
 }
 
+# Online views extracted from Progress Report PDFs (Apr 13-19, 2026)
+last_7_online_map = {
+    "234-washington-ave": "224",
+    "7334-harding-unit-6": "144",
+    "320-85-st-15": None,
+    "8000-harding-avenue-unit-2b": "147",
+    "1710-nw-106-terr": "326",
+    "763-pennsylvania-avenue-unit-116": "236",
+    "6061-collins-avenue-unit-5f": "512",
+    "17301-biscayne-boulevard-unit-1401": "356"
+}
+
 def build():
     with open('template.html', 'r', encoding='utf-8') as f:
         template = f.read()
@@ -86,12 +98,16 @@ def build():
             showings_display = "0"
         else:
             showings_display = "+" + showings
+        
+        online_7 = last_7_online_map.get(slug, None)
+        online_7_display = online_7 if online_7 else 'N/A'
             
-        html = html.replace('{{LAST_7_ONLINE_TABLE}}', 'N/A')
+        html = html.replace('{{LAST_7_ONLINE_TABLE}}', online_7_display)
         html = html.replace('{{LAST_7_SHOWINGS}}', showings_display)
         html = html.replace('{{LAST_7_PHYSICAL_TABLE}}', showings_display)
         html = html.replace('{{LAST_7_EMAILS_TABLE}}', '4,618')
         html = html.replace('{{LAST_7_SOCIAL_TABLE}}', '444')
+        html = html.replace('{{PROPERTY_SLUG}}', slug)
 
         with open(index_path, 'w', encoding='utf-8') as out:
             out.write(html)

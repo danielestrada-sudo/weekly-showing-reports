@@ -10,9 +10,15 @@ def extract_feedback(file_path):
         return '<div style="background: rgba(0,0,0,0.05); padding: 2rem; text-align: center; border-radius: 8px; color: var(--text-muted);"><em>No new feedback this week.</em></div>'
     with open(file_path, 'r', encoding='utf-8') as f:
         content = f.read()
-    match = re.search(r'<div id="feedback" class="tab-content">.*?<div class="card">(.*?)</div>\s*<!-- VISITOR LOCATIONS TAB -->', content, re.DOTALL)
-    if match:
-        return match.group(1).strip()
+    
+    # Check if there is valid feedback
+    if '<div class="feedback-item">' in content:
+        # Extract items up to the end of the card, ignoring the closing divs which the template now provides
+        match = re.search(r'<div id="feedback" class="tab-content">.*?<div class="card">(.*?)(?:</div>\s*<!-- VISITOR LOCATIONS TAB -->|<!-- VISITOR LOCATIONS TAB -->)', content, re.DOTALL)
+        if match:
+            # Clean up trailing closing divs that might have been accidentally captured
+            return re.sub(r'</div>\s*</div>\s*$', '', match.group(1).strip())
+    
     return '<div style="background: rgba(0,0,0,0.05); padding: 2rem; text-align: center; border-radius: 8px; color: var(--text-muted);"><em>No new feedback this week.</em></div>'
 
 def get_property_specs(address):
@@ -21,7 +27,7 @@ def get_property_specs(address):
     return "Property Details", "MLS #Pending"
 
 last_7_showings_map = {
-    "234-washington-ave": "0",
+    "234-washington-ave": "1",
     "7334-harding-unit-6": "3",
     "320-85-st-15": "4",
     "8000-harding-avenue-unit-2b": "1",

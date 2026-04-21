@@ -16,10 +16,20 @@ def extract_feedback(file_path):
     return '<div style="background: rgba(0,0,0,0.05); padding: 2rem; text-align: center; border-radius: 8px; color: var(--text-muted);"><em>No new feedback this week.</em></div>'
 
 def get_property_specs(address):
-    # Mapping arbitrary specs based on whatever we have, since CSV doesn't have it
     if 'Washington' in address: return "3 Bedrooms | Attached Garage", "MLS #A11888151"
     if 'Unit' in address or 'UNIT' in address: return "Condo", "MLS #Pending"
     return "Property Details", "MLS #Pending"
+
+last_7_showings_map = {
+    "234-washington-ave": "0",
+    "7334-harding-unit-6": "3",
+    "320-85-st-15": "4",
+    "8000-harding-avenue-unit-2b": "1",
+    "1710-nw-106-terr": "0",
+    "763-pennsylvania-avenue-unit-116": "2",
+    "6061-collins-avenue-unit-5f": "3",
+    "17301-biscayne-boulevard-unit-1401": "1"
+}
 
 def build():
     with open('template.html', 'r', encoding='utf-8') as f:
@@ -29,10 +39,8 @@ def build():
         reader = csv.reader(f)
         rows = list(reader)
 
-    # Skip first row which is just a note
     headers = rows[1]
     data_rows = rows[2:]
-
     properties_data = []
 
     for row in data_rows:
@@ -54,7 +62,6 @@ def build():
             
         index_path = os.path.join(folder, 'index.html')
         feedback = extract_feedback(index_path)
-        
         specs, mls = get_property_specs(address)
 
         html = template.replace('{{PROPERTY_NAME}}', address)
@@ -67,11 +74,23 @@ def build():
         html = html.replace('{{TOTAL_SOCIAL_VIEWS}}', social)
         html = html.replace('{{FEEDBACK_SECTION}}', feedback)
         
+        # New Last 7 Days metrics
+        showings = last_7_showings_map.get(slug, "0")
+        if showings == "0":
+            showings_display = "0"
+        else:
+            showings_display = "+" + showings
+            
+        html = html.replace('{{LAST_7_ONLINE_TABLE}}', 'N/A')
+        html = html.replace('{{LAST_7_SHOWINGS}}', showings_display)
+        html = html.replace('{{LAST_7_PHYSICAL_TABLE}}', showings_display)
+        html = html.replace('{{LAST_7_EMAILS_TABLE}}', '4,618')
+        html = html.replace('{{LAST_7_SOCIAL_TABLE}}', '444')
+
         with open(index_path, 'w', encoding='utf-8') as out:
             out.write(html)
         print(f"Generated {slug}/index.html")
 
-    # Generate root index.html
     portal = """<!DOCTYPE html>
 <html lang="en">
 <head>

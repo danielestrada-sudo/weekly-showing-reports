@@ -152,8 +152,8 @@ def build():
         html = html.replace('{{LAST_7_ONLINE_TABLE}}', online_7_display)
         html = html.replace('{{LAST_7_SHOWINGS}}', showings_display)
         html = html.replace('{{LAST_7_PHYSICAL_TABLE}}', showings_display)
-        html = html.replace('{{LAST_7_EMAILS_TABLE}}', '222')
-        html = html.replace('{{LAST_7_SOCIAL_TABLE}}', last_7_social_map.get(slug, '3,267'))
+        html = html.replace('{{LAST_7_EMAILS_TABLE}}', '3,267')
+        html = html.replace('{{LAST_7_SOCIAL_TABLE}}', last_7_social_map.get(slug, '222'))
         html = html.replace('{{PROPERTY_SLUG}}', slug)
         html = html.replace('{{MAP_SRC}}', 'property_views_map_clean.png')
 

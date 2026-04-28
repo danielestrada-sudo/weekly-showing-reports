@@ -126,10 +126,10 @@ def build_city_stats_html(slug):
     
     html = '<div class="city-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">'
     for city, val in stats:
-        html += f\'\'\'<div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+        html += f'''<div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
                     <span style="font-weight: 600;">{city}</span>
                     <span style="color: var(--accent); font-weight: 700;">{val}</span>
-                </div>\'\'\'
+                </div>'''
     html += "</div>"
     return html
 

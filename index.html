@@ -3,60 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing Insights Portal</title>
+    <title>Compass One | Listing Insights Portal</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        body { font-family: 'Outfit', sans-serif; background: #F8F9FA; color: #333; padding: 2rem 5%; }
-        header { text-align: center; margin-bottom: 3rem; }
-        h1 { color: #002244; }
-        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
-        .card { background: white; padding: 1.5rem; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); text-decoration: none; color: inherit; transition: transform 0.2s, box-shadow 0.2s; display: block; border-left: 4px solid #2A9D8F; }
-        .card:hover { transform: translateY(-5px); box-shadow: 0 8px 25px rgba(0,0,0,0.1); }
-        .card h3 { margin: 0 0 0.5rem 0; color: #002244; }
-        .card p { margin: 0; color: #666; font-size: 0.9rem; }
+        body { font-family: 'Outfit', sans-serif; background: #002244; color: white; padding: 4rem 5%; min-height: 100vh; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        header { text-align: center; margin-bottom: 4rem; }
+        h1 { font-size: 3rem; margin-bottom: 1rem; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 2rem; width: 100%; max-width: 1000px; }
+        .card { background: rgba(255,255,255,0.1); backdrop-filter: blur(10px); padding: 2.5rem; border-radius: 20px; text-decoration: none; color: white; transition: all 0.3s ease; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        .card:hover { background: white; color: #002244; transform: translateY(-10px); }
+        .card h3 { font-size: 1.5rem; margin-bottom: 0.5rem; }
+        .card p { opacity: 0.8; }
     </style>
 </head>
 <body>
     <header>
-        <h1>Listing Insights Dashboards</h1>
-        <p>Weekly real estate activity reports for our active listings</p>
+        <h1>Agent Portals</h1>
+        <p>Select an agent to view their property performance dashboards</p>
     </header>
     <div class="grid">
-        <a href="234-washington-ave/index.html" class="card">
-            <h3>234 Washington Ave.</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="7334-harding-unit-6/index.html" class="card">
-            <h3>7334 Harding Unit 6</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="320-85-st-15/index.html" class="card">
-            <h3>320 85 ST 15</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="8000-harding-avenue-unit-2b/index.html" class="card">
-            <h3>8000 Harding Avenue, Unit 2B</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="1710-nw-106-terr/index.html" class="card">
-            <h3>1710 NW 106 Terr</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="763-pennsylvania-avenue-unit-116/index.html" class="card">
-            <h3>763 Pennsylvania Avenue, Unit 116</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="6061-collins-avenue-unit-5f/index.html" class="card">
-            <h3>6061 Collins Avenue, Unit 5F</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="17301-biscayne-boulevard-unit-1401/index.html" class="card">
-            <h3>17301 Biscayne Boulevard, Unit 1401</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
-        </a>
-        <a href="10449-sw-78th-st/index.html" class="card">
-            <h3>10449 SW 78th St</h3>
-            <p>View latest insights &amp; feedback &#8594;</p>
+        <a href="agents/joanna-jimenez/index.html" class="card">
+            <h3>Joanna Jimenez</h3>
+            <p>9 Active Listings &#8594;</p>
         </a>
     </div>
 </body>

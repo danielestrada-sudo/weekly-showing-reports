@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listing Insights | 234 Washington Ave #A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244; /* Compass Navy */
+            --accent: #2A9D8F; /* Professional Green/Teal */
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        [data-theme="dark"] {
+            --bg-light: #0B1120;
+            --card-bg: #1E293B;
+            --text-main: #F1F5F9;
+            --text-muted: #94A3B8;
+            --border: #334155;
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            transition: var(--transition);
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        [data-theme="dark"] .property-title h1 {
+            color: #FFFFFF;
+        }
+
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Theme Toggle */
+        .theme-toggle {
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 50%;
+            background: var(--bg-light);
+            border: 1px solid var(--border);
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: var(--transition);
+        }
+
+        .theme-toggle:hover {
+            transform: rotate(15deg) scale(1.1);
+        }
+
+        /* Navigation */
+        .tabs {
+            display: flex;
+            gap: 2rem;
+            padding: 0 5%;
+            margin-top: 1.5rem;
+            border-bottom: 1px solid var(--border);
+            background: var(--card-bg);
+        }
+
+        .tab {
+            padding: 1rem 0;
+            cursor: pointer;
+            font-weight: 600;
+            color: var(--text-muted);
+            position: relative;
+            transition: var(--transition);
+        }
+
+        .tab.active {
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .tab.active {
+            color: #FFFFFF;
+        }
+
+        .tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: var(--primary);
+            border-radius: 3px 3px 0 0;
+        }
+
+        [data-theme="dark"] .tab.active::after {
+            background: #FFFFFF;
+        }
+
+        /* Main Content */
+        main {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 5%;
+        }
+
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s ease;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Cards Grid */
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+            transition: var(--transition);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 4px;
+            height: 100%;
+            background: var(--primary);
+            opacity: 0.7;
+        }
+
+        .card-label {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.75rem;
+        }
+
+        .card-value {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+        }
+
+        [data-theme="dark"] .card-value {
+            color: #FFFFFF;
+        }
+
+        .card-change {
+            font-size: 0.9rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 99px;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            font-weight: 600;
+        }
+
+        /* Sections */
+        .section-header {
+            margin: 3rem 0 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .section-header h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        [data-theme="dark"] .section-header h2 {
+            color: #FFFFFF;
+        }
+
+        /* Table Comparison */
+        .comparison-table {
+            width: 100%;
+            background: var(--card-bg);
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+            box-shadow: var(--shadow);
+        }
+
+        .table-row {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            padding: 1.25rem 2rem;
+            border-bottom: 1px solid var(--border);
+            align-items: center;
+        }
+
+        .table-row:last-child {
+            border-bottom: none;
+        }
+
+        .table-header {
+            background: rgba(0, 0, 0, 0.02);
+            font-weight: 700;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+        }
+
+        [data-theme="dark"] .table-header {
+            background: rgba(255, 255, 255, 0.05);
+        }
+
+        .metric-name {
+            font-weight: 600;
+            color: var(--text-main);
+        }
+
+        .last-7 {
+            color: var(--accent);
+            font-weight: 700;
+        }
+
+        .grand-total {
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        [data-theme="dark"] .grand-total {
+            color: #FFFFFF;
+        }
+
+        /* Feedback Styles */
+        .feedback-item {
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .agent-info {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .agent-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: var(--primary);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+        }
+
+        .agent-name {
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        .agent-date {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .feedback-text {
+            font-size: 1.05rem;
+            color: var(--text-main);
+            background: rgba(0, 0, 0, 0.02);
+            padding: 1.25rem;
+            border-radius: 12px;
+            border-left: 4px solid var(--accent);
+            font-style: italic;
+        }
+
+        [data-theme="dark"] .feedback-text {
+            background: rgba(255, 255, 255, 0.03);
+        }
+
+        /* Publishers Chart Mock */
+        .charts-container {
+            display: flex;
+            gap: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .chart-card {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .chart-mock {
+            height: 200px;
+            display: flex;
+            align-items: flex-end;
+            gap: 0.5rem;
+            padding-top: 2rem;
+        }
+
+        .bar {
+            flex: 1;
+            background: var(--primary);
+            border-radius: 4px 4px 0 0;
+            transition: var(--transition);
+            position: relative;
+        }
+
+        .bar:hover {
+            opacity: 0.8;
+            height: 100% !important;
+        }
+
+        .bar::after {
+            content: attr(data-value);
+            position: absolute;
+            top: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 0.75rem;
+            font-weight: 700;
+        }
+
+        /* Footer */
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+            .table-row { grid-template-columns: 1fr; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+            .tabs { gap: 1rem; overflow-x: auto; }
+        }
+    </style>
+</head>
+<body data-theme="light">
+
+    <header>
+        <div class="property-title">
+            <h1>10449 SW 78th St</h1>
+            <div class="property-meta">
+                <div class="meta-item">Property Details</div>
+                <div class="meta-item">MLS #Pending</div>
+                <div class="meta-item">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
+                    Report Period: 20 April 2026 - 26 April 2026
+                </div>
+            </div>
+        </div>
+        <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
+            <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
+            </svg>
+        </div>
+    </header>
+
+    <nav class="tabs">
+        <div class="tab active" onclick="showTab('overview')">Overview</div>
+        <div class="tab" onclick="showTab('feedback')">Feedback</div>
+        <div class="tab" onclick="showTab('visitor-locations')">Visitor Locations</div>
+    </nav>
+
+    <main>
+        <!-- OVERVIEW TAB -->
+        <div id="overview" class="tab-content active">
+            <div class="metrics-grid">
+                <div class="card">
+                    <div class="card-label">Last 7 Days Views</div>
+                    <div class="card-value">
+                        106
+                        <span class="card-change">Updated</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Last 7 Days Showings</div>
+                    <div class="card-value">
+                        +4
+                        <span class="card-change">This Week</span>
+                    </div>
+                </div>
+                <div class="card">
+                    <div class="card-label">Days on Market</div>
+                    <div class="card-value">
+                        39
+                    </div>
+                </div>
+            </div>
+
+            <div class="section-header">
+                <h2>Marketing & Engagement Summary</h2>
+            </div>
+
+            <div class="comparison-table">
+                <div class="table-row table-header">
+                    <div>Metric</div>
+                    <div>Last 7 Days</div>
+                    <div>Grand Total</div>
+                </div>
+                <div class="table-row">
+                    <div class="metric-name">Listing Views (Online)</div>
+                    <div class="last-7">106</div>
+                    <div class="grand-total">657</div>
+                </div>
+                <div class="table-row">
+                    <div class="metric-name">Physical Showings</div>
+                    <div class="last-7">+4</div>
+                    <div class="grand-total">12</div>
+                </div>
+                <div class="table-row">
+                    <div class="metric-name">Emails Sent (Opened)</div>
+                    <div class="last-7">+3,267</div>
+                    <div class="grand-total">13,221</div>
+                </div>
+                <div class="table-row">
+                    <div class="metric-name">Social Media Views</div>
+                    <div class="last-7">+222</div>
+                    <div class="grand-total">1,240</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- FEEDBACK TAB -->
+        <div id="feedback" class="tab-content">
+            <div class="section-header">
+                <h2>Client & Agent Feedback</h2>
+            </div>
+            
+            <div class="card">
+                <div class="feedback-item">
+                    <div class="feedback-text">
+                        "4 Private showings last week. Two of the showings were with the same agent, who is searching for herself. She liked the unit and returned for a second visit with her husband; however, he ultimately did not move forward due to the lack of doors on the bedrooms. The third showing also went well—they liked it, appreicated the water views. The husband decided that the location was too far from their job. Pending more official feedback from 4th Showing."
+                        <span class="agent-date" style="display: block; margin-top: 0.5rem; font-style: normal;">— Apr 20 - Apr 26, 2026</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- VISITOR LOCATIONS TAB -->
+        <div id="visitor-locations" class="tab-content">
+            <div class="section-header">
+                <h2>Where People Are Viewing From</h2>
+            </div>
+            
+            <div class="card">
+                <img src="property_views_map_clean.png" 
+                     alt="Visitor Locations Map" 
+                     style="width:100%; border-radius: 8px;"
+                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
+                <div style="display:none; background: rgba(0,0,0,0.05); padding: 3rem; text-align: center; border-radius: 8px; color: var(--text-muted);"><em>Map not available</em></div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Joanna Jimenez</strong> | Licensed Real Estate Agent</p>
+            <p>Compass One | (305) 302-6384 | joanna.jimenez@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on April 27, 2026. Data sourced from Compass Insights & Showing Feedback.
+        </div>
+    </footer>
+
+    <script>
+        function toggleTheme() {
+            const body = document.body;
+            const icon = document.getElementById('theme-icon');
+            if (body.getAttribute('data-theme') === 'light') {
+                body.setAttribute('data-theme', 'dark');
+                icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+            } else {
+                body.setAttribute('data-theme', 'light');
+                icon.innerHTML = '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
+            }
+        }
+
+        function showTab(tabId) {
+            // Remove active classes
+            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+
+            // Add active class to clicked tab
+            event.currentTarget.classList.add('active');
+            document.getElementById(tabId).classList.add('active');
+
+            // Scroll to top of content
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+    </script>
+</body>
+</html>
+

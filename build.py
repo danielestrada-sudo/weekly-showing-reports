@@ -218,8 +218,14 @@ def build():
             print(f"Generated {agent_slug}/{p['slug']}/index.html")
 
     # Generate Agent Portals
-    for agent_name, props in agents_properties.items():
+    for agent_name in AGENTS_INFO.keys():
         agent_slug = slugify(agent_name)
+        props = agents_properties.get(agent_name, [])
+        
+        agent_dir = os.path.join(os.getcwd(), 'agents', agent_slug)
+        if not os.path.exists(agent_dir):
+            os.makedirs(agent_dir)
+
         portal_html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -285,9 +291,10 @@ def build():
     </header>
     <div class="grid">
 """
-    for agent_name in sorted(agents_properties.keys()):
+    for agent_name in sorted(AGENTS_INFO.keys()):
         agent_slug = slugify(agent_name)
-        count = len(agents_properties[agent_name])
+        props = agents_properties.get(agent_name, [])
+        count = len(props)
         root_portal += f"""        <a href="agents/{agent_slug}/index.html" class="card">
             <h3>{agent_name}</h3>
             <p>{count} Active Listings &#8594;</p>

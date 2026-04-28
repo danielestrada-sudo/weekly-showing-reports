@@ -111,6 +111,28 @@ last_7_emails_map = {
     "244-biscayne-3702": "3,267"
 }
 
+PROPERTY_CITY_STATS = {
+    "244-biscayne-3702": [
+        ("Miami", "58.1%"), ("New York", "11.6%"), ("Tampa", "7%"),
+        ("Miami Beach", "4.7%"), ("Los Angeles", "4.7%"), ("Seattle", "2.3%"),
+        ("Port Saint Lucie", "2.3%"), ("Orlando", "2.3%"), ("Hialeah", "2.3%"),
+        ("Atlanta", "2.3%"), ("Ashburn", "2.3%")
+    ]
+}
+
+def build_city_stats_html(slug):
+    stats = PROPERTY_CITY_STATS.get(slug, [])
+    if not stats: return ""
+    
+    html = '<div class="city-stats-grid" style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">'
+    for city, val in stats:
+        html += f\'\'\'<div style="display: flex; justify-content: space-between; padding: 0.5rem 0; border-bottom: 1px solid rgba(0,0,0,0.05);">
+                    <span style="font-weight: 600;">{city}</span>
+                    <span style="color: var(--accent); font-weight: 700;">{val}</span>
+                </div>\'\'\'
+    html += "</div>"
+    return html
+
 AGENTS_INFO = {
     "Joanna Jimenez": {"phone": "(305) 302-6384", "email": "joanna.jimenez@compass.com"},
     "Adriana Briceno": {"phone": "(346) 332-3869", "email": "adriana.briceno@compass.com"},
@@ -222,6 +244,7 @@ def build():
             html = html.replace('{{LAST_7_SOCIAL_TABLE}}', last_7_social_map.get(p['slug'], '222'))
             html = html.replace('{{PROPERTY_SLUG}}', p['slug'])
             html = html.replace('{{MAP_SRC}}', 'property_views_map_clean.png')
+            html = html.replace('{{CITY_STATS_TABLE}}', build_city_stats_html(p['slug']))
 
             with open(os.path.join(prop_dir, 'index.html'), 'w', encoding='utf-8') as out:
                 out.write(html)

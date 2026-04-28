@@ -55,6 +55,9 @@ PROPERTY_FEEDBACK = {
     "10449-sw-78th-st": [
         ("Apr 20 - Apr 26, 2026", "4 Private showings last week. Two of the showings were with the same agent, who is searching for herself. She liked the unit and returned for a second visit with her husband; however, he ultimately did not move forward due to the lack of doors on the bedrooms. The third showing also went well—they liked it, appreicated the water views. The husband decided that the location was too far from their job. Pending more official feedback from 4th Showing."),
     ],
+    "244-biscayne-3702": [
+        ("Apr 21 - Apr 27, 2026", "1 showing and 1 low ball offer received"),
+    ],
 }
 
 def build_feedback_html(slug):
@@ -80,7 +83,8 @@ last_7_showings_map = {
     "763-pennsylvania-avenue-unit-116": "1",
     "6061-collins-avenue-unit-5f": "2",
     "17301-biscayne-boulevard-unit-1401": "2",
-    "10449-sw-78th-st": "4"
+    "10449-sw-78th-st": "4",
+    "244-biscayne-3702": "1"
 }
 
 # Online views extracted from Progress Report PDFs (Apr 20-26, 2026)
@@ -93,12 +97,18 @@ last_7_online_map = {
     "763-pennsylvania-avenue-unit-116": "169",
     "6061-collins-avenue-unit-5f": "337",
     "17301-biscayne-boulevard-unit-1401": "147",
-    "10449-sw-78th-st": "106"
+    "10449-sw-78th-st": "106",
+    "244-biscayne-3702": "178"
 }
 
 last_7_social_map = {
     "6061-collins-avenue-unit-5f": "5,223",
-    "17301-biscayne-boulevard-unit-1401": "3,219"
+    "17301-biscayne-boulevard-unit-1401": "3,219",
+    "244-biscayne-3702": "687"
+}
+
+last_7_emails_map = {
+    "244-biscayne-3702": "3,267"
 }
 
 AGENTS_INFO = {
@@ -208,7 +218,7 @@ def build():
             html = html.replace('{{LAST_7_ONLINE_TABLE}}', online_7)
             html = html.replace('{{LAST_7_SHOWINGS}}', showings_display)
             html = html.replace('{{LAST_7_PHYSICAL_TABLE}}', showings_display)
-            html = html.replace('{{LAST_7_EMAILS_TABLE}}', '3,267')
+            html = html.replace('{{LAST_7_EMAILS_TABLE}}', last_7_emails_map.get(p['slug'], '3,267'))
             html = html.replace('{{LAST_7_SOCIAL_TABLE}}', last_7_social_map.get(p['slug'], '222'))
             html = html.replace('{{PROPERTY_SLUG}}', p['slug'])
             html = html.replace('{{MAP_SRC}}', 'property_views_map_clean.png')

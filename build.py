@@ -78,14 +78,14 @@ def build_feedback_html(slug):
     return html.rstrip()
 
 last_7_showings_map = {
-    "234-washington-ave": "0",
-    "7334-harding-unit-6": "2",
+    "234-washington-ave": "1",
+    "7334-harding-unit-6": "4",
     "320-85-st-15": "4",
     "8000-harding-avenue-unit-2b": "0",
     "1710-nw-106-terr": "0",
-    "763-pennsylvania-avenue-unit-116": "1",
+    "763-pennsylvania-avenue-unit-116": "3",
     "6061-collins-avenue-unit-5f": "2",
-    "17301-biscayne-boulevard-unit-1401": "2",
+    "17301-biscayne-boulevard-unit-1401": "1",
     "10449-sw-78th-st": "4",
     "244-biscayne-3702": "1",
     "133-ne-2nd-ave-unit-1208": "0"
@@ -93,28 +93,45 @@ last_7_showings_map = {
 
 # Online views extracted from Progress Report PDFs (Apr 20-26, 2026)
 last_7_online_map = {
-    "234-washington-ave": "171",
-    "7334-harding-unit-6": "134",
-    "320-85-st-15": "153",
-    "8000-harding-avenue-unit-2b": "83",
-    "1710-nw-106-terr": "69",
-    "763-pennsylvania-avenue-unit-116": "169",
-    "6061-collins-avenue-unit-5f": "337",
-    "17301-biscayne-boulevard-unit-1401": "147",
+    "234-washington-ave": "194",
+    "7334-harding-unit-6": "121",
+    "320-85-st-15": "101",
+    "8000-harding-avenue-unit-2b": "80",
+    "1710-nw-106-terr": "62",
+    "763-pennsylvania-avenue-unit-116": "212",
+    "6061-collins-avenue-unit-5f": "265",
+    "17301-biscayne-boulevard-unit-1401": "136",
     "10449-sw-78th-st": "106",
-    "244-biscayne-3702": "178",
+    "244-biscayne-3702": "102",
     "133-ne-2nd-ave-unit-1208": "136"
 }
 
 last_7_social_map = {
-    "6061-collins-avenue-unit-5f": "5,223",
-    "17301-biscayne-boulevard-unit-1401": "3,219",
-    "244-biscayne-3702": "687",
+    "234-washington-ave": "202",
+    "7334-harding-unit-6": "202",
+    "320-85-st-15": "202",
+    "8000-harding-avenue-unit-2b": "202",
+    "1710-nw-106-terr": "202",
+    "763-pennsylvania-avenue-unit-116": "202",
+    "6061-collins-avenue-unit-5f": "202",
+    "17301-biscayne-boulevard-unit-1401": "202",
+    "10449-sw-78th-st": "202",
+    "244-biscayne-3702": "202",
     "133-ne-2nd-ave-unit-1208": "105"
 }
 
 last_7_emails_map = {
-    "244-biscayne-3702": "3,267"
+    "234-washington-ave": "19,308",
+    "7334-harding-unit-6": "19,308",
+    "320-85-st-15": "19,308",
+    "8000-harding-avenue-unit-2b": "19,308",
+    "1710-nw-106-terr": "19,308",
+    "763-pennsylvania-avenue-unit-116": "19,308",
+    "6061-collins-avenue-unit-5f": "19,308",
+    "17301-biscayne-boulevard-unit-1401": "19,308",
+    "10449-sw-78th-st": "19,308",
+    "244-biscayne-3702": "19,308",
+    "133-ne-2nd-ave-unit-1208": "19,308"
 }
 
 PROPERTY_CITY_STATS = {

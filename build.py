@@ -58,6 +58,9 @@ PROPERTY_FEEDBACK = {
     "244-biscayne-3702": [
         ("Apr 21 - Apr 27, 2026", "1 showing and 1 low ball offer received"),
     ],
+    "133-ne-2nd-ave-unit-1208": [
+        ("Apr 27 - May 3, 2026", "No showings and no Feedback"),
+    ],
 }
 
 def build_feedback_html(slug):
@@ -84,7 +87,8 @@ last_7_showings_map = {
     "6061-collins-avenue-unit-5f": "2",
     "17301-biscayne-boulevard-unit-1401": "2",
     "10449-sw-78th-st": "4",
-    "244-biscayne-3702": "1"
+    "244-biscayne-3702": "1",
+    "133-ne-2nd-ave-unit-1208": "0"
 }
 
 # Online views extracted from Progress Report PDFs (Apr 20-26, 2026)
@@ -98,13 +102,15 @@ last_7_online_map = {
     "6061-collins-avenue-unit-5f": "337",
     "17301-biscayne-boulevard-unit-1401": "147",
     "10449-sw-78th-st": "106",
-    "244-biscayne-3702": "178"
+    "244-biscayne-3702": "178",
+    "133-ne-2nd-ave-unit-1208": "136"
 }
 
 last_7_social_map = {
     "6061-collins-avenue-unit-5f": "5,223",
     "17301-biscayne-boulevard-unit-1401": "3,219",
-    "244-biscayne-3702": "687"
+    "244-biscayne-3702": "687",
+    "133-ne-2nd-ave-unit-1208": "105"
 }
 
 last_7_emails_map = {
@@ -117,6 +123,12 @@ PROPERTY_CITY_STATS = {
         ("Miami Beach", "4.7%"), ("Los Angeles", "4.7%"), ("Seattle", "2.3%"),
         ("Port Saint Lucie", "2.3%"), ("Orlando", "2.3%"), ("Hialeah", "2.3%"),
         ("Atlanta", "2.3%"), ("Ashburn", "2.3%")
+    ],
+    "133-ne-2nd-ave-unit-1208": [
+        ("Miami", "32.1%"), ("Detroit", "20.8%"), ("Los Angeles", "15.1%"),
+        ("Atlanta", "5.7%"), ("Orlando", "3.8%"), ("New York", "3.8%"),
+        ("Washington", "1.9%"), ("Valley Stream", "1.9%"), ("Nashville", "1.9%"),
+        ("Miami Beach", "1.9%"), ("Little Rock", "1.9%"), ("Larchmont", "1.9%")
     ]
 }
 

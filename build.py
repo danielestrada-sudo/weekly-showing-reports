@@ -116,7 +116,7 @@ last_7_social_map = {
     "6061-collins-avenue-unit-5f": "202",
     "17301-biscayne-boulevard-unit-1401": "202",
     "10449-sw-78th-st": "202",
-    "244-biscayne-3702": "202",
+    "244-biscayne-3702": "1,028",
     "133-ne-2nd-ave-unit-1208": "105"
 }
 

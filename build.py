@@ -17,6 +17,7 @@ def get_property_specs(address):
 # Feedback entries per property, newest first
 PROPERTY_FEEDBACK = {
     "234-washington-ave": [
+        ("Apr 27 - May 3, 2026", "Full property analysis provided. Awaiting response."),
         ("Apr 20 - Apr 26, 2026", "No showings last week; however, we are coordinating with the family who visited a couple of weeks ago to schedule a time for the mother-in-law to come view the property. We also have one showing scheduled for tomorrow afternoon."),
         ("Apr 13 - Apr 19, 2026", "Client looking for second home in Miami - the wife lived here for 10+ years but they now live in Hawaii. He thinks the home is great but has concerns over the split levels. He thinks they are a little too much for their 2 year old and 7 week old. He think the most they could do is two levels."),
         ("Apr 6 - Apr 12, 2026", "10 People attended the Open House this past weekend. Overall, the feedback was very positive\u2014most described the property as beautiful, well-designed, and well-maintained. The entrance was a major highlight, along with the two parking spaces. One agent followed up afterward and mentioned that while they liked the property and are interested in bringing their client, they did notice a slight odor in the bedroom area. Despite that, they are still considering showing it to their client. I will follow up to see if they move forward. Working to schedule a showing with a family who previously showed strong interest, along with their parents, who will be funding the purchase."),
@@ -25,30 +26,37 @@ PROPERTY_FEEDBACK = {
         ("Mar 16, 2026", "Two showings took place last week. One private showing occurred on Friday with a client who lives in the area and walks by the property frequently. He liked the home a lot but wanted to discuss it with his business partner and family before making a decision. The other private showing took place on Monday. Their agent inquired about the 'odor' in the home. He said his clients liked it, but overall felt as though it was too small for their family."),
     ],
     "7334-harding-unit-6": [
+        ("Apr 27 - May 3, 2026", "1 for sale, 3 for rental interest. One renter found a place elsewhere; others still exploring."),
         ("Apr 20 - Apr 26, 2026", "2 Private showings last week. 1 for purchase and 1 for rent. Rental showing said \u201cWe're still making a decision. I'll let you know if we decide to go with that listing. Thanks.\u201d Showing for sale liked it but is exploring more options first."),
         ("Apr 13 - Apr 19, 2026", "3 Private showings last week. 2 for rent and 1 for purchase. The rental showings went well but they want to see more options before making a decision. The showing for purchase also went well. The buyer is an older woman and is all cash. Her family is deciding if the property is a good fit due to laundry outside and the stairs in front and back. They liked the location a lot too."),
     ],
     "320-85-st-15": [
+        ("Apr 27 - May 3, 2026", "One offer has been received. Another agent indicated their client is leaning toward submitting an offer. Remaining prospects still exploring."),
         ("Apr 20 - Apr 26, 2026", "4 Private showings last week. One prospective tenant is a single buyer and a North Beach local. He liked the unit but is not planning to move until June, so he intends to continue exploring his options. He also mentioned a preference for an unfurnished unit. Another agent shared that her client liked the property and is currently preparing an offer. Regarding the offer received, we are still waiting to hear back after informing them that you are open to adding a couch to the unit. 4th Showing said they are moving forward with another option."),
         ("Apr 13 - Apr 19, 2026", "One offer Received. Another said they were interested in submitting one but has not sent us anything."),
     ],
     "8000-harding-avenue-unit-2b": [
+        ("Apr 27 - May 3, 2026", "One inquiry regarding building financials/reserves."),
         ("Apr 20 - Apr 26, 2026", "No showings this week."),
         ("Apr 13 - Apr 19, 2026", "Buyer liked it, but it worried it is too dark due to the unit being on the second floor. He is exploring his options further."),
     ],
     "1710-nw-106-terr": [
+        ("Apr 27 - May 3, 2026", "No showings recorded."),
         ("Apr 20 - Apr 26, 2026", "No showings this week."),
         ("Apr 13 - Apr 19, 2026", "No showings this week."),
     ],
     "763-pennsylvania-avenue-unit-116": [
+        ("Apr 27 - May 3, 2026", "One buyer very interested but hesitant about assessment. Another Financing buyer evaluating feasibility."),
         ("Apr 20 - Apr 26, 2026", "One private showing took place last Sunday after the guest checked out. The agent shared that the property 'showed well' and is a contender, but they plan to view a few more properties this week before making a decision. There were also a few additional showing requests last week that couldn't be accommodated due to the guest's schedule; we are currently working on rescheduling those for sometime this week."),
         ("Apr 13 - Apr 19, 2026", "2 Showing request last week but could not accommodate the scheduled times."),
     ],
     "6061-collins-avenue-unit-5f": [
+        ("Apr 27 - May 3, 2026", "One prospect loved the three balconies and overall spaciousness. Second showing without representation, estimated $150K in renovations needed."),
         ("Apr 20 - Apr 26, 2026", "Wednesday at 2:30 PM<br>Buyer requested a copy of the floor plan, as he is considering a full renovation. He specifically mentioned interest in expanding the den/bedroom to create a larger space.<br><br>Saturday at 1:00 PM<br>Agent previewing the property for her clients. They are seeking an oceanfront condo and were drawn to the spacious floor plan. The agent wanted to assess the current state of construction before bringing them through. Their maximum HOA budget is $2,000/month."),
         ("Apr 13 - Apr 19, 2026", "Friday 10:30 am: Loved the view and the spacious floorplan. Did not like the building nor amenities.<br><br>Friday 10:45: Loved the ocean view and the three balconies, they are ok with waiting on the building to renovate but did not like the value of the monthly HOA payments.<br><br>Friday 1 pm: Buyer took video of the views because he really loved the idea of having three balconies all facing the ocean. He sees a potential in the building, and it's OK to wait until everything is done because the property is for himself."),
     ],
     "17301-biscayne-boulevard-unit-1401": [
+        ("Apr 27 - May 3, 2026", "Husband previewed for wife. Potential second showing later this week."),
         ("Apr 20 - Apr 26, 2026", "11:00 AM Showing<br>Young buyer who works from home. He really liked the floor plan, noting that it offers ample space for both his work equipment and personal belongings. He is also interested in the building overall and is currently exploring other available units as well.<br><br>3:00 PM Showing<br>Buyers appreciated that the unit receives both sunrise and sunset light. They are specifically looking for a corner unit and feel this one could be a strong fit. They mentioned their lender would require approximately 60 days to close, which is a positive sign they may be serious about moving forward."),
         ("Apr 13 - Apr 19, 2026", "Realtor brought her client who flew in to see this unit. Client loved how spacious the balcony is and loved the building amenities. They had more options to see in the same building - agent wants to know more about the HOA reduction in the future."),
     ],
@@ -56,7 +64,11 @@ PROPERTY_FEEDBACK = {
         ("Apr 20 - Apr 26, 2026", "4 Private showings last week. Two of the showings were with the same agent, who is searching for herself. She liked the unit and returned for a second visit with her husband; however, he ultimately did not move forward due to the lack of doors on the bedrooms. The third showing also went well—they liked it, appreicated the water views. The husband decided that the location was too far from their job. Pending more official feedback from 4th Showing."),
     ],
     "244-biscayne-3702": [
+        ("Apr 27 - May 3, 2026", "Agent reported client liked the unit but still evaluating other options."),
         ("Apr 21 - Apr 27, 2026", "1 showing and 1 low ball offer received"),
+    ],
+    "1376-sw-4th-st-7": [
+        ("Apr 27 - May 3, 2026", "No showings last week. Waiting to hear back on counteroffer."),
     ],
     "133-ne-2nd-ave-unit-1208": [
         ("Apr 27 - May 3, 2026", "No showings and no Feedback"),

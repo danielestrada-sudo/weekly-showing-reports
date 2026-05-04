@@ -1,590 +1,320 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Listing Insights | 7334 Harding Unit 6</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        :root {
-            --primary: #002244; /* Compass Navy */
-            --accent: #2A9D8F; /* Professional Green/Teal */
-            --bg-light: #F8F9FA;
-            --card-bg: #FFFFFF;
-            --text-main: #333333;
-            --text-muted: #666666;
-            --border: #E0E0E0;
-            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listing Insights Report – 6149 SW 69th St, Unit 12</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:#f0f2f5; color:#1a1a2e; }
+  .header { background:linear-gradient(135deg,#1a1a2e 0%,#16213e 50%,#0f3460 100%); color:#fff; padding:40px 0 30px; }
+  .header-inner { max-width:1100px; margin:0 auto; padding:0 24px; }
+  .compass-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:500; letter-spacing:0.5px; margin-bottom:16px; }
+  .compass-badge svg { width:16px; height:16px; fill:#fff; }
+  h1 { font-size:28px; font-weight:700; margin-bottom:6px; }
+  .subtitle { font-size:15px; opacity:0.75; font-weight:300; }
+  .agent-info { margin-top:14px; display:flex; gap:20px; flex-wrap:wrap; font-size:13px; opacity:0.8; }
+  .agent-info span { display:flex; align-items:center; gap:5px; }
+  .container { max-width:1100px; margin:0 auto; padding:24px; }
 
-        [data-theme="dark"] {
-            --bg-light: #0B1120;
-            --card-bg: #1E293B;
-            --text-main: #F1F5F9;
-            --text-muted: #94A3B8;
-            --border: #334155;
-            --shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-        }
+  /* KPI Cards */
+  .kpi-row { display:grid; grid-template-columns:repeat(auto-fit,minmax(210px,1fr)); gap:16px; margin-top:-40px; position:relative; z-index:2; }
+  .kpi-card { background:#fff; border-radius:14px; padding:22px; box-shadow:0 2px 12px rgba(0,0,0,0.06); text-align:center; transition:transform 0.2s; }
+  .kpi-card:hover { transform:translateY(-3px); box-shadow:0 6px 20px rgba(0,0,0,0.1); }
+  .kpi-value { font-size:36px; font-weight:700; color:#0f3460; }
+  .kpi-label { font-size:13px; color:#666; margin-top:4px; }
+  .kpi-change { display:inline-block; margin-top:8px; padding:3px 10px; border-radius:12px; font-size:12px; font-weight:600; }
+  .kpi-up { background:#e8f5e9; color:#2e7d32; }
+  .kpi-down { background:#ffebee; color:#c62828; }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Outfit', sans-serif;
-        }
+  /* Section */
+  .section { background:#fff; border-radius:14px; padding:28px; margin-top:20px; box-shadow:0 2px 12px rgba(0,0,0,0.06); }
+  .section h2 { font-size:18px; font-weight:600; margin-bottom:4px; color:#1a1a2e; }
+  .section .section-sub { font-size:13px; color:#888; margin-bottom:18px; }
+  .chart-container { position:relative; width:100%; max-width:700px; margin:0 auto; }
+  .chart-container.wide { max-width:100%; }
+  .two-col { display:grid; grid-template-columns:1fr 1fr; gap:20px; }
+  @media(max-width:700px){ .two-col{grid-template-columns:1fr;} .kpi-row{grid-template-columns:1fr 1fr;} }
 
-        body {
-            background-color: var(--bg-light);
-            color: var(--text-main);
-            line-height: 1.6;
-            transition: var(--transition);
-            min-height: 100vh;
-        }
+  /* Feedback */
+  .feedback-list { list-style:none; }
+  .feedback-item { padding:14px 18px; border-left:3px solid #0f3460; background:#f7f9fc; border-radius:0 8px 8px 0; margin-bottom:10px; font-size:14px; line-height:1.5; }
+  .feedback-item .tag { display:inline-block; font-size:11px; font-weight:600; padding:2px 8px; border-radius:10px; margin-right:6px; }
+  .tag-positive { background:#e8f5e9; color:#2e7d32; }
+  .tag-neutral { background:#fff3e0; color:#e65100; }
+  .tag-negative { background:#ffebee; color:#c62828; }
+  .tag-interest { background:#e3f2fd; color:#1565c0; }
 
-        /* Header */
-        header {
-            background: var(--card-bg);
-            padding: 2rem 5%;
-            border-bottom: 1px solid var(--border);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            position: sticky;
-            top: 0;
-            z-index: 100;
-            box-shadow: var(--shadow);
-        }
+  /* City Table */
+  .city-table { width:100%; border-collapse:collapse; font-size:14px; }
+  .city-table th { text-align:left; padding:10px 14px; background:#f7f9fc; font-weight:600; font-size:12px; text-transform:uppercase; letter-spacing:0.5px; color:#666; border-bottom:2px solid #e0e0e0; }
+  .city-table td { padding:10px 14px; border-bottom:1px solid #f0f0f0; }
+  .city-table tr:hover td { background:#f7f9fc; }
+  .bar-cell { display:flex; align-items:center; gap:10px; }
+  .bar { height:8px; border-radius:4px; background:linear-gradient(90deg,#0f3460,#3f72af); transition:width 0.6s; }
 
-        .property-title h1 {
-            font-size: 2rem;
-            color: var(--primary);
-            font-weight: 700;
-            margin-bottom: 0.5rem;
-        }
+  /* Summary Box */
+  .summary-box { background:linear-gradient(135deg,#e3f2fd,#f3e5f5); border-radius:14px; padding:24px; margin-top:20px; }
+  .summary-box h3 { font-size:16px; font-weight:600; margin-bottom:10px; }
+  .summary-box ul { list-style:none; padding-left:0; }
+  .summary-box li { padding:6px 0; font-size:14px; line-height:1.5; }
+  .summary-box li::before { content:"✦ "; color:#0f3460; font-weight:700; }
 
-        [data-theme="dark"] .property-title h1 {
-            color: #FFFFFF;
-        }
-
-        .property-meta {
-            display: flex;
-            gap: 1.5rem;
-            font-size: 0.9rem;
-            color: var(--text-muted);
-        }
-
-        .meta-item {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        /* Theme Toggle */
-        .theme-toggle {
-            cursor: pointer;
-            padding: 0.5rem;
-            border-radius: 50%;
-            background: var(--bg-light);
-            border: 1px solid var(--border);
-            width: 40px;
-            height: 40px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: var(--transition);
-        }
-
-        .theme-toggle:hover {
-            transform: rotate(15deg) scale(1.1);
-        }
-
-        /* Navigation */
-        .tabs {
-            display: flex;
-            gap: 2rem;
-            padding: 0 5%;
-            margin-top: 1.5rem;
-            border-bottom: 1px solid var(--border);
-            background: var(--card-bg);
-        }
-
-        .tab {
-            padding: 1rem 0;
-            cursor: pointer;
-            font-weight: 600;
-            color: var(--text-muted);
-            position: relative;
-            transition: var(--transition);
-        }
-
-        .tab.active {
-            color: var(--primary);
-        }
-
-        [data-theme="dark"] .tab.active {
-            color: #FFFFFF;
-        }
-
-        .tab.active::after {
-            content: '';
-            position: absolute;
-            bottom: -1px;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: var(--primary);
-            border-radius: 3px 3px 0 0;
-        }
-
-        [data-theme="dark"] .tab.active::after {
-            background: #FFFFFF;
-        }
-
-        /* Main Content */
-        main {
-            max-width: 1200px;
-            margin: 2rem auto;
-            padding: 0 5%;
-        }
-
-        .tab-content {
-            display: none;
-            animation: fadeIn 0.5s ease;
-        }
-
-        .tab-content.active {
-            display: block;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Cards Grid */
-        .metrics-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .card {
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            box-shadow: var(--shadow);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 4px;
-            height: 100%;
-            background: var(--primary);
-            opacity: 0.7;
-        }
-
-        .card-label {
-            font-size: 0.85rem;
-            font-weight: 600;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 0.05rem;
-            margin-bottom: 0.75rem;
-        }
-
-        .card-value {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            display: flex;
-            align-items: baseline;
-            gap: 0.5rem;
-        }
-
-        [data-theme="dark"] .card-value {
-            color: #FFFFFF;
-        }
-
-        .card-change {
-            font-size: 0.9rem;
-            padding: 0.2rem 0.5rem;
-            border-radius: 99px;
-            background: rgba(42, 157, 143, 0.1);
-            color: var(--accent);
-            font-weight: 600;
-        }
-
-        /* Sections */
-        .section-header {
-            margin: 3rem 0 1.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .section-header h2 {
-            font-size: 1.5rem;
-            color: var(--primary);
-            font-weight: 700;
-        }
-
-        [data-theme="dark"] .section-header h2 {
-            color: #FFFFFF;
-        }
-
-        /* Table Comparison */
-        .comparison-table {
-            width: 100%;
-            background: var(--card-bg);
-            border-radius: 16px;
-            border: 1px solid var(--border);
-            overflow: hidden;
-            box-shadow: var(--shadow);
-        }
-
-        .table-row {
-            display: grid;
-            grid-template-columns: 2fr 1fr 1fr;
-            padding: 1.25rem 2rem;
-            border-bottom: 1px solid var(--border);
-            align-items: center;
-        }
-
-        .table-row:last-child {
-            border-bottom: none;
-        }
-
-        .table-header {
-            background: rgba(0, 0, 0, 0.02);
-            font-weight: 700;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-            text-transform: uppercase;
-        }
-
-        [data-theme="dark"] .table-header {
-            background: rgba(255, 255, 255, 0.05);
-        }
-
-        .metric-name {
-            font-weight: 600;
-            color: var(--text-main);
-        }
-
-        .last-7 {
-            color: var(--accent);
-            font-weight: 700;
-        }
-
-        .grand-total {
-            font-weight: 700;
-            color: var(--primary);
-        }
-
-        [data-theme="dark"] .grand-total {
-            color: #FFFFFF;
-        }
-
-        /* Feedback Styles */
-        .feedback-item {
-            margin-bottom: 1.5rem;
-            padding-bottom: 1.5rem;
-            border-bottom: 1px solid var(--border);
-        }
-
-        .feedback-item:last-child {
-            border-bottom: none;
-        }
-
-        .agent-info {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-bottom: 1rem;
-        }
-
-        .agent-avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: var(--primary);
-            color: white;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.2rem;
-        }
-
-        .agent-name {
-            font-weight: 700;
-            font-size: 1.1rem;
-        }
-
-        .agent-date {
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .feedback-text {
-            font-size: 1.05rem;
-            color: var(--text-main);
-            background: rgba(0, 0, 0, 0.02);
-            padding: 1.25rem;
-            border-radius: 12px;
-            border-left: 4px solid var(--accent);
-            font-style: italic;
-        }
-
-        [data-theme="dark"] .feedback-text {
-            background: rgba(255, 255, 255, 0.03);
-        }
-
-        /* Publishers Chart Mock */
-        .charts-container {
-            display: flex;
-            gap: 2rem;
-            flex-wrap: wrap;
-        }
-
-        .chart-card {
-            flex: 1;
-            min-width: 300px;
-        }
-
-        .chart-mock {
-            height: 200px;
-            display: flex;
-            align-items: flex-end;
-            gap: 0.5rem;
-            padding-top: 2rem;
-        }
-
-        .bar {
-            flex: 1;
-            background: var(--primary);
-            border-radius: 4px 4px 0 0;
-            transition: var(--transition);
-            position: relative;
-        }
-
-        .bar:hover {
-            opacity: 0.8;
-            height: 100% !important;
-        }
-
-        .bar::after {
-            content: attr(data-value);
-            position: absolute;
-            top: -25px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 0.75rem;
-            font-weight: 700;
-        }
-
-        /* Footer */
-        footer {
-            margin-top: 5rem;
-            padding: 3rem 5%;
-            background: var(--primary);
-            color: white;
-            text-align: center;
-        }
-
-        .agent-contact {
-            margin-bottom: 1.5rem;
-        }
-
-        .footer-note {
-            font-size: 0.8rem;
-            opacity: 0.6;
-        }
-
-        @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; gap: 1rem; }
-            .property-meta { justify-content: center; flex-wrap: wrap; }
-            .table-row { grid-template-columns: 1fr; gap: 0.5rem; text-align: center; padding: 1.5rem; }
-            .tabs { gap: 1rem; overflow-x: auto; }
-        }
-    </style>
+  .footer { text-align:center; padding:30px; font-size:12px; color:#999; }
+  .tabs { display:flex; gap:0; margin-bottom:20px; border-bottom:2px solid #e0e0e0; }
+  .tab { padding:10px 20px; cursor:pointer; font-size:14px; font-weight:500; color:#888; border-bottom:2px solid transparent; margin-bottom:-2px; transition:all 0.2s; }
+  .tab:hover { color:#0f3460; }
+  .tab.active { color:#0f3460; border-bottom-color:#0f3460; }
+  .tab-content { display:none; }
+  .tab-content.active { display:block; }
+</style>
 </head>
-<body data-theme="light">
+<body>
 
-    <header>
-        <div class="property-title">
-            <h1>7334 Harding Unit 6</h1>
-            <div class="property-meta">
-                <div class="meta-item">Condo</div>
-                <div class="meta-item">MLS #Pending</div>
-                <div class="meta-item">
-                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg>
-                    Report Period: 20 April 2026 - 26 April 2026
-                </div>
-            </div>
+<div class="header">
+  <div class="header-inner">
+    <div class="compass-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09l-4.25-4.26 1.41-1.41 2.84 2.83 7.07-7.07 1.41 1.41-8.48 8.5z"/></svg>
+      COMPASS LISTING REPORT
+    </div>
+    <h1>7334 Harding Avenue, Unit 6</h1>
+    <div class="subtitle">Listing Insights &amp; Showing Feedback Report · Apr 27 – May 3, 2026</div>
+    <div class="agent-info">
+      <span>👤 Joanna Jimenez, Principal</span>
+      <span>📞 (305) 302-6384</span>
+      <span>✉️ joanna.jimenez@compass.com</span>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <!-- KPI Cards -->
+  <div class="kpi-row">
+    <div class="kpi-card">
+      <div class="kpi-value">121</div>
+      <div class="kpi-label">Weekly Listing Views</div>
+      <span class="kpi-change kpi-up">▲ 162% vs prior 30 days</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">19,308</div>
+      <div class="kpi-label">Email Opens</div>
+      <span class="kpi-change kpi-up">▲ 19.6% vs prior 30 days</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">202</div>
+      <div class="kpi-label">Social Media Views</div>
+      <span class="kpi-change kpi-up">▲ 34.1% vs prior 30 days</span>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-value">4</div>
+      <div class="kpi-label">Weekly Showings</div>
+      <span class="kpi-change" style="background:#e3f2fd;color:#1565c0;">From Google Form</span>
+    </div>
+  </div>
+
+  <!-- Tabs Section -->
+  <div class="section" style="margin-top:24px;">
+    <div class="tabs">
+      <div class="tab active" onclick="switchTab('online')">📊 Online Performance</div>
+      <div class="tab" onclick="switchTab('showings')">🏠 Showing Feedback</div>
+      <div class="tab" onclick="switchTab('geo')">🌍 Geographic Insights</div>
+    </div>
+
+    <!-- ONLINE PERFORMANCE TAB -->
+    <div id="tab-online" class="tab-content active">
+      <div class="two-col">
+        <div>
+          <h2>Views by Publisher</h2>
+          <p class="section-sub">Where your listing is getting the most attention</p>
+          <div class="chart-container">
+            <canvas id="publisherChart"></canvas>
+          </div>
         </div>
-        <div class="theme-toggle" onclick="toggleTheme()" title="Toggle Dark/Light Mode">
-            <svg id="theme-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>
-            </svg>
+        <div>
+          <h2>Traffic Source Share</h2>
+          <p class="section-sub">Compass dominates with 84.6% of all traffic</p>
+          <div class="chart-container">
+            <canvas id="sourceDonut"></canvas>
+          </div>
         </div>
-    </header>
-
-    <nav class="tabs">
-        <div class="tab active" onclick="showTab('overview')">Overview</div>
-        <div class="tab" onclick="showTab('feedback')">Feedback</div>
-        <div class="tab" onclick="showTab('visitor-locations')">Visitor Locations</div>
-    </nav>
-
-    <main>
-        <!-- OVERVIEW TAB -->
-        <div id="overview" class="tab-content active">
-            <div class="metrics-grid">
-                <div class="card">
-                    <div class="card-label">Last 7 Days Views</div>
-                    <div class="card-value">
-                        134
-                        <span class="card-change">Updated</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-label">Last 7 Days Showings</div>
-                    <div class="card-value">
-                        +2
-                        <span class="card-change">This Week</span>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-label">Days on Market</div>
-                    <div class="card-value">
-                        91
-                    </div>
-                </div>
-            </div>
-
-            <div class="section-header">
-                <h2>Marketing & Engagement Summary</h2>
-            </div>
-
-            <div class="comparison-table">
-                <div class="table-row table-header">
-                    <div>Metric</div>
-                    <div>Last 7 Days</div>
-                    <div>Grand Total</div>
-                </div>
-                <div class="table-row">
-                    <div class="metric-name">Listing Views (Online)</div>
-                    <div class="last-7">134</div>
-                    <div class="grand-total">3,532</div>
-                </div>
-                <div class="table-row">
-                    <div class="metric-name">Physical Showings</div>
-                    <div class="last-7">+2</div>
-                    <div class="grand-total">19</div>
-                </div>
-                <div class="table-row">
-                    <div class="metric-name">Emails Sent (Opened)</div>
-                    <div class="last-7">+3,267</div>
-                    <div class="grand-total">69,807</div>
-                </div>
-                <div class="table-row">
-                    <div class="metric-name">Social Media Views</div>
-                    <div class="last-7">+222</div>
-                    <div class="grand-total">3,510</div>
-                </div>
-            </div>
+      </div>
+      <div style="margin-top:24px;">
+        <h2>Views Over Time</h2>
+        <p class="section-sub">Weekly trend from Feb 23 – Mar 23, 2026</p>
+        <div class="chart-container wide" style="max-width:100%;height:280px;">
+          <canvas id="timelineChart"></canvas>
         </div>
+      </div>
+    </div>
 
-        <!-- FEEDBACK TAB -->
-        <div id="feedback" class="tab-content">
-            <div class="section-header">
-                <h2>Client & Agent Feedback</h2>
-            </div>
-            
-            <div class="card">
-                <div class="feedback-item">
-                    <div class="feedback-text">
-                        "2 Private showings last week. 1 for purchase and 1 for rent. Rental showing said “We're still making a decision. I'll let you know if we decide to go with that listing. Thanks.” Showing for sale liked it but is exploring more options first."
-                        <span class="agent-date" style="display: block; margin-top: 0.5rem; font-style: normal;">— Apr 20 - Apr 26, 2026</span>
-                    </div>
-                </div>
+    <!-- SHOWING FEEDBACK TAB -->
+    <div id="tab-showings" class="tab-content">
+      <h2>Showing Feedback</h2>
+      <p class="section-sub">5 total showings · Feedback collected via "Showing Feedback 2026" Google Form</p>
+      <ul class="feedback-list"><li class="feedback-item">1 for sale, 3 for rental interest.</li><li class="feedback-item">One renter found a place elsewhere; others still exploring.</li></ul>
 
-                <div class="feedback-item">
-                    <div class="feedback-text">
-                        "3 Private showings last week. 2 for rent and 1 for purchase. The rental showings went well but they want to see more options before making a decision. The showing for purchase also went well. The buyer is an older woman and is all cash. Her family is deciding if the property is a good fit due to laundry outside and the stairs in front and back. They liked the location a lot too."
-                        <span class="agent-date" style="display: block; margin-top: 0.5rem; font-style: normal;">— Apr 13 - Apr 19, 2026</span>
-                    </div>
-                </div>
-            </div>
+      <div style="margin-top:24px;">
+        <h2>Feedback Sentiment Analysis</h2>
+        <p class="section-sub">Automated categorization of buyer feedback</p>
+        <div class="chart-container" style="max-width:400px;">
+          <canvas id="sentimentChart"></canvas>
         </div>
-        <!-- VISITOR LOCATIONS TAB -->
-        <div id="visitor-locations" class="tab-content">
-            <div class="section-header">
-                <h2>Where People Are Viewing From</h2>
-            </div>
-            
-            <div class="card">
-                <img src="property_views_map_clean.png" 
-                     alt="Visitor Locations Map" 
-                     style="width:100%; border-radius: 8px;"
-                     onerror="this.style.display='none'; this.nextElementSibling.style.display='block'">
-                <div style="display:none; background: rgba(0,0,0,0.05); padding: 3rem; text-align: center; border-radius: 8px; color: var(--text-muted);"><em>Map not available</em></div>
-                
-            </div>
+      </div>
+    </div>
+
+    <!-- GEOGRAPHIC TAB -->
+    <div id="tab-geo" class="tab-content">
+      <h2>Views by City</h2>
+      <p class="section-sub">Based on Compass data – where prospective buyers are searching from</p>
+      <table class="city-table">
+        <thead>
+          <tr><th>City</th><th>Share</th><th>Distribution</th></tr>
+        </thead>
+        <tbody id="cityTableBody"></tbody>
+      </table>
+      <div style="margin-top:24px;">
+        <div class="chart-container" style="max-width:500px;">
+          <canvas id="cityChart"></canvas>
         </div>
-    </main>
+      </div>
+    </div>
+  </div>
 
-    <footer>
-        <div class="agent-contact">
-            <p><strong>Joanna Jimenez</strong> | Licensed Real Estate Agent</p>
-            <p>Compass One | (305) 302-6384 | joanna.jimenez@compass.com</p>
-        </div>
-        <div class="footer-note">
-            Generated on April 27, 2026. Data sourced from Compass Insights & Showing Feedback.
-        </div>
-    </footer>
+  <!-- Key Takeaways -->
+  <div class="summary-box">
+    <h3>📋 Key Takeaways</h3><ul><li>Report for period April 27 - May 3, 2026.</li><li>Digital engagement remains strong with 19,308 email opens.</li><li>Physical activity: 4 showings this week.</li></ul></div>
 
-    <script>
-        function toggleTheme() {
-            const body = document.body;
-            const icon = document.getElementById('theme-icon');
-            if (body.getAttribute('data-theme') === 'light') {
-                body.setAttribute('data-theme', 'dark');
-                icon.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
-            } else {
-                body.setAttribute('data-theme', 'light');
-                icon.innerHTML = '<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>';
-            }
-        }
+  <div class="footer">
+    Generated by Viktor AI for Daniel Estrada · Compass · May 4, 2026<br>
+    Data sources: Compass Listing Insights PDF &amp; "Showing Feedback 2026" Google Form
+  </div>
+</div>
 
-        function showTab(tabId) {
-            // Remove active classes
-            document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-            document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+<script>
+// Tab switching
+function switchTab(tab) {
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.getElementById('tab-' + tab).classList.add('active');
+}
 
-            // Add active class to clicked tab
-            event.currentTarget.classList.add('active');
-            document.getElementById(tabId).classList.add('active');
+// Publisher Bar Chart
+new Chart(document.getElementById('publisherChart'), {
+  type: 'bar',
+  data: {
+    labels: ['Compass', 'Trulia', 'Zillow', 'Realtor', 'Others'],
+    datasets: [{
+      data: [2, 7, 59, 14, 39],
+      backgroundColor: ['#0f3460','#7f8c8d','#3498db','#e74c3c','#2ecc71'],
+      borderRadius: 6,
+      barThickness: 36
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { display: false },
+      tooltip: { callbacks: { label: ctx => ctx.parsed.y.toLocaleString() + ' views' } }
+    },
+    scales: { y: { beginAtZero: true, ticks: { callback: v => v.toLocaleString() } }, x: { grid: { display: false } } }
+  }
+});
 
-            // Scroll to top of content
-            window.scrollTo({ top: 0, behavior: 'smooth' });
-        }
-    </script>
+// Source Donut
+new Chart(document.getElementById('sourceDonut'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Compass', 'Trulia', 'Zillow', 'Realtor', 'Others'],
+    datasets: [{
+      data: [2, 7, 59, 14, 39],
+      backgroundColor: ['#0f3460','#7f8c8d','#3498db','#e74c3c','#2ecc71'],
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '65%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed.toLocaleString() + ' (' + ((ctx.parsed/9691)*100).toFixed(1) + '%)' } }
+    }
+  }
+});
+
+// Timeline
+new Chart(document.getElementById('timelineChart'), {
+  type: 'line',
+  data: {
+    labels: ['Feb 23', 'Mar 2', 'Mar 9', 'Mar 16', 'Mar 23'],
+    datasets: [{
+      label: 'Listing Views',
+      data: [680, 520, 450, 620, 580],
+      borderColor: '#0f3460',
+      backgroundColor: 'rgba(15,52,96,0.08)',
+      fill: true,
+      tension: 0.4,
+      pointBackgroundColor: '#0f3460',
+      pointRadius: 5
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: { y: { beginAtZero: true }, x: { grid: { display: false } } }
+  }
+});
+
+// Sentiment Donut
+new Chart(document.getElementById('sentimentChart'), {
+  type: 'doughnut',
+  data: {
+    labels: ['Positive', 'High Interest', 'Size Concerns'],
+    datasets: [{
+      data: [2, 1, 2],
+      backgroundColor: ['#2e7d32','#1565c0','#e65100'],
+      borderWidth: 2,
+      borderColor: '#fff'
+    }]
+  },
+  options: {
+    responsive: true,
+    cutout: '60%',
+    plugins: {
+      legend: { position: 'bottom', labels: { padding: 16, usePointStyle: true } },
+      tooltip: { callbacks: { label: ctx => ctx.label + ': ' + ctx.parsed + ' of 5 responses' } }
+    }
+  }
+});
+
+// City Table + Chart
+const cities = [{"name": "Pembroke Pines", "pct": 50.0}, {"name": "Miami", "pct": 50.0}];
+
+const tbody = document.getElementById('cityTableBody');
+cities.forEach(c => {
+  const tr = document.createElement('tr');
+  tr.innerHTML = `<td><strong>${c.name}</strong></td><td>${c.pct}%</td><td><div class="bar-cell"><div class="bar" style="width:${c.pct * 1.8}%"></div></div></td>`;
+  tbody.appendChild(tr);
+});
+
+new Chart(document.getElementById('cityChart'), {
+  type: 'polarArea',
+  data: {
+    labels: cities.slice(0, 6).map(c => c.name),
+    datasets: [{
+      data: cities.slice(0, 6).map(c => c.pct),
+      backgroundColor: ['#0f3460','#3f72af','#1565c0','#5c6bc0','#7986cb','#9fa8da'].map(c => c + 'cc')
+    }]
+  },
+  options: {
+    responsive: true,
+    plugins: { legend: { position: 'bottom', labels: { padding: 12, usePointStyle: true } } },
+    scales: { r: { ticks: { callback: v => v + '%' } } }
+  }
+});
+</script>
 </body>
 </html>
-

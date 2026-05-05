@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Listing Insights – 88 SW 7 ST, Unit 1012</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+  :root {
+    --primary: #1a1a2e;
+    --secondary: #16213e;
+    --accent: #0f3460;
+    --text: #1a1a2e;
+    --muted: #666;
+    --bg: #f0f2f5;
+    --card: #ffffff;
+    --gradient: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body { font-family:'Inter',sans-serif; background:var(--bg); color:var(--text); line-height: 1.6; }
+  .header { background:var(--gradient); color:#fff; padding:60px 0 40px; text-align: center; }
+  .header-inner { max-width:1100px; margin:0 auto; padding:0 24px; }
+  .compass-badge { display:inline-flex; align-items:center; gap:8px; background:rgba(255,255,255,0.12); border:1px solid rgba(255,255,255,0.2); border-radius:20px; padding:6px 14px; font-size:12px; font-weight:500; letter-spacing:0.5px; margin-bottom:20px; }
+  .compass-badge svg { width:16px; height:16px; fill:#fff; }
+  h1 { font-size:32px; font-weight:700; margin-bottom:10px; letter-spacing: -0.5px; }
+  .subtitle { font-size:16px; opacity:0.85; font-weight:300; margin-bottom: 24px; }
+  .agent-info { display:flex; justify-content: center; gap:24px; flex-wrap:wrap; font-size:14px; opacity:0.9; }
+  .agent-info span { display:flex; align-items:center; gap:6px; }
+  
+  .container { max-width:1100px; margin:0 auto; padding:32px 24px; }
+  
+  /* Just Listed Badge */
+  .status-banner {
+    background: #fff;
+    color: var(--primary);
+    padding: 12px 24px;
+    border-radius: 50px;
+    display: inline-block;
+    font-weight: 700;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    margin-top: -30px;
+    position: relative;
+    z-index: 10;
+  }
+
+  /* Placeholder Section */
+  .empty-state {
+    background: var(--card);
+    border-radius: 20px;
+    padding: 60px 40px;
+    text-align: center;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+    margin-top: 40px;
+  }
+  .empty-state-icon {
+    font-size: 64px;
+    margin-bottom: 20px;
+    display: block;
+  }
+  .empty-state h2 {
+    font-size: 24px;
+    margin-bottom: 12px;
+    color: var(--primary);
+  }
+  .empty-state p {
+    color: var(--muted);
+    max-width: 600px;
+    margin: 0 auto 30px;
+  }
+  
+  .coming-soon-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+    margin-top: 40px;
+  }
+  .feature-card {
+    background: #fff;
+    padding: 30px;
+    border-radius: 16px;
+    border: 1px solid #eef0f2;
+    transition: all 0.3s ease;
+  }
+  .feature-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 35px rgba(0,0,0,0.08);
+  }
+  .feature-icon {
+    width: 48px;
+    height: 48px;
+    background: #f0f7ff;
+    color: var(--accent);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  .feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+    color: var(--primary);
+  }
+  .feature-card p {
+    font-size: 14px;
+    color: var(--muted);
+  }
+
+  .footer { text-align:center; padding:60px 24px; font-size:13px; color:#999; }
+  
+  /* Animations */
+  @keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  .animate { animation: fadeInUp 0.8s ease out forwards; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="header-inner animate">
+    <div class="compass-badge">
+      <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1.41 16.09l-4.25-4.26 1.41-1.41 2.84 2.83 7.07-7.07 1.41 1.41-8.48 8.5z"/></svg>
+      COMPASS LISTING PORTAL
+    </div>
+    <h1>88 SW 7 ST, Unit 1012</h1>
+    <div class="subtitle">PRE-LAUNCH INSIGHTS REPORT</div>
+    <div class="agent-info">
+      <span>👤 Joanna Jimenez, Principal</span>
+      <span>📞 (305) 302-6384</span>
+      <span>✉️ joanna.jimenez@compass.com</span>
+    </div>
+  </div>
+</div>
+
+<div class="container" style="text-align: center;">
+  <div class="status-banner animate" style="animation-delay: 0.2s;">
+    🚀 Launching Tomorrow
+  </div>
+
+  <div class="empty-state animate" style="animation-delay: 0.4s;">
+    <span class="empty-state-icon">📊</span>
+    <h2>Awaiting First Performance Data</h2>
+    <p>Your listing goes live tomorrow. Once the property is active on the market, this report will automatically update with real-time visitor insights, traffic sources, and geographic data.</p>
+    
+    <div class="coming-soon-grid">
+      <div class="feature-card">
+        <div class="feature-icon">🔍</div>
+        <h3>Traffic Analysis</h3>
+        <p>Track how many potential buyers are viewing your property across Compass, Zillow, Realtor.com, and more.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🏠</div>
+        <h3>Showing Feedback</h3>
+        <p>Instant access to physical showing logs and detailed feedback from prospective buyers and agents.</p>
+      </div>
+      <div class="feature-card">
+        <div class="feature-icon">🌎</div>
+        <h3>Geo Insights</h3>
+        <p>See exactly where your buyers are searching from, allowing us to optimize our marketing strategy.</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer animate" style="animation-delay: 0.6s;">
+    Generated for Daniel Estrada · Compass · May 5, 2026<br>
+    Listing launches tomorrow. Data collection begins immediately upon activation.
+  </div>
+</div>
+
+</body>
+</html>

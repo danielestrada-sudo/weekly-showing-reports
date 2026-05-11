@@ -1,4 +1,117 @@
-<!DOCTYPE html>
+"""
+Update script for May 4 - May 10, 2026
+Updates all properties in both root and agents/joanna-jimenez folders.
+"""
+import re, os, shutil
+
+BASE = r'C:\Users\Daniel Estrada\.gemini\antigravity\scratch\weekly-showing-reports'
+AGENT_BASE = os.path.join(BASE, 'agents', 'joanna-jimenez')
+REPORT_PERIOD = '4 May 2026 - 10 May 2026'
+FOOTER_DATE = 'May 11, 2026'
+WEEK_LABEL = 'May 4 - May 10, 2026'
+
+# Property update data: folder -> (dom, last7_views, grand_total_views, emails_last7, emails_grand, social_last7, social_grand)
+PROPERTIES = {
+    '6061-collins-avenue-unit-5f': {
+        'dom': 32, 'last7_views': 352, 'grand_views': '2,479',
+        'emails_last7': '+10,938', 'emails_grand': '43,051',
+        'social_last7': '+255', 'social_grand': '6,414',
+    },
+    '320-85-st-15': {
+        'dom': 96, 'last7_views': 128, 'grand_views': '1,549',
+        'emails_last7': '+10,938', 'emails_grand': '63,723',
+        'social_last7': '+255', 'social_grand': '2,128',
+    },
+    '1376-sw-4th-st-7': {
+        'dom': 47, 'last7_views': 81, 'grand_views': '745',
+        'emails_last7': '+10,938', 'emails_grand': '30,246',
+        'social_last7': '+255', 'social_grand': '457',
+    },
+    '7334-harding-unit-6': {
+        'dom': 105, 'last7_views': 132, 'grand_views': '3,785',
+        'emails_last7': '+10,938', 'emails_grand': '100,053',
+        'social_last7': '+255', 'social_grand': '3,967',
+    },
+    '8000-harding-avenue-unit-2b': {
+        'dom': 69, 'last7_views': 113, 'grand_views': '1,610',
+        'emails_last7': '+10,938', 'emails_grand': '54,053',
+        'social_last7': '+255', 'social_grand': '2,067',
+    },
+    '17301-biscayne-boulevard-unit-1401': {
+        'dom': 32, 'last7_views': 149, 'grand_views': '1,536',
+        'emails_last7': '+10,938', 'emails_grand': '43,051',
+        'social_last7': '+255', 'social_grand': '14,521',
+    },
+    '763-pennsylvania-avenue-unit-116': {
+        'dom': 113, 'last7_views': 221, 'grand_views': '8,362',
+        'emails_last7': '+10,938', 'emails_grand': '79,815',
+        'social_last7': '+255', 'social_grand': '3,316',
+    },
+    '1945-s-ocean-dr-unit-m2': {
+        'dom': 26, 'last7_views': 54, 'grand_views': '201',
+        'emails_last7': '+10,938', 'emails_grand': '30,246',
+        'social_last7': '+255', 'social_grand': '457',
+    },
+}
+
+def update_standard_html(html, d):
+    """Update a standard property dashboard HTML."""
+
+    # --- Report period in header ---
+    html = re.sub(
+        r'Report Period:.*?(?=\s*</div>)',
+        f'Report Period: {REPORT_PERIOD}',
+        html
+    )
+
+    # --- Days on Market card value ---
+    html = re.sub(
+        r'(card-label[^>]*>Days on Market</div>\s*<div class="card-value"[^>]*>)\s*[\w/,]+\s*(\n)',
+        lambda m: m.group(1) + f'\n                        {d["dom"]}\n',
+        html
+    )
+
+    # --- Last 7 Days Views card value (first card-value after "Last 7 Days Views") ---
+    html = re.sub(
+        r'(card-label[^>]*>Last 7 Days Views</div>\s*<div class="card-value"[^>]*>)\s*[\w/,]+',
+        lambda m: m.group(1) + f'\n                        {d["last7_views"]}',
+        html
+    )
+
+    # --- Listing Views table row: last-7 and grand-total ---
+    html = re.sub(
+        r'(metric-name[^>]*>Listing Views.*?</div>\s*<div class="last-7">)[^<]*(</div>\s*<div class="grand-total">)[^<]*(</div>)',
+        lambda m: m.group(1) + str(d['last7_views']) + m.group(2) + d['grand_views'] + m.group(3),
+        html, flags=re.DOTALL
+    )
+
+    # --- Emails table row ---
+    html = re.sub(
+        r'(metric-name[^>]*>Emails Sent.*?</div>\s*<div class="last-7">)[^<]*(</div>\s*<div class="grand-total">)[^<]*(</div>)',
+        lambda m: m.group(1) + d['emails_last7'] + m.group(2) + d['emails_grand'] + m.group(3),
+        html, flags=re.DOTALL
+    )
+
+    # --- Social Media table row ---
+    html = re.sub(
+        r'(metric-name[^>]*>Social Media.*?</div>\s*<div class="last-7">)[^<]*(</div>\s*<div class="grand-total">)[^<]*(</div>)',
+        lambda m: m.group(1) + d['social_last7'] + m.group(2) + d['social_grand'] + m.group(3),
+        html, flags=re.DOTALL
+    )
+
+    # --- Footer generated date ---
+    html = re.sub(
+        r'Generated on [^\.]+\.',
+        f'Generated on {FOOTER_DATE}.',
+        html
+    )
+
+    return html
+
+
+def build_88sw7_html():
+    """Build a full dashboard for 88 SW 7 ST Unit 1012 (replacing placeholder)."""
+    return '''<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -228,3 +341,41 @@
     </script>
 </body>
 </html>
+'''
+
+
+def write_file(path, content):
+    os.makedirs(os.path.dirname(path), exist_ok=True)
+    with open(path, 'w', encoding='utf-8') as f:
+        f.write(content)
+    print(f'  Written: {path}')
+
+
+def process_property(folder, d, location_base):
+    html_path = os.path.join(location_base, folder, 'index.html')
+    if not os.path.exists(html_path):
+        print(f'  SKIP (no file): {html_path}')
+        return
+    with open(html_path, encoding='utf-8') as f:
+        html = f.read()
+    updated = update_standard_html(html, d)
+    write_file(html_path, updated)
+
+
+# --- Main ---
+print('=== Processing standard properties ===')
+for folder, data in PROPERTIES.items():
+    print(f'\n{folder}')
+    # Root level
+    process_property(folder, data, BASE)
+    # Agent level
+    process_property(folder, data, AGENT_BASE)
+
+print('\n=== Building 88 SW 7 ST Unit 1012 dashboard ===')
+new_html = build_88sw7_html()
+root_88 = os.path.join(BASE, '88-sw-7-st-1012', 'index.html')
+agent_88 = os.path.join(AGENT_BASE, '88-sw-7-st-1012', 'index.html')
+write_file(root_88, new_html)
+write_file(agent_88, new_html)
+
+print('\nAll done!')

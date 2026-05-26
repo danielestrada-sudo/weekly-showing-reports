@@ -58,7 +58,8 @@ AGENTS_INFO = {
     "Lilibeth Villanueva": {"phone": "(786) 395-0502", "email": "lilibeth.basagoitia@compass.com"},
     "Rafael Beltran": {"phone": "(954) 544-6816", "email": "rafael.beltran@compass.com"},
     "Carlos Rospigliosi": {"phone": "(305) 904-8048", "email": "carlos.rospigliosi@compass.com"},
-    "Karina Reyes": {"phone": "(786) 554-0814", "email": "connor.weiss@compass.com"}
+    "Karina Reyes": {"phone": "(786) 554-0814", "email": "connor.weiss@compass.com"},
+    "Natalia Figueroa": {"phone": "(305) 281-0026", "email": "natalia.figueroa@compass.com"}
 }
 
 def build():

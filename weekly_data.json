@@ -165,6 +165,12 @@
                 "Apr 20 - Apr 26, 2026",
                 "The prospective tenant is also an agent who currently lives in the building. She mentioned that she liked the unit overall but is still undecided on whether she needs the additional space, as it would just be for herself. She also noted that the price felt a bit high.\n\nShe mentioned it was somewhat difficult to fully assess the unit due to the current tenant being in the process of moving out, with boxes throughout the space. She expressed interest in returning for another showing next week once the unit is fully vacated."
             ]
+        ],
+        "1650-coral-way-unit-607": [
+            [
+                "Coming Soon",
+                "Property is currently Coming Soon. No feedback yet."
+            ]
         ]
     },
     "last_7_showings_map": {
@@ -179,7 +185,8 @@
         "10449-sw-78th-st": "4",
         "244-biscayne-3702": "1",
         "133-ne-2nd-ave-unit-1208": "0",
-        "1945-s-ocean-dr-unit-m2": "1"
+        "1945-s-ocean-dr-unit-m2": "1",
+        "1650-coral-way-unit-607": "0"
     },
     "last_7_online_map": {
         "234-washington-ave": "194",
@@ -193,7 +200,8 @@
         "10449-sw-78th-st": "106",
         "244-biscayne-3702": "102",
         "133-ne-2nd-ave-unit-1208": "136",
-        "1945-s-ocean-dr-unit-m2": "34"
+        "1945-s-ocean-dr-unit-m2": "34",
+        "1650-coral-way-unit-607": "0"
     },
     "last_7_social_map": {
         "234-washington-ave": "202",
@@ -207,7 +215,8 @@
         "10449-sw-78th-st": "202",
         "244-biscayne-3702": "1,028",
         "133-ne-2nd-ave-unit-1208": "105",
-        "1945-s-ocean-dr-unit-m2": "202"
+        "1945-s-ocean-dr-unit-m2": "202",
+        "1650-coral-way-unit-607": "0"
     },
     "last_7_emails_map": {
         "234-washington-ave": "19,308",
@@ -221,7 +230,8 @@
         "10449-sw-78th-st": "19,308",
         "244-biscayne-3702": "19,308",
         "133-ne-2nd-ave-unit-1208": "19,308",
-        "1945-s-ocean-dr-unit-m2": "19,308"
+        "1945-s-ocean-dr-unit-m2": "19,308",
+        "1650-coral-way-unit-607": "0"
     },
     "PROPERTY_CITY_STATS": {
         "244-biscayne-3702": [

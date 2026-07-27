@@ -1,0 +1,4 @@
+# Ignore temporary local automation and scratch python scripts
+*.py
+# Explicitly allow only the master deployment validation script
+!final_fixes.py

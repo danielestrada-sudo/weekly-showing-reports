@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | 244 Biscayne Boulevard, Unit 3702</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244; 
+            --accent: #2A9D8F; 
+            --bg-light: #F8F9FA;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: var(--bg-light);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .recommendation-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-list {
+            margin-left: 1.5rem;
+            color: var(--text-main);
+        }
+        
+        .recommendation-list li {
+            margin-bottom: 1rem;
+        }
+
+    
+        .cta-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+        .cta-block h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #FFFFFF;
+            border: 2px solid var(--accent);
+        }
+        .btn-primary:hover {
+            background-color: #21867a;
+            border-color: #21867a;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Market & Comp Analysis</h1>
+                <h2>244 Biscayne Boulevard, Unit 3702</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Miami, FL</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 42 Days on Market</span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- Section 1: Executive Summary -->
+        <section class="report-section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                Executive Summary & Traffic Velocity
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card warning">
+                    <div class="stat-label">Days on Market</div>
+                    <div class="stat-value">42</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Initial Interest</div>
+                    <div class="stat-value">Steady</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Early showings and open houses</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Recent Momentum</div>
+                    <div class="stat-value">Variable</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">Pick up in showings in Sept, but no closed offers</p>
+                </div>
+            </div>
+            <p>The property has experienced fluctuating traffic throughout its 42 days on the market. While there was a recent surge of interest in September (including investors and local prospects), the unit has yet to secure a firm contract. Extensive feedback from the past several months indicates that buyer hesitation is rooted in pricing misalignments (perceived overpricing due to necessary renovations), negative experiences with building management, and the inconveniences caused by ongoing construction and amenity closures.</p>
+        </section>
+
+        <!-- Section 2: Buyer Sentiment -->
+        <section class="report-section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                Buyer Sentiment & Objections Breakdown
+            </h2>
+            <ul class="feedback-list">
+                <li class="feedback-item">
+                    <div class="feedback-category">Building Management & Amenities</div>
+                    <p>Recent buyers (as of late September) have explicitly stated they had unpleasant experiences with building management, causing them to lose interest. Additionally, prior prospects noted concerns regarding ongoing construction work and the temporary closure of the pools and balconies.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">Condition vs. Value (Overpriced)</div>
+                    <p>Interested buyers, including those who already reside in the building, feel the unit is overpriced considering the amount of interior work and renovations required to meet their standards.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">Appraisal & Sales Contingencies</div>
+                    <p>Serious buyers have indicated that any offer would be heavily contingent on comparable sales to support the appraisal. <strong>With the building's Average Closed Sale Price currently at $460/SqFt - substantially lower than our $582/SqFt list price - buyers and their agents recognize a significant appraisal risk.</strong> Furthermore, highly motivated buyers are requesting contingencies to sell their current properties before moving forward.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section 3: Direct Competition & Pricing Landscape -->
+        <section class="report-section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"></line><line x1="12" y1="20" x2="12" y2="4"></line><line x1="6" y1="20" x2="6" y2="14"></line></svg>
+                Direct Competition & Pricing Landscape
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Target Property (Asking)</div>
+                    <div class="stat-value">$700,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">$582 / SqFt</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Comps Average</div>
+                    <div class="stat-value">$583,877</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">$509 / SqFt (What sellers want)</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Closed Sales Average</div>
+                    <div class="stat-value">$604,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">$460 / SqFt (What buyers pay)</p>
+                </div>
+            </div>
+            
+            <div class="thermometer-container" style="margin: 3rem 0 2rem 0; padding: 2rem; background: var(--bg-light); border-radius: 8px; border: 1px solid var(--border);">
+                <h3 style="margin-bottom: 3rem; font-size: 1.1rem; color: var(--primary); text-align: center;">Price/SqFt Market Position</h3>
+                <div class="thermometer-track" style="position: relative; height: 24px; background: linear-gradient(to right, var(--accent), var(--warning), var(--danger)); border-radius: 12px;">
+                    
+                    <!-- Closed Sales Average -->
+                    <div class="thermometer-marker" style="position: absolute; left: 24%; top: -35px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--accent);">
+                        <div style="font-size: 0.8rem; font-weight: 700; white-space: nowrap;">Closed Avg</div>
+                        <div style="width: 2px; height: 35px; background-color: var(--accent); margin-top: 4px;"></div>
+                        <div style="font-size: 0.85rem; font-weight: 700; margin-top: 24px; color: var(--text-main);">$460/SF</div>
+                    </div>
+                    
+                    <!-- Active Average -->
+                    <div class="thermometer-marker" style="position: absolute; left: 44%; top: -35px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--warning);">
+                        <div style="font-size: 0.8rem; font-weight: 700; white-space: nowrap;">Active Avg</div>
+                        <div style="width: 2px; height: 35px; background-color: var(--warning); margin-top: 4px;"></div>
+                        <div style="font-size: 0.85rem; font-weight: 700; margin-top: 24px; color: var(--text-main);">$509/SF</div>
+                    </div>
+                    
+                    <!-- Target Property -->
+                    <div class="thermometer-marker" style="position: absolute; left: 73%; top: -45px; transform: translateX(-50%); display: flex; flex-direction: column; align-items: center; color: var(--danger);">
+                        <div style="font-size: 0.8rem; font-weight: 700; white-space: nowrap; background: var(--danger); color: #fff; padding: 2px 6px; border-radius: 4px;">Unit #3702</div>
+                        <div style="width: 3px; height: 45px; background-color: var(--danger); margin-top: 4px;"></div>
+                        <div style="font-size: 0.9rem; font-weight: 800; margin-top: 24px; color: var(--danger);">$582/SF</div>
+                    </div>
+                    
+                </div>
+                <p style="font-size: 0.9rem; color: var(--text-muted); text-align: center; margin-top: 3rem;">
+                    The target property is priced <strong>$122/SqFt higher</strong> than recently closed sales, exposing it to significant appraisal risks and pricing it out of the competitive threshold.
+                </p>
+            </div>
+        </section>
+
+        <!-- Section 4: Recommendations -->
+        <section class="report-section">
+            <h2>
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"></path><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"></path></svg>
+                Actionable Pricing & Marketing Adjustments
+            </h2>
+            <div class="recommendation-box">
+                <h3>Strategic AI Recommendations</h3>
+                <ul class="recommendation-list">
+                    <li><strong>Strategic Price Improvement:</strong> Recommend an immediate price reduction to the <strong>$599,000 - $615,000</strong> range. This aligns closer to the building's $509/SqFt average, mitigating buyers' "appraisal fears" and accounting for the renovation costs repeatedly cited in recent feedback.</li>
+                    <li><strong>Renovation Credits / Incentives:</strong> Consider proactively offering a <strong>seller credit at closing</strong> (e.g., $10,000 - $15,000) explicitly earmarked for "Interior Updates" or "HOA Coverage." This psychologically validates the buyers' feedback about needed work and construction inconveniences without dropping the top-line price too aggressively.</li>
+                    <li><strong>Management & Showing Experience:</strong> Given the September 21st feedback regarding unpleasant experiences with building management, agents must preemptively brief prospective buyers about the building's strict protocols, smoothing out the entry process to prevent friction before they even see the unit.</li>
+                    <li><strong>Targeted Marketing:</strong> Continue focusing on investors and local buyers (like the South Tower residents) who are already familiar with the building's long-term value, as they are most likely to overlook short-term construction hurdles.</li>
+                </ul>
+            </div>
+        </section>
+
+    
+        <div class="cta-block">
+            <h2>Executive Decision: Next Steps</h2>
+            <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto;">Based on the appraisal risks and current market saturation, an immediate strategic price adjustment is recommended to secure a closed contract before further momentum is lost.</p>
+            <div class="cta-buttons">
+                <a href="#" class="btn btn-secondary">Schedule Strategy Call with Agent</a>
+            </div>
+        </div>
+
+    </main>
+</body>
+</html>

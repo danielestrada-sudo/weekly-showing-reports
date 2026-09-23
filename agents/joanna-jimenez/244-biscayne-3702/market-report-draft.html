@@ -106,7 +106,7 @@
         }
 
         .stat-card {
-            background: var(--bg-light);
+            background: #F8F9FA; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.03);
             padding: 1.5rem;
             border-radius: 8px;
             border-left: 4px solid var(--accent);
@@ -784,7 +784,7 @@
         
         <!-- 01: Showing & Pipeline Activity -->
         <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
-            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #d4af37; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
                 01 &mdash; Showing & Pipeline Activity
                 <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Interest & Engagement</span>
             </h2>
@@ -813,7 +813,7 @@
 
         <!-- 02: Digital Performance -->
         <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
-            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #d4af37; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
                 02 &mdash; Digital Performance
                 <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Online Reach & Marketing (Cumulative)</span>
             </h2>
@@ -822,17 +822,17 @@
                 <div>
                     <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">1,388</div>
                     <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Total Listing Views</div>
-                    <div style="font-size: 0.85rem; color: #21867a; margin-top: 0.25rem; font-weight: 600;">+74 This Week</div>
+                    
                 </div>
                 <div>
                     <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">38,025</div>
                     <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Emails Sent (Opened)</div>
-                    <div style="font-size: 0.85rem; color: #21867a; margin-top: 0.25rem; font-weight: 600;">+8,858 This Week</div>
+                    
                 </div>
                 <div>
                     <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">1,690</div>
                     <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Social Media Views</div>
-                    <div style="font-size: 0.85rem; color: #21867a; margin-top: 0.25rem; font-weight: 600;">+210 This Week</div>
+                    
                 </div>
             </div>
 
@@ -845,7 +845,7 @@
             </ul>
         </section>
 <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
-            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #d4af37; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
                 03 &mdash; Buyer Sentiment & Feedback
                 <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections</span>
             </h2>
@@ -867,7 +867,7 @@
 
         <!-- Section 3: Direct Competition & Pricing Landscape -->
         <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
-            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #d4af37; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
                 04 &mdash; Market Intelligence
                 <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Direct Competition</span>
             </h2>
@@ -894,23 +894,77 @@
     <p style="font-weight: 600; margin-bottom: 2rem;">Price/SqFt Market Position Visualizer</p>
     <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
         <!-- Closed Sales Marker -->
-        <div style="position: absolute; left: 20%; top: -30px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed Avg<br>$460/SF</div>
-        <div style="position: absolute; left: 20%; height: 100%; width: 3px; background: #000;"></div>
+        <div style="position: absolute; left: 20%; top: -45px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed Avg<br>$460/SF</div>
+        <div style="position: absolute; left: 20%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
         
         <!-- Active Comps Marker -->
-        <div style="position: absolute; left: 50%; top: -30px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active Avg<br>$509/SF</div>
-        <div style="position: absolute; left: 50%; height: 100%; width: 3px; background: #000;"></div>
+        <div style="position: absolute; left: 50%; top: -45px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active Avg<br>$509/SF</div>
+        <div style="position: absolute; left: 50%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
         
         <!-- Target Property Marker -->
-        <div style="position: absolute; left: 90%; top: -30px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #3702<br>$582/SF</div>
-        <div style="position: absolute; left: 90%; height: 100%; width: 4px; background: #c62828;"></div>
+        <div style="position: absolute; left: 90%; top: -45px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #3702<br>$582/SF</div>
+        <div style="position: absolute; left: 90%; top: -20px; height: calc(100% + 20px); width: 3px; background: #c62828;"></div>
     </div>
 </div>
+
+        
+    <div style="margin-top: 4rem;">
+        <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Vizcayne North - Direct Comps Analysis</h3>
+        <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+            <thead>
+                <tr style="background: #012143; color: #ffffff;">
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Address</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Price</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Beds/Baths</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">SF</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background: #fdfaf0; border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem 1.5rem; font-weight: 700; color: #b78a30;">244 Biscayne Blvd #3702 (Subject)</td>
+                    <td style="padding: 1rem 1.5rem; font-weight: 700; color: #000;">$700,000</td>
+                    <td style="padding: 1rem 1.5rem;">2 / 2</td>
+                    <td style="padding: 1rem 1.5rem;">1,203</td>
+                    <td style="padding: 1rem 1.5rem; font-weight: 600; color: #b78a30;">Active</td>
+                </tr>
+                <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem 1.5rem; color: #012143; text-decoration: underline;">244 Biscayne Blvd #3602</td>
+                    <td style="padding: 1rem 1.5rem;">$760,000</td>
+                    <td style="padding: 1rem 1.5rem;">2 / 2</td>
+                    <td style="padding: 1rem 1.5rem;">1,203</td>
+                    <td style="padding: 1rem 1.5rem; color: #666;">Active</td>
+                </tr>
+                <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem 1.5rem; color: #012143; text-decoration: underline;">244 Biscayne Blvd #3708</td>
+                    <td style="padding: 1rem 1.5rem; font-weight: 600; color: #4caf50;">$639,900</td>
+                    <td style="padding: 1rem 1.5rem;">2 / 2</td>
+                    <td style="padding: 1rem 1.5rem;">1,203</td>
+                    <td style="padding: 1rem 1.5rem; color: #666;">Active</td>
+                </tr>
+                <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                    <td style="padding: 1rem 1.5rem; color: #012143; text-decoration: underline;">244 Biscayne Blvd #3903</td>
+                    <td style="padding: 1rem 1.5rem;">$625,000</td>
+                    <td style="padding: 1rem 1.5rem;">2 / 2</td>
+                    <td style="padding: 1rem 1.5rem;">1,363</td>
+                    <td style="padding: 1rem 1.5rem; color: #888;">Sold</td>
+                </tr>
+                <tr style="background: #f9f9f9;">
+                    <td style="padding: 1rem 1.5rem; color: #012143; text-decoration: underline;">244 Biscayne Blvd #4407</td>
+                    <td style="padding: 1rem 1.5rem;">$608,000</td>
+                    <td style="padding: 1rem 1.5rem;">2 / 2</td>
+                    <td style="padding: 1rem 1.5rem;">1,293</td>
+                    <td style="padding: 1rem 1.5rem; color: #888;">Sold</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><em>Notice how identical active units are priced significantly lower (e.g., #3708 at $639,900), and recently sold units with larger floor plans closed in the low $600s.</em></p>
+    </div>
 
         </section>
 
         <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
-            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #d4af37; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
                 05 &mdash; Strategic Roadmap
                 <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Upcoming Marketing</span>
             </h2>
@@ -923,7 +977,7 @@
 
         <!-- Section 4: Recommendations -->
         <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
-            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #d4af37; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
                 06 &mdash; Executive Decision
                 <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Actionable Adjustments</span>
             </h2>

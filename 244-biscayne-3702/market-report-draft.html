@@ -238,6 +238,526 @@
             text-decoration: underline !important;
             color: #000 !important;
         }
+
+/* Cards Grid */
+
+        .metrics-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 1.5rem;
+
+            margin-bottom: 2rem;
+
+        }
+
+
+
+        .card {
+
+            background: var(--card-bg);
+
+            padding: 1.5rem;
+
+            border-radius: 16px;
+
+            border: 1px solid var(--border);
+
+            box-shadow: var(--shadow);
+
+            transition: var(--transition);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        .card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 4px;
+
+            height: 100%;
+
+            background: var(--primary);
+
+            opacity: 0.7;
+
+        }
+
+
+
+        .card-label {
+
+            font-size: 0.85rem;
+
+            font-weight: 600;
+
+            color: var(--text-muted);
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.05rem;
+
+            margin-bottom: 0.75rem;
+
+        }
+
+
+
+        .card-value {
+
+            font-size: 2.5rem;
+
+            font-weight: 700;
+
+            color: var(--primary);
+
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 0.5rem;
+
+        }
+
+
+
+        [data-theme="dark"] .card-value {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        .card-change {
+
+            font-size: 0.9rem;
+
+            padding: 0.2rem 0.5rem;
+
+            border-radius: 99px;
+
+            background: rgba(42, 157, 143, 0.1);
+
+            color: var(--accent);
+
+            font-weight: 600;
+
+        }
+
+
+
+        /* Sections */
+
+        .section-header {
+
+            margin: 3rem 0 1.5rem;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .section-header h2 {
+
+            font-size: 1.5rem;
+
+            color: var(--primary);
+
+            font-weight: 700;
+
+        }
+
+
+
+        [data-theme="dark"] .section-header h2 {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        /* Table Comparison */
+
+        .comparison-table {
+
+            width: 100%;
+
+            background: var(--card-bg);
+
+            border-radius: 16px;
+
+            border: 1px solid var(--border);
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+
+        .table-row {
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr 1fr;
+
+            padding: 1.25rem 2rem;
+
+            border-bottom: 1px solid var(--border);
+
+            align-items: center;
+
+        }
+
+
+
+        .table-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+
+        .table-header {
+
+            background: rgba(0, 0, 0, 0.02);
+
+            font-weight: 700;
+
+            font-size: 0.85rem;
+
+            color: var(--text-muted);
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        [data-theme="dark"] .table-header {
+
+            background: rgba(255, 255, 255, 0.05);
+
+        }
+
+
+
+        .metric-name {
+
+            font-weight: 600;
+
+            color: var(--text-main);
+
+        }
+
+
+
+        .last-7 {
+
+            color: var(--accent);
+
+            font-weight: 700;
+
+        }
+
+
+
+        .grand-total {
+
+            font-weight: 700;
+
+            color: var(--primary);
+
+        }
+
+
+
+        [data-theme="dark"] .grand-total {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        /* Feedback Styles */
+
+        .feedback-item {
+
+            margin-bottom: 1.5rem;
+
+            padding-bottom: 1.5rem;
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+
+        .feedback-item:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+
+        .agent-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 1rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .agent-avatar {
+
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 1.2rem;
+
+        }
+
+
+
+        .agent-name {
+
+            font-weight: 700;
+
+            font-size: 1.1rem;
+
+        }
+
+
+
+        .agent-date {
+
+            font-size: 0.85rem;
+
+            color: var(--text-muted);
+
+        }
+
+
+
+        .feedback-text {
+
+            font-size: 1.05rem;
+
+            color: var(--text-main);
+
+            background: rgba(0, 0, 0, 0.02);
+
+            padding: 1.25rem;
+
+            border-radius: 12px;
+
+            border-left: 4px solid var(--accent);
+
+            font-style: italic;
+
+        }
+
+
+
+        [data-theme="dark"] .feedback-text {
+
+            background: rgba(255, 255, 255, 0.03);
+
+        }
+
+
+
+        /* Publishers Chart Mock */
+
+        .charts-container {
+
+            display: flex;
+
+            gap: 2rem;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .chart-card {
+
+            flex: 1;
+
+            min-width: 300px;
+
+        }
+
+
+
+        .chart-mock {
+
+            height: 200px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 0.5rem;
+
+            padding-top: 2rem;
+
+        }
+
+
+
+        .bar {
+
+            flex: 1;
+
+            background: var(--primary);
+
+            border-radius: 4px 4px 0 0;
+
+            transition: var(--transition);
+
+            position: relative;
+
+        }
+
+
+
+        .bar:hover {
+
+            opacity: 0.8;
+
+            height: 100% !important;
+
+        }
+
+
+
+        .bar::after {
+
+            content: attr(data-value);
+
+            position: absolute;
+
+            top: -25px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 0.75rem;
+
+            font-weight: 700;
+
+        }
+
+
+
+        /* Footer */
+
+        footer {
+
+            margin-top: 5rem;
+
+            padding: 3rem 5%;
+
+            background: var(--primary);
+
+            color: white;
+
+            text-align: center;
+
+        }
+
+
+
+        .agent-contact {
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        .footer-note {
+
+            font-size: 0.8rem;
+
+            opacity: 0.6;
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+
+            .table-row { grid-template-columns: 1fr; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+
+            .tabs { gap: 1rem; overflow-x: auto; }
+
+        }
+
+    
 </style>
 </head>
 <body>
@@ -410,15 +930,15 @@
     <p style="font-weight: 600; margin-bottom: 2rem;">Price/SqFt Market Position Visualizer</p>
     <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
         <!-- Closed Sales Marker -->
-        <div style="position: absolute; left: 20%; top: -30px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%);">Closed Avg<br>$460/SF</div>
+        <div style="position: absolute; left: 20%; top: -30px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed Avg<br>$460/SF</div>
         <div style="position: absolute; left: 20%; height: 100%; width: 3px; background: #000;"></div>
         
         <!-- Active Comps Marker -->
-        <div style="position: absolute; left: 50%; top: -30px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%);">Active Avg<br>$509/SF</div>
+        <div style="position: absolute; left: 50%; top: -30px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active Avg<br>$509/SF</div>
         <div style="position: absolute; left: 50%; height: 100%; width: 3px; background: #000;"></div>
         
         <!-- Target Property Marker -->
-        <div style="position: absolute; left: 90%; top: -30px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%);">Unit #3702<br>$582/SF</div>
+        <div style="position: absolute; left: 90%; top: -30px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #3702<br>$582/SF</div>
         <div style="position: absolute; left: 90%; height: 100%; width: 4px; background: #c62828;"></div>
     </div>
 </div>
@@ -459,13 +979,6 @@
             
             <p style="color: var(--text-muted); font-size: 1.05rem; max-width: 600px; margin: 0 auto;">Based on the appraisal risks and current market saturation, an immediate strategic price adjustment is recommended to secure a closed contract before further momentum is lost.</p>
             
-            <div class="cta-buttons" style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem; flex-wrap: wrap;">
-                <a href="#" class="btn btn-primary" style="display:inline-block; padding:0.8rem 1.8rem; background:var(--accent); color:#fff; border-radius:8px; text-decoration:none; font-weight:bold; border:2px solid var(--accent); cursor: pointer;">Authorize Price Adjustment to $615,000</a>
-                <a href="#" class="btn btn-secondary" style="display:inline-block; padding:0.8rem 1.8rem; background:transparent; color:var(--primary); border-radius:8px; text-decoration:none; font-weight:bold; border:2px solid var(--primary); cursor: pointer;">Schedule Strategy Call with Agent</a>
-            </div>
-
-        </div>
-
-    </main>
-</body>
-</html>
+            <div style="text-align: center; margin-top: 2rem;">
+    <a href="mailto:?subject=Strategy%20Call%20Review" style="display: inline-block; padding: 12px 30px; background-color: #000000; color: #ffffff; text-decoration: none; font-weight: 600; border-radius: 4px; font-size: 1.1rem; letter-spacing: 0.5px;">Schedule Strategy Call with Agent</a>
+</div>

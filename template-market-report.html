@@ -1,0 +1,1023 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | [PROPERTY_ADDRESS]</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244; 
+            --accent: #2A9D8F; 
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .recommendation-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-list {
+            margin-left: 1.5rem;
+            color: var(--text-main);
+        }
+        
+        .recommendation-list li {
+            margin-bottom: 1rem;
+        }
+
+    
+        .cta-block {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 3rem 2rem;
+            text-align: center;
+            box-shadow: var(--shadow);
+            margin: 3rem 0;
+        }
+        .cta-block h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.8rem;
+        }
+        .cta-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+        .btn {
+            padding: 0.8rem 1.8rem;
+            border-radius: 8px;
+            font-weight: 700;
+            text-decoration: none;
+            font-size: 1.05rem;
+            transition: var(--transition);
+        }
+        .btn-primary {
+            background-color: var(--accent);
+            color: #FFFFFF;
+            border: 2px solid var(--accent);
+        }
+        .btn-primary:hover {
+            background-color: #21867a;
+            border-color: #21867a;
+        }
+        .btn-secondary {
+            background-color: transparent;
+            color: var(--primary);
+            border: 2px solid var(--primary);
+        }
+        .btn-secondary:hover {
+            background-color: var(--primary);
+            color: #FFFFFF;
+        }
+    
+        .marketing-links-list a {
+            transition: all 0.2s;
+        }
+        .marketing-links-list a:hover {
+            text-decoration: underline !important;
+            color: #000 !important;
+        }
+
+/* Cards Grid */
+
+        .metrics-grid {
+
+            display: grid;
+
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+
+            gap: 1.5rem;
+
+            margin-bottom: 2rem;
+
+        }
+
+
+
+        .card {
+
+            background: var(--card-bg);
+
+            padding: 1.5rem;
+
+            border-radius: 16px;
+
+            border: 1px solid var(--border);
+
+            box-shadow: var(--shadow);
+
+            transition: var(--transition);
+
+            position: relative;
+
+            overflow: hidden;
+
+        }
+
+
+
+        .card:hover {
+
+            transform: translateY(-5px);
+
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+
+        }
+
+
+
+        .card::before {
+
+            content: '';
+
+            position: absolute;
+
+            top: 0;
+
+            left: 0;
+
+            width: 4px;
+
+            height: 100%;
+
+            background: var(--primary);
+
+            opacity: 0.7;
+
+        }
+
+
+
+        .card-label {
+
+            font-size: 0.85rem;
+
+            font-weight: 600;
+
+            color: var(--text-muted);
+
+            text-transform: uppercase;
+
+            letter-spacing: 0.05rem;
+
+            margin-bottom: 0.75rem;
+
+        }
+
+
+
+        .card-value {
+
+            font-size: 2.5rem;
+
+            font-weight: 700;
+
+            color: var(--primary);
+
+            display: flex;
+
+            align-items: baseline;
+
+            gap: 0.5rem;
+
+        }
+
+
+
+        [data-theme="dark"] .card-value {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        .card-change {
+
+            font-size: 0.9rem;
+
+            padding: 0.2rem 0.5rem;
+
+            border-radius: 99px;
+
+            background: rgba(42, 157, 143, 0.1);
+
+            color: var(--accent);
+
+            font-weight: 600;
+
+        }
+
+
+
+        /* Sections */
+
+        .section-header {
+
+            margin: 3rem 0 1.5rem;
+
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+        }
+
+
+
+        .section-header h2 {
+
+            font-size: 1.5rem;
+
+            color: var(--primary);
+
+            font-weight: 700;
+
+        }
+
+
+
+        [data-theme="dark"] .section-header h2 {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        /* Table Comparison */
+
+        .comparison-table {
+
+            width: 100%;
+
+            background: var(--card-bg);
+
+            border-radius: 16px;
+
+            border: 1px solid var(--border);
+
+            overflow: hidden;
+
+            box-shadow: var(--shadow);
+
+        }
+
+
+
+        .table-row {
+
+            display: grid;
+
+            grid-template-columns: 2fr 1fr 1fr;
+
+            padding: 1.25rem 2rem;
+
+            border-bottom: 1px solid var(--border);
+
+            align-items: center;
+
+        }
+
+
+
+        .table-row:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+
+        .table-header {
+
+            background: rgba(0, 0, 0, 0.02);
+
+            font-weight: 700;
+
+            font-size: 0.85rem;
+
+            color: var(--text-muted);
+
+            text-transform: uppercase;
+
+        }
+
+
+
+        [data-theme="dark"] .table-header {
+
+            background: rgba(255, 255, 255, 0.05);
+
+        }
+
+
+
+        .metric-name {
+
+            font-weight: 600;
+
+            color: var(--text-main);
+
+        }
+
+
+
+        .last-7 {
+
+            color: var(--accent);
+
+            font-weight: 700;
+
+        }
+
+
+
+        .grand-total {
+
+            font-weight: 700;
+
+            color: var(--primary);
+
+        }
+
+
+
+        [data-theme="dark"] .grand-total {
+
+            color: #FFFFFF;
+
+        }
+
+
+
+        /* Feedback Styles */
+
+        .feedback-item {
+
+            margin-bottom: 1.5rem;
+
+            padding-bottom: 1.5rem;
+
+            border-bottom: 1px solid var(--border);
+
+        }
+
+
+
+        .feedback-item:last-child {
+
+            border-bottom: none;
+
+        }
+
+
+
+        .agent-info {
+
+            display: flex;
+
+            align-items: center;
+
+            gap: 1rem;
+
+            margin-bottom: 1rem;
+
+        }
+
+
+
+        .agent-avatar {
+
+            width: 48px;
+
+            height: 48px;
+
+            border-radius: 50%;
+
+            background: var(--primary);
+
+            color: white;
+
+            display: flex;
+
+            align-items: center;
+
+            justify-content: center;
+
+            font-weight: 700;
+
+            font-size: 1.2rem;
+
+        }
+
+
+
+        .agent-name {
+
+            font-weight: 700;
+
+            font-size: 1.1rem;
+
+        }
+
+
+
+        .agent-date {
+
+            font-size: 0.85rem;
+
+            color: var(--text-muted);
+
+        }
+
+
+
+        .feedback-text {
+
+            font-size: 1.05rem;
+
+            color: var(--text-main);
+
+            background: rgba(0, 0, 0, 0.02);
+
+            padding: 1.25rem;
+
+            border-radius: 12px;
+
+            border-left: 4px solid var(--accent);
+
+            font-style: italic;
+
+        }
+
+
+
+        [data-theme="dark"] .feedback-text {
+
+            background: rgba(255, 255, 255, 0.03);
+
+        }
+
+
+
+        /* Publishers Chart Mock */
+
+        .charts-container {
+
+            display: flex;
+
+            gap: 2rem;
+
+            flex-wrap: wrap;
+
+        }
+
+
+
+        .chart-card {
+
+            flex: 1;
+
+            min-width: 300px;
+
+        }
+
+
+
+        .chart-mock {
+
+            height: 200px;
+
+            display: flex;
+
+            align-items: flex-end;
+
+            gap: 0.5rem;
+
+            padding-top: 2rem;
+
+        }
+
+
+
+        .bar {
+
+            flex: 1;
+
+            background: var(--primary);
+
+            border-radius: 4px 4px 0 0;
+
+            transition: var(--transition);
+
+            position: relative;
+
+        }
+
+
+
+        .bar:hover {
+
+            opacity: 0.8;
+
+            height: 100% !important;
+
+        }
+
+
+
+        .bar::after {
+
+            content: attr(data-value);
+
+            position: absolute;
+
+            top: -25px;
+
+            left: 50%;
+
+            transform: translateX(-50%);
+
+            font-size: 0.75rem;
+
+            font-weight: 700;
+
+        }
+
+
+
+        /* Footer */
+
+        footer {
+
+            margin-top: 5rem;
+
+            padding: 3rem 5%;
+
+            background: var(--primary);
+
+            color: white;
+
+            text-align: center;
+
+        }
+
+
+
+        .agent-contact {
+
+            margin-bottom: 1.5rem;
+
+        }
+
+
+
+        .footer-note {
+
+            font-size: 0.8rem;
+
+            opacity: 0.6;
+
+        }
+
+
+
+        @media (max-width: 768px) {
+
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+
+            .table-row { grid-template-columns: 1fr; gap: 0.5rem; text-align: center; padding: 1.5rem; }
+
+            .tabs { gap: 1rem; overflow-x: auto; }
+
+        }
+
+    
+</style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Market & Comp Analysis</h1>
+                <h2>[PROPERTY_ADDRESS]</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Miami, FL</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 42 Days on Market</span>
+            </div>
+            <a href="index-draft.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+        
+        
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing & Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Interest & Engagement</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 3rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">[TOTAL_SHOWINGS]</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Total Showings</div>
+                </div>
+                
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">[DOM]</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Days on Market</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">[OFFERS_RECEIVED]</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Offers Received</div>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.05rem; color: #333; margin-bottom: 1rem;"><strong>Executive Summary:</strong> [EXECUTIVE_SUMMARY_TEXT]</p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Online Reach & Marketing (Cumulative)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 3rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">[TOTAL_VIEWS]</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Total Listing Views</div>
+                    
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">[EMAILS_SENT]</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Emails Sent (Opened)</div>
+                    
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">[SOCIAL_VIEWS]</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Social Media Views</div>
+                    
+                </div>
+            </div>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Video & Digital Content</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; line-height: 2.2;">
+                <!-- [DIGITAL_CONTENT_LINKS_HTML] -->
+            </ul>
+        </section>
+<section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Buyer Sentiment & Feedback
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections</span>
+            </h2>
+            <ul class="feedback-list">
+                <li class="feedback-item">
+                    <div class="feedback-category">Building Management & Amenities</div>
+                    <p>Recent buyers (as of late September) have explicitly stated they had unpleasant experiences with building management, causing them to lose interest. Additionally, prior prospects noted concerns regarding ongoing construction work and the temporary closure of the pools and balconies.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">Condition vs. Value (Overpriced)</div>
+                    <p>Interested buyers, including those who already reside in the building, feel the unit is overpriced considering the amount of interior work and renovations required to meet their standards.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">Appraisal & Sales Contingencies</div>
+                    <p>Serious buyers have indicated that any offer would be heavily contingent on comparable sales to support the appraisal. <strong>With the building's Average Closed Sale Price currently at $460/SqFt - substantially lower than our $582/SqFt list price - buyers and their agents recognize a significant appraisal risk.</strong> Furthermore, highly motivated buyers are requesting contingencies to sell their current properties before moving forward.</p>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Section 3: Direct Competition & Pricing Landscape -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Direct Competition</span>
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-label">Target Property (Asking)</div>
+                    <div class="stat-value">[CURRENT_PRICE]</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">[TARGET_PRICE_SQFT] / SqFt</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Comps Average</div>
+                    <div class="stat-value">[ACTIVE_COMPS_AVG]</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">[ACTIVE_COMPS_SQFT] / SqFt (What sellers want)</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Closed Sales Average</div>
+                    <div class="stat-value">[CLOSED_SALES_AVG]</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;">[CLOSED_SALES_SQFT] / SqFt (What buyers pay)</p>
+                </div>
+            </div>
+            
+            
+<div style="margin-top: 2rem; margin-bottom: 3rem; padding: 1rem;">
+    <p style="font-weight: 600; margin-bottom: 4.5rem;">Price/SqFt Market Position Visualizer</p>
+    <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+        <!-- Closed Sales Marker -->
+        <div style="position: absolute; left: 20%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed Avg<br>[CLOSED_SALES_SQFT]/SF</div>
+        <div style="position: absolute; left: 20%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+        
+        <!-- Active Comps Marker -->
+        <div style="position: absolute; left: 50%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active Avg<br>[ACTIVE_COMPS_SQFT]/SF</div>
+        <div style="position: absolute; left: 50%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+        
+        <!-- Target Property Marker -->
+        <div style="position: absolute; left: 90%; top: -55px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">[UNIT_IDENTIFIER]<br>[TARGET_PRICE_SQFT]/SF</div>
+        <div style="position: absolute; left: 90%; top: -20px; height: calc(100% + 20px); width: 3px; background: #c62828;"></div>
+    </div>
+</div>
+
+        
+    <div style="margin-top: 4rem;">
+        <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">[BUILDING_NAME] - Direct Comps Analysis</h3>
+        <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+<table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+            <thead>
+                <tr style="background: #012143; color: #ffffff;">
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Address</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Price</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Beds/Baths</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">SF</th>
+                    <th style="padding: 1rem 1.5rem; font-weight: 600;">Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- [DIRECT_COMPS_TABLE_ROWS] -->
+            </tbody>
+        </table>
+</div>
+        <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;"><em>[COMPETITION_NOTICE_TEXT]</em></p>
+    </div>
+
+        </section>
+
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Upcoming Marketing</span>
+            </h2>
+            <div class="plans-content" style="color: #333; font-size: 1rem; line-height: 1.6;">
+                [STRATEGIC_ROADMAP_TEXT]
+            </div>
+        </section>
+
+
+
+        <!-- Section 4: Recommendations -->
+        
+        <!-- 07: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography & Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Origin & Traffic</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <!-- [TRAFFIC_SOURCES_HTML] -->
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <!-- [VIEWING_CITIES_HTML] -->
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+            
+            <script>
+                // We will defer Leaflet loading if it's not already on the page.
+                // We can just append the script and stylesheet dynamically to avoid touching <head>.
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+                        
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+                    
+                    function initMap() {
+                        // Initialize map centered on US
+                        var map = L.map('map').setView([39.8283, -98.5795], 4);
+                        
+                        // Add light/clean map tiles
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            
+                            maxZoom: 20
+                        }).addTo(map);
+                        
+                        // City coordinates and data
+                        var cities = [
+                            // [LEAFLET_CITIES_JSON]
+                        ];
+                        
+                        // Add circle markers
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.6
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+</body>
+</html>

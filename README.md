@@ -74,6 +74,7 @@ This workflow strictly defines how a new listing transitions into a comprehensiv
 
 **Phase 1: Standard Weekly Mode (DOM 0 to 59):**
 * For a new listing, only the standard `index.html` (and `index-es.html`) is generated.
+* **DOM Initialization (CRITICAL):** Do not expect the user to provide the starting Days on Market (DOM). The agent MUST perform a live web search (e.g., Redfin, Zillow, Compass) using the property address to verify the exact active Days on Market, and use that verified number to initialize the report.
 * The "View Market Report" button in the header must remain HIDDEN or DISABLED.
 * **"Coming Soon" Listings:** If a listing is "Coming Soon", use the empty-state placeholder template for feedback and display the `<span class="badge coming-soon">Coming Soon</span>` badge.
 
@@ -101,7 +102,7 @@ When populating the `market-report.html` from the template, the agent must map d
 
 ### STEP 5: CODE POLISHING & PRODUCTION DEPLOYMENT
 * Run the designated validation and update scripts to sanitize code formatting, patch absolute/relative pathways across root and agent directories simultaneously.
-* **Strict Push Protocol:** Present a comprehensive summary of modified files and calculated metrics to the user. Do NOT execute a git push or deploy to GitHub Pages (`danielestrada-sudo.github.io/weekly-showing-reports/`) until explicit user confirmation is given in the chat.
+* **Strict Push Protocol (Plan of Update & Green Light):** Before executing any `git commit` or `git push` to GitHub Pages, the agent MUST explicitly outline a detailed "Plan of Update" in the chat. This plan must state exactly what files are being modified, what metrics were calculated, and what changes were applied. The agent must wait for the user to review the plan and give the explicit "green light" before pushing to GitHub.
 
 ---
 

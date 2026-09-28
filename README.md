@@ -115,3 +115,17 @@ Before finalizing local changes and presenting the deployment summary, the agent
 4. [ ] **"COMING SOON" EMPTY-STATE PROTOCOL:** Verify that "Coming Soon" properties strictly utilize the empty-state placeholder template layout and display the exact `<span class="badge coming-soon">Coming Soon</span>` badge on the agent's master index portal.
 5. [ ] **60-DAY DOM AUDIT:** Verify whether any updated property has reached or exceeded 60 Days on Market, and ensure the `[60-DAY MILESTONE ALERT]` is displayed in the chat summary.
 6. [ ] **SECURITY & REPO CLEANUP:** Run a comprehensive `git status` check. Ensure that NO temporary Python scratch scripts (`.py`), automation scripts containing hardcoded variables, or GitHub Personal Access Tokens are staged for commitment. Only raw HTML updates and required asset images are permitted.
+
+## DATA INTEGRITY & PARSING RULES
+
+To prevent structural data corruption and automation errors across property portals, all automation scripts MUST adhere to the following strict guidelines:
+
+1. **Tabular Architecture Targeting:** 
+   Do NOT use legacy `card-label` targeting to inject marketing metrics (Listing Views, Emails, Social Media Views). The modern template utilizes a grid layout. Scripts must specifically target `<div class="table-row">`, `<div class="metric-name">`, `<div class="last-7">`, and `<div class="grand-total">` to inject metric updates accurately.
+
+2. **Strict Showings Calculation (No Text Regex):**
+   Do NOT attempt to parse the number of physical showings from written feedback text via regex or keyword matching. Physical Showings must be extracted **EXCLUSIVELY** from the dedicated integer column (`Total Showings for the Property`) within the primary tracking CSV. The `Grand Total` for Physical Showings must be dynamically calculated by mathematically summing all historical spreadsheet entries for that property.
+
+3. **Strict URL Slug Matching:**
+   When cross-referencing plain-text property addresses from the CSV against existing repository folders, apply strict URL slugification (lowercase, replace spaces with hyphens, remove special characters like #). Do NOT assume a property is a "brand new listing" simply because the slug format slightly mismatches. If a match fails, the script must abort creation and **alert the user** instead of silently generating duplicate portals.
+

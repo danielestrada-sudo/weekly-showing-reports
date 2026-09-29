@@ -1,4 +1,4 @@
-# WEEKLY SHOWING REPORTS AUTOMATION PROTOCOL (REAL ESTATE INSIGHTS)
+﻿# WEEKLY SHOWING REPORTS AUTOMATION PROTOCOL (REAL ESTATE INSIGHTS)
 
 ## PROJECT OBJECTIVE
 To automatically process weekly progress logs, marketing metrics, client/agent feedback, and market comparative data for all active listings across all agents. Modify corresponding HTML files within the local GitHub Pages repository, apply cache busting, localized Spanish adaptations, milestone triggers, and deploy changes to production. This ensures both root-level and agent-specific client portals remain 100% updated in real-time.
@@ -41,14 +41,14 @@ For every active property identified for the current week, update the tracking K
 6. **60-DAY DOM MILESTONE ALERT (CRITICAL TRIGGER):**
     - During the weekly DOM increment, if an active listing reaches or exceeds **60 Days on Market (DOM >= 60)**:
     - The agent MUST flag this property prominently in the chat summary:
-      `⚠️ [60-DAY MARKET MILESTONE ALERT]: [Property Address] has reached [X] Days on Market. An AI Comprehensive Market & Comp Analysis Report is recommended.`
+      `âš ï¸ [60-DAY MARKET MILESTONE ALERT]: [Property Address] has reached [X] Days on Market. An AI Comprehensive Market & Comp Analysis Report is recommended.`
     - Prompt the user if they wish to supply the MLS Comps CSV (e.g., `For Gemini.csv`) to generate the 60-day Market Adjustment Report.
 
 ### STEP 3: INCREMENTAL/PARTIAL UPDATES SAFETY (CRITICAL)
 Because agents submit their responses at different times, updates are often triggered incrementally:
 1. **Targeted Execution:** Only process updates for the specific agent(s) indicated by the user. Do not re-process other agents' listings.
 2. **Idempotency Check (No Double-Incrementing):** Before performing any mathematical logic (Step 2) or appending feedback, the agent must inspect the target property's existing live HTML file on GitHub.
-   * If the latest feedback entry already contains the date label of the target week (e.g., `— Jun 1 - Jun 7, 2026`), the property has **already** been updated for this week.
+   * If the latest feedback entry already contains the date label of the target week (e.g., `â€” Jun 1 - Jun 7, 2026`), the property has **already** been updated for this week.
    * **Action:** Skip the DOM addition (+7) and Grand Total addition for that property to prevent double-incrementing stats.
 
 ---
@@ -124,8 +124,13 @@ To prevent structural data corruption and automation errors across property port
    Do NOT use legacy `card-label` targeting to inject marketing metrics (Listing Views, Emails, Social Media Views). The modern template utilizes a grid layout. Scripts must specifically target `<div class="table-row">`, `<div class="metric-name">`, `<div class="last-7">`, and `<div class="grand-total">` to inject metric updates accurately.
 
 2. **Strict Showings Calculation (No Text Regex):**
-   Do NOT attempt to parse the number of physical showings from written feedback text via regex or keyword matching. Physical Showings must be extracted **EXCLUSIVELY** from the dedicated integer column (`Total Showings for the Property`) within the primary tracking CSV. The `Grand Total` for Physical Showings must be dynamically calculated by mathematically summing all historical spreadsheet entries for that property.
+   Do NOT attempt to parse the number of physical showings from written feedback text via regex or keyword matching. Physical Showings must be extracted **EXCLUSIVELY** from the dedicated integer column (Total Showings for the Property) within the primary tracking CSV. The Grand Total for Physical Showings must be dynamically calculated by mathematically summing all historical spreadsheet entries for that property.
 
-3. **Strict URL Slug Matching:**
+3. **Marketing Metrics (Emails Sent & Social Media Views):**
+   Unless the primary feedback report CSV explicitly indicates an amount in the Property Social Media views column, all Social Media Views and Emails Sent (Opened) MUST be acquired directly from the Master Marketing Tracker:
+   https://docs.google.com/spreadsheets/d/1RaUV9kDdBGAzwRPrlmqkcbKmdFXDFeMvMU1lAD3pCcQ/edit?usp=sharing
+
+4. **Strict URL Slug Matching:**4. **Strict URL Slug Matching:**
    When cross-referencing plain-text property addresses from the CSV against existing repository folders, apply strict URL slugification (lowercase, replace spaces with hyphens, remove special characters like #). Do NOT assume a property is a "brand new listing" simply because the slug format slightly mismatches. If a match fails, the script must abort creation and **alert the user** instead of silently generating duplicate portals.
+
 

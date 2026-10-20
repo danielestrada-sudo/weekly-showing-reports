@@ -1,4 +1,4 @@
-﻿# WEEKLY SHOWING REPORTS AUTOMATION PROTOCOL (REAL ESTATE INSIGHTS)
+# WEEKLY SHOWING REPORTS AUTOMATION PROTOCOL (REAL ESTATE INSIGHTS)
 
 ## PROJECT OBJECTIVE
 To automatically process weekly progress logs, marketing metrics, client/agent feedback, and market comparative data for all active listings across all agents. Modify corresponding HTML files within the local GitHub Pages repository, apply cache busting, localized Spanish adaptations, milestone triggers, and deploy changes to production. This ensures both root-level and agent-specific client portals remain 100% updated in real-time.
@@ -21,13 +21,16 @@ To automatically process weekly progress logs, marketing metrics, client/agent f
 ## WEEKLY OPERATIONAL FLOW (EVERY MONDAY)
 
 ### STEP 1: DATA EXTRACTION & INPUT COLLECTION
-* **Agent Feedback Repositories:** Pull incoming data directly from both live tracking spreadsheets:
+* **Agent Feedback & Pre-Listing Repositories:** Pull incoming data directly from the live tracking spreadsheets:
     1. Primary Feedback Sheet: https://docs.google.com/spreadsheets/d/1M_H4baCDptHnGrpwlZgy1PiKRnS22YsKfRCOD0KACq4/edit?resourcekey=&gid=690319944#gid=690319944
     2. Secondary Overview Sheet: https://docs.google.com/spreadsheets/d/1RaUV9kDdBGAzwRPrlmqkcbKmdFXDFeMvMU1lAD3pCcQ/edit?gid=0#gid=0
+    3. Pre-Listing Property Intake Sheet (First-Time Landing Page Creation): https://docs.google.com/spreadsheets/d/1j5zk2Cuj364_3QlQaxIMWmKOc9ZjjhxnTCdfKwI92Uo/edit?usp=sharing (CSV Export: `https://docs.google.com/spreadsheets/d/1j5zk2Cuj364_3QlQaxIMWmKOc9ZjjhxnTCdfKwI92Uo/export?format=csv`)
 * **Marketing Metrics (Social Views):**
     * Check the corresponding "Social Views" column in the tracking sheets. If a numerical value is provided, extract and use that exact number.
     * If the field is blank or omitted, look for the explicit numerical value provided by the user manually within the current chat context window.
-* **Client Language Preference:** Check whether the listing or seller is flagged for Spanish communication (`ES`). If flagged, maintain and update both English (`index.html`) and Spanish (`index-es.html`) landing pages.
+* **First-Time Landing Page Creation — Pre-Listing Check (CRITICAL):** Whenever creating a landing page for a property for the first time, ALWAYS check the **Pre-Listing Property Intake Sheet** (`https://docs.google.com/spreadsheets/d/1j5zk2Cuj364_3QlQaxIMWmKOc9ZjjhxnTCdfKwI92Uo/edit?usp=sharing`) first to extract:
+    * **Owner's Preferred Language (`Owner's preferred language` column):** Verify the language in which the owners need to be communicated (`English` or `Spanish`) and generate the landing page in that language accordingly.
+    * **Valuable Pre-Listing Property Info:** Extract bed/bath counts (`How many Beds?`, `How many Baths?`), `Sale or Rent` status, `MLS Live Date` / `Coming Soon Date`, HOA details, and any other important property notes provided by the agent prior to listing.
 
 ### STEP 2: MATHEMATICAL LOGIC & KPI CALCULATION
 For every active property identified for the current week, update the tracking KPIs using the following mathematical logic:
@@ -41,14 +44,14 @@ For every active property identified for the current week, update the tracking K
 6. **60-DAY DOM MILESTONE ALERT (CRITICAL TRIGGER):**
     - During the weekly DOM increment, if an active listing reaches or exceeds **60 Days on Market (DOM >= 60)**:
     - The agent MUST flag this property prominently in the chat summary:
-      `âš ï¸ [60-DAY MARKET MILESTONE ALERT]: [Property Address] has reached [X] Days on Market. An AI Comprehensive Market & Comp Analysis Report is recommended.`
+      `⚠️ [60-DAY MARKET MILESTONE ALERT]: [Property Address] has reached [X] Days on Market. An AI Comprehensive Market & Comp Analysis Report is recommended.`
     - Prompt the user if they wish to supply the MLS Comps CSV (e.g., `For Gemini.csv`) to generate the 60-day Market Adjustment Report.
 
 ### STEP 3: INCREMENTAL/PARTIAL UPDATES SAFETY (CRITICAL)
 Because agents submit their responses at different times, updates are often triggered incrementally:
 1. **Targeted Execution:** Only process updates for the specific agent(s) indicated by the user. Do not re-process other agents' listings.
 2. **Idempotency Check (No Double-Incrementing):** Before performing any mathematical logic (Step 2) or appending feedback, the agent must inspect the target property's existing live HTML file on GitHub.
-   * If the latest feedback entry already contains the date label of the target week (e.g., `â€” Jun 1 - Jun 7, 2026`), the property has **already** been updated for this week.
+   * If the latest feedback entry already contains the date label of the target week (e.g., `— Jun 1 - Jun 7, 2026`), the property has **already** been updated for this week.
    * **Action:** Skip the DOM addition (+7) and Grand Total addition for that property to prevent double-incrementing stats.
 
 ---
@@ -59,9 +62,9 @@ Because agents submit their responses at different times, updates are often trig
 * Locate the specific "Showing Feedback" or commentary columns within the active spreadsheets.
 * Extract the written feedback verbatim.
 * **Standard English Deployment (`index.html`):** Append the verbatim feedback to the top of `<div id="feedback" class="tab-content">`.
-* **Spanish Localized Deployment (`index-es.html`):** 
-  - For listings marked for Spanish communication, accurately translate incoming English feedback into professional real estate Spanish (e.g., translating terms like *"priced above market"*, *"natural light"*, *"HOA fees are high"*, *"needs kitchen modernization"* with proper terminology).
-  - Append the translated feedback at the top of the feedback container in `index-es.html`.
+* **Spanish Localized Deployment:** 
+  - For listings marked for Spanish communication in the Pre-Listing Intake Sheet (`Owner's preferred language = Spanish`), build the report in Spanish and accurately translate incoming feedback into professional real estate Spanish (e.g., translating terms like *"priced above market"*, *"natural light"*, *"HOA fees are high"*, *"needs kitchen modernization"* with proper terminology).
+  - Append the translated feedback at the top of the feedback container.
 
 #### B. VISITOR LOCATION & GEOGRAPHIC DATA (MAP UPDATE)
 * Locate the visual **Progress Report PDF** (e.g., Compass Insights) inside the weekly reports folder for the corresponding agent: `B:\Downloads Compass\Weekly Reports\[Agent Name] Properties Progress Reports\[Week Folder Name]`
@@ -70,11 +73,11 @@ Because agents submit their responses at different times, updates are often trig
 * Remember to apply the **Cache Buster string** (Step 3 under Configurations) directly to this updated map/image asset pathway to force immediate deployment visibility on live browsers.
 
 #### C. BRAND NEW LISTINGS & THE 60-DAY WORKFLOW
-This workflow strictly defines how a new listing transitions into a comprehensive 60-day market report.
+This workflow strictly defines how a new listing is initialized and transitions into a comprehensive 60-day market report.
 
 **Phase 1: Standard Weekly Mode (DOM 0 to 59):**
-* For a new listing, only the standard `index.html` (and `index-es.html`) is generated.
-* **DOM Initialization (CRITICAL):** Do not expect the user to provide the starting Days on Market (DOM). The agent MUST perform a live web search (e.g., Redfin, Zillow, Compass) using the property address to verify the exact active Days on Market, and use that verified number to initialize the report.
+* **Pre-Listing Intake Lookup (FIRST STEP FOR NEW PAGES):** Before creating a new property landing page for the first time, query https://docs.google.com/spreadsheets/d/1j5zk2Cuj364_3QlQaxIMWmKOc9ZjjhxnTCdfKwI92Uo/edit?usp=sharing (`https://docs.google.com/spreadsheets/d/1j5zk2Cuj364_3QlQaxIMWmKOc9ZjjhxnTCdfKwI92Uo/export?format=csv`) to check the **Owner's preferred language** (e.g., Spanish vs. English) and any other valuable pre-listing details (`MLS Live Date`, bed/bath count, `Sale or Rent`, property features). Build the landing page in the owner's preferred language.
+* **DOM Initialization (CRITICAL):** Do not expect the user to provide the starting Days on Market (DOM). Cross-reference the `MLS Live Date` from the Pre-Listing Intake Sheet and perform a live web search (e.g., Redfin, Zillow, Compass) using the property address to verify the exact active Days on Market, and use that verified number to initialize the report.
 * The "View Market Report" button in the header must remain HIDDEN or DISABLED.
 * **"Coming Soon" Listings:** If a listing is "Coming Soon", use the empty-state placeholder template for feedback and display the `<span class="badge coming-soon">Coming Soon</span>` badge.
 
@@ -110,8 +113,8 @@ When populating the `market-report.html` from the template, the agent must map d
 Before finalizing local changes and presenting the deployment summary, the agent MUST explicitly verify and confirm the following checklist inside the chat interface:
 
 1. [ ] **DOUBLE-ROUTING COMPLIANCE:** Confirm that the property `index.html` (and `index-es.html` if applicable) file has been fully generated and synchronized in BOTH mandatory locations: Root (`/[slug]/`) and Agent Directory (`/agents/[agent-name]/[slug]/`).
-2. [ ] **NEW LISTING INITIALIZATION:** Verify that for any brand-new property site, the "Views By City" map has been physically parsed/extracted from the uploaded Compass Insights PDF, saved cleanly, and that the initial "Grand Total" metrics are mathematically set exactly equal to the current "Last 7 Days" metrics.
-3. [ ] **FEEDBACK CHRONOLOGICAL APPEND & LOCALIZATION:** Confirm that new verbatim feedback strings were appended to the top of `<div id="feedback">`. If the listing is Spanish-enabled, confirm feedback was properly translated into professional real estate Spanish for `index-es.html`.
+2. [ ] **NEW LISTING INITIALIZATION & PRE-LISTING SHEET CHECK:** Verify that for any brand-new property site, the Pre-Listing Intake Sheet (`1j5zk2Cuj364_3QlQaxIMWmKOc9ZjjhxnTCdfKwI92Uo`) was checked for the **Owner's preferred language** and key property info, the "Views By City" map has been physically parsed/extracted from the uploaded Compass Insights PDF, saved cleanly, and that the initial "Grand Total" metrics are mathematically set exactly equal to the current "Last 7 Days" metrics.
+3. [ ] **FEEDBACK CHRONOLOGICAL APPEND & LOCALIZATION:** Confirm that new verbatim feedback strings were appended to the top of `<div id="feedback">`. If the listing is Spanish-enabled, confirm feedback was properly translated into professional real estate Spanish.
 4. [ ] **"COMING SOON" EMPTY-STATE PROTOCOL:** Verify that "Coming Soon" properties strictly utilize the empty-state placeholder template layout and display the exact `<span class="badge coming-soon">Coming Soon</span>` badge on the agent's master index portal.
 5. [ ] **60-DAY DOM AUDIT:** Verify whether any updated property has reached or exceeded 60 Days on Market, and ensure the `[60-DAY MILESTONE ALERT]` is displayed in the chat summary.
 6. [ ] **SECURITY & REPO CLEANUP:** Run a comprehensive `git status` check. Ensure that NO temporary Python scratch scripts (`.py`), automation scripts containing hardcoded variables, or GitHub Personal Access Tokens are staged for commitment. Only raw HTML updates and required asset images are permitted.
@@ -130,7 +133,5 @@ To prevent structural data corruption and automation errors across property port
    Unless the primary feedback report CSV explicitly indicates an amount in the Property Social Media views column, all Social Media Views and Emails Sent (Opened) MUST be acquired directly from the Master Marketing Tracker:
    https://docs.google.com/spreadsheets/d/1RaUV9kDdBGAzwRPrlmqkcbKmdFXDFeMvMU1lAD3pCcQ/edit?usp=sharing
 
-4. **Strict URL Slug Matching:**4. **Strict URL Slug Matching:**
+4. **Strict URL Slug Matching:**
    When cross-referencing plain-text property addresses from the CSV against existing repository folders, apply strict URL slugification (lowercase, replace spaces with hyphens, remove special characters like #). Do NOT assume a property is a "brand new listing" simply because the slug format slightly mismatches. If a match fails, the script must abort creation and **alert the user** instead of silently generating duplicate portals.
-
-

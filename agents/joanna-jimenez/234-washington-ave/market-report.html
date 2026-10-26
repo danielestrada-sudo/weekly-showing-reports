@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | 234 Washington Avenue, Unit A</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244; 
+            --accent: #2A9D8F; 
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border-left: 4px solid var(--accent);
+        }
+        
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-label {
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+
+        .feedback-category.alert {
+            background: rgba(231, 111, 81, 0.12);
+            color: #c62828;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+            border: 1px solid rgba(42, 157, 143, 0.2);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1rem;
+        }
+        
+        .recommendation-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+        }
+        
+        .recommendation-list {
+            margin-left: 1.5rem;
+            color: var(--text-main);
+        }
+        
+        .recommendation-list li {
+            margin-bottom: 1rem;
+        }
+
+        .cycle-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .cycle-card {
+            background: #F8F9FA;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .cycle-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .cycle-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+
+        .cycle-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Market &amp; Comp Analysis</h1>
+                <h2>234 Washington Avenue, Unit A &mdash; SoFi House Residences</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Miami Beach, FL (South of Fifth)</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 61 Days on Market (Current Relisting) &bull; 284 Days Cumulative (Incl. Prior Listing)</span>
+                <span><strong>MLS #A12075304</strong> | 3 Beds / 2.5 Baths | 2,463 SqFt | Built 2019</span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing &amp; Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Interest &amp; Engagement (Combined Previous &amp; Current Listing Cycles)</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">21</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Tracked Showings (15 Prior + 6 Current)</div>
+                </div>
+                
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">284</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Total Days on Market (223 Prior + 61 Current)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">61</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Current Relisting DOM (Since Aug 21)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">0</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Offers Received</div>
+                </div>
+            </div>
+
+            <div class="cycle-comparison-grid">
+                <div class="cycle-card">
+                    <h4>Previous Listing Cycle (Thru July 2026)</h4>
+                    <div class="cycle-row"><span>Days on Market:</span><strong>223 Days</strong></div>
+                    <div class="cycle-row"><span>Tracked Showings / Open House:</span><strong>15 (60 Cumulative All-Time)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>10,713</strong></div>
+                    <div class="cycle-row"><span>Emails Sent (Opened):</span><strong>147,982</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>29,990</strong></div>
+                </div>
+                <div class="cycle-card">
+                    <h4>Current Relisting Cycle (Aug 21 &ndash; Oct 25, 2026)</h4>
+                    <div class="cycle-row"><span>Days on Market:</span><strong>61 Days</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>6 Showings</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>1,598</strong></div>
+                    <div class="cycle-row"><span>Emails Sent (Opened):</span><strong>73,924</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>2,822</strong></div>
+                </div>
+                <div class="cycle-card" style="border-left: 4px solid #012143; background: #fdfaf0;">
+                    <h4>Combined Cumulative Total (Both Listings)</h4>
+                    <div class="cycle-row"><span>Combined Days on Market:</span><strong>284 Days</strong></div>
+                    <div class="cycle-row"><span>Combined Showings:</span><strong>21 Tracked (66 All-Time)</strong></div>
+                    <div class="cycle-row"><span>Combined Online Views:</span><strong>12,311</strong></div>
+                    <div class="cycle-row"><span>Combined Emails Opened:</span><strong>221,906</strong></div>
+                    <div class="cycle-row"><span>Combined Social Views:</span><strong>32,812</strong></div>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.05rem; color: #333; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <strong>Executive Summary:</strong> Across both listing periods (284 cumulative Days on Market: 223 days during the prior listing cycle and 61 days since re-launching on August 21, 2026), <strong>234 Washington Avenue, Unit A</strong> has generated substantial online exposure (<strong>12,311 total listing views</strong> and <strong>221,906 opened email campaigns</strong>) and steady physical tour activity, including multiple second and third visits from qualified buyers. Despite strong appreciation for the private townhome entrance, modern design, rooftop sanctuary, and two covered parking spaces, the residence has not yet secured an offer at its <strong>$3,500,000 ($1,421/SqFt)</strong> asking price. Feedback across both listing cycles points to three consistent hurdles: (1) a recurring interior odor flagged by prospects during both the April and September tours (which directly caused a third-visit buyer to walk away in September), (2) buyer hesitation over the multi-level/split-level layout and ceiling heights compared to single-level luxury condos in South of Fifth, and (3) a prolonged A/C repair issue that halted all physical showings throughout October.
+            </p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Online Reach &amp; Marketing (Combined Cumulative Across Both Listings)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">12,311</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Listing Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">1,598 Current + 10,713 Prior Listing</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">221,906</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Emails Sent (Opened)</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">73,924 Current + 147,982 Prior Listing</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">32,812</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Social Media Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">2,822 Current + 29,990 Prior Listing</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03: Buyer Sentiment & Feedback -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Buyer Sentiment &amp; Feedback
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections &amp; Complete Showing Log (Prior &amp; Current Listings)</span>
+            </h2>
+
+            <ul class="feedback-list" style="margin-bottom: 2.5rem;">
+                <li class="feedback-item">
+                    <div class="feedback-category alert">1. Recurring Interior Odor Issue (Flagged in Both April &amp; September)</div>
+                    <p>During the previous listing cycle (April 13, 2026), an agent previewing the property noted a slight odor in the bedroom area. During the current relisting (September 14, 2026), our highest-intent prospect&mdash;who loved the home on August 31 and returned for a <strong>third showing with his wife</strong> while considering an offer&mdash;explicitly decided <strong>not to proceed due to concerns about the odor throughout the home</strong>.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">2. Multi-Level / Split-Level Layout &amp; Ceiling Heights vs. Single-Level Condos</div>
+                    <p>Across both listing cycles, multiple second-home and local buyers praised the townhome's design, privacy, entrance, and two covered parking spaces, but hesitated over the vertical layout. In April, a family relocating from Hawaii felt the split levels were too much for young children (preferring at most two levels). In September, separate prospective buyers noted that the ceilings felt low in certain areas, leaned toward single-level high-rise condos instead, or remained unsure whether the multi-level space worked for their lifestyle.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">3. Prolonged A/C Mechanical Issue Stalling October Showings</div>
+                    <p>A scheduled private showing on October 5 had to be postponed due to an A/C malfunction. Because the A/C repair remained pending across the next three weeks (October 5 &ndash; October 25), no private showings could be conducted during the entire month of October, interrupting momentum after a busy September.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">4. Pricing &amp; Amenity Comparison Against South of Fifth Condos</div>
+                    <p>At <strong>$3,500,000 ($1,421/SqFt)</strong> with a <strong>$2,664/month HOA fee</strong> and no resort amenities, buyers in the $2.5M&ndash;$3.5M bracket are weighing the townhome against full-service South of Fifth condominiums (such as <em>Portofino Tower</em>, where 2,340 SqFt 3-bedroom residences with full resort amenities have recently closed between $2,150,000 and $3,100,000, or $919&ndash;$1,325/SqFt) and nearby South of Fifth townhomes closed between $1,025,000 and $1,450,000 ($727&ndash;$1,142/SqFt).</p>
+                </li>
+            </ul>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.35rem; margin-bottom: 1rem; color: #012143;">Chronological Verbatim Feedback Log (Current &amp; Previous Listing)</h3>
+            <div style="background: #F8F9FA; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-height: 520px; overflow-y: auto;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Current Listing &bull; Oct 19 &ndash; Oct 25, 2026</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"There were no private showings last week. We are still awaiting completion of the A/C repair."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Current Listing &bull; Oct 12 &ndash; Oct 18, 2026</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings last week as we continue working to resolve the AC issues."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Current Listing &bull; Sept 28 &ndash; Oct 4, 2026</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Today's scheduled showing, October 5, was postponed due to an A/C issue. We are coordinating a new showing time with the agent and clients."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Current Listing &bull; Sep 14 &ndash; Sep 20, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One showing took place last week and went well. However, the prospective buyer is unsure whether the space and layout will work for his needs. He has not made a final decision, and we will continue to follow up."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Current Listing &bull; Sep 7 &ndash; Sep 13, 2026 (3 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Three private showings took place last week. The first was a third showing, this time with the buyer's wife. They decided not to proceed due to concerns about the odor throughout the home. The second showing went well, but the client is leaning toward a condo and felt the ceilings were low. They would like to see additional properties before making a decision. The third showing was a second visit for that client and was very positive. We are awaiting feedback from the agent regarding next steps."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Current Listing &bull; Aug 24 &ndash; Aug 30, 2026 (2 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"The buyer loved the home and is considering an offer; they'd like to see it again tonight, 8/31. We had another showing today, also 8/31, with a single local guy looking for more privacy and wanting to move out of his high-rise &mdash; that one went well too."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #012143; text-transform: uppercase;">Previous Listing &bull; May 11 &ndash; May 18, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1 Private showing last Monday. Overall went well. Pending more detailed feedback from the agent. Will continue to follow up."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #012143; text-transform: uppercase;">Previous Listing &bull; Apr 27 &ndash; May 3, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1 showing last week. We provided the prospect with a full property analysis and have been following up throughout the week for more detailed feedback. We are currently awaiting a response."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #012143; text-transform: uppercase;">Previous Listing &bull; Apr 20 &ndash; Apr 26, 2026</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings last week; however, we are coordinating with the family who visited a couple of weeks ago to schedule a time for the mother-in-law to come view the property. We also have one showing scheduled for tomorrow afternoon."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #012143; text-transform: uppercase;">Previous Listing &bull; Apr 13 &ndash; Apr 19, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Client looking for second home in Miami - the wife lived here for 10+ years but they now live in Hawaii. He thinks the home is great but has concerns over the split levels. He thinks they are a little too much for their 2 year old and 7 week old. He think the most they could do is two levels."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #012143; text-transform: uppercase;">Previous Listing &bull; Apr 6 &ndash; Apr 12, 2026 (10 Open House Visitors)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"10 People attended the Open House this past weekend. Overall, the feedback was very positive&mdash;most described the property as beautiful, well-designed, and well-maintained. The entrance was a major highlight, along with the two parking spaces. One agent followed up afterward and mentioned that while they liked the property and are interested in bringing their client, they did notice a slight odor in the bedroom area. Despite that, they are still considering showing it to their client. Working to schedule a showing with a family who previously showed strong interest, along with their parents, who will be funding the purchase."</p>
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #012143; text-transform: uppercase;">Previous Listing &bull; Mar 30 &ndash; Apr 5, 2026 (2 Requests)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"There were two showing requests last week; however, both were declined as no showings were permitted at that time. I am currently coordinating with the agents to reschedule."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04: Market Intelligence & Direct Competition -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Direct Competition &amp; Pricing Landscape (South of Fifth MLS Comps)</span>
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Target Property (Asking)</div>
+                    <div class="stat-value">$3,500,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$1,421 / SqFt</strong> &bull; 3 Bed / 2.5 Bath &bull; 2,463 SqFt</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active Comps Average</div>
+                    <div class="stat-value">$2,460,404</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$1,319 / SqFt</strong> across SoFi Active Comps ($2,895,000 Direct 3BR/TH Avg)</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Closed Sales Average (Direct Comps)</div>
+                    <div class="stat-value">$2,273,333</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$1,153 / SqFt</strong> (What buyers pay for comparable 3BR &amp; Townhomes; $975/SF Townhouses Only)</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; margin-bottom: 3rem; padding: 1rem;">
+                <p style="font-weight: 600; margin-bottom: 4.5rem;">Price/SqFt Market Position Visualizer</p>
+                <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+                    <!-- Closed Sales Marker -->
+                    <div style="position: absolute; left: 22%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed Avg<br>$1,153/SF</div>
+                    <div style="position: absolute; left: 22%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+                    
+                    <!-- Active Comps Marker -->
+                    <div style="position: absolute; left: 55%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active Avg<br>$1,319/SF</div>
+                    <div style="position: absolute; left: 55%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+                    
+                    <!-- Target Property Marker -->
+                    <div style="position: absolute; left: 86%; top: -55px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #A (Subject)<br>$1,421/SF</div>
+                    <div style="position: absolute; left: 86%; top: -20px; height: calc(100% + 20px); width: 3px; background: #c62828;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">South of Fifth (SoFi) &mdash; Direct Townhouse &amp; 3-Bedroom Comps Analysis</h3>
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #012143; color: #ffffff;">
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Address / Building</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Price</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">$/SqFt</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Beds/Baths</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Living SF</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Type / Built</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fdfaf0; border-bottom: 2px solid #e0d5b5;">
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #b78a30;">234 Washington Ave #A (Subject &mdash; SoFi House)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #000;">$3,500,000</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #c62828;">$1,421/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,463</td>
+                                <td style="padding: 1rem 1.25rem;">Townhouse (2019)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #b78a30;">Active (284 Cum. DOM)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">234 Washington Ave #D (SoFi House &mdash; Same Building)</td>
+                                <td style="padding: 1rem 1.25rem;">$4,150,000</td>
+                                <td style="padding: 1rem 1.25rem;">$1,798/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 3.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,308</td>
+                                <td style="padding: 1rem 1.25rem;">SoFi House (2019)</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">90 Alton Rd #TH-8 (Yacht Club at Portofino)</td>
+                                <td style="padding: 1rem 1.25rem;">$3,300,000</td>
+                                <td style="padding: 1rem 1.25rem;">$1,886/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">1,750</td>
+                                <td style="padding: 1rem 1.25rem;">Townhouse (1999)</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">300 S Pointe Dr #801 (Portofino Tower)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,850,000</td>
+                                <td style="padding: 1rem 1.25rem;">$1,218/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,340</td>
+                                <td style="padding: 1rem 1.25rem;">Full-Amenity Condo</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">361 Jefferson Ave #3 (The Fountainhead)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,100,000</td>
+                                <td style="padding: 1rem 1.25rem;">$1,334/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 3</td>
+                                <td style="padding: 1rem 1.25rem;">1,574</td>
+                                <td style="padding: 1rem 1.25rem;">Townhouse (2002)</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">361 Jefferson Ave #1 (The Fountainhead)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,075,000</td>
+                                <td style="padding: 1rem 1.25rem;">$1,305/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 3.5</td>
+                                <td style="padding: 1rem 1.25rem;">1,590</td>
+                                <td style="padding: 1rem 1.25rem;">Townhouse (2002)</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">300 S Pointe Dr #1001 (Portofino Tower)</td>
+                                <td style="padding: 1rem 1.25rem;">$3,100,000 <span style="font-size:0.8rem; color:#888;">(List $3.199M)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$1,325/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,340</td>
+                                <td style="padding: 1rem 1.25rem;">Full-Amenity Condo</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">300 S Pointe Dr #1603 (Portofino Tower)</td>
+                                <td style="padding: 1rem 1.25rem;">$3,050,000 <span style="font-size:0.8rem; color:#888;">(List $3.25M)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$1,303/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,340</td>
+                                <td style="padding: 1rem 1.25rem;">Full-Amenity Condo</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">300 S Pointe Dr #501 (Portofino Tower)</td>
+                                <td style="padding: 1rem 1.25rem;">$2,340,000 <span style="font-size:0.8rem; color:#888;">(List $2.595M)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$1,000/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,340</td>
+                                <td style="padding: 1rem 1.25rem;">Full-Amenity Condo</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">243 Meridian Ave #211 (Armitage Place &mdash; 0.0 mi)</td>
+                                <td style="padding: 1rem 1.25rem;">$2,300,000 <span style="font-size:0.8rem; color:#888;">(List $2.499M)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$1,071/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 3.5</td>
+                                <td style="padding: 1rem 1.25rem;">2,147</td>
+                                <td style="padding: 1rem 1.25rem;">Boutique Condo (2006)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">208 Jefferson Ave #112 (Beach Colony)</td>
+                                <td style="padding: 1rem 1.25rem;">$1,450,000 <span style="font-size:0.8rem; color:#888;">(List $1.499M)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$1,142/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,270</td>
+                                <td style="padding: 1rem 1.25rem;">Townhouse (1995)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold</td>
+                            </tr>
+                            <tr style="background: #f9f9f9;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">325 Meridian Ave #12 (Meridian Place)</td>
+                                <td style="padding: 1rem 1.25rem;">$1,400,000 <span style="font-size:0.8rem; color:#888;">(List $1.485M)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$1,077/SF</td>
+                                <td style="padding: 1rem 1.25rem;">3 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,300</td>
+                                <td style="padding: 1rem 1.25rem;">Townhouse (1994)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.92rem; color: #555;">
+                    <em><strong>Key Market Takeaway:</strong> Every closed townhouse in South of Fifth traded between <strong>$727/SqFt and $1,142/SqFt</strong> (averaging $975/SqFt), and the closest large 3-bedroom boutique residence (<strong>243 Meridian Ave #211</strong>, 2,147 SqFt, less than a block away) closed at <strong>$2,300,000 ($1,071/SqFt)</strong>. Even full-service 2,340 SqFt 3-bedroom units in <strong>Portofino Tower</strong> (with resort pools, tennis, fitness center, and concierge) closed between <strong>$2,340,000 and $3,100,000 ($1,000&ndash;$1,325/SqFt)</strong>, with active unit #801 currently asking <strong>$2,850,000 ($1,218/SqFt)</strong>. While sister residence <strong>234 Washington Ave #D</strong> is listed at $4,150,000 ($1,798/SqFt), actual closed buyer demand for non-waterfront 3-bedroom residences in this footprint clears between <strong>$1,070/SqFt and $1,300/SqFt</strong>.</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- 05: Strategic Roadmap -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Action Plan &amp; Positioning Recommendations</span>
+            </h2>
+            <div class="recommendation-box">
+                <h3>Recommended Next Steps to Capture a Contract</h3>
+                <ul class="recommendation-list">
+                    <li><strong>1. Complete A/C Repair &amp; Professional Odor Remediation Immediately:</strong> The #1 physical objection across both listing cycles has been the interior odor (noted in April and directly responsible for losing a 3rd-visit buyer with his wife in September), compounded by the 3-week A/C outage in October. Once the A/C repair is completed, we strongly recommend a professional HVAC duct sanitization, continuous dehumidification, and odor-neutralization treatment before welcoming buyers back inside.</li>
+                    <li><strong>2. Strategic Price Adjustment to Align with Verified Sold Comps ($2,950,000 &ndash; $3,150,000 | ~$1,198&ndash;$1,279/SqFt):</strong> After 284 cumulative Days on Market at $3,500,000 ($1,421/SqFt), market data shows that closed 3-bedroom comps of similar square footage in South of Fifth (including 2,147 SqFt at 243 Meridian Ave and 2,340 SqFt units at Portofino Tower) consistently close between $2.30M and $3.10M ($1,071&ndash;$1,325/SqFt). Repositioning the asking price below the $3.2M threshold (ideally <strong>$2,995,000 to $3,150,000</strong>) places Unit A directly in the strike zone of active 3-bedroom buyers while dramatically undercutting sister unit #D ($4,150,000).</li>
+                    <li><strong>3. Post-Repair Re-Launch Campaign to All 21 Past Showing Prospects:</strong> Immediately upon completion of the A/C repair, re-engage the postponed October 5 buyer, the repeat September visitors, and all agents who toured during the spring and fall cycles with a "Back Available / Repositioned" announcement and targeted Compass email campaign.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 06: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography &amp; Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Origin &amp; Traffic Channels (Aggregated Across Prior &amp; Current Listings)</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Zillow</span>
+                            <span style="font-weight: 700; color: #012143;">45.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Other Syndication</span>
+                            <span style="font-weight: 700; color: #012143;">26.1%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Compass</span>
+                            <span style="font-weight: 700; color: #012143;">12.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Realtor.com</span>
+                            <span style="font-weight: 700; color: #012143;">8.8%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Trulia</span>
+                            <span style="font-weight: 700; color: #012143;">7.6%</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities (Cumulative)</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami, FL</span>
+                            <span style="font-weight: 700; color: #012143;">22.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">18.1%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Hialeah, FL</span>
+                            <span style="font-weight: 700; color: #012143;">13.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Tampa, FL</span>
+                            <span style="font-weight: 700; color: #012143;">10.6%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Dallas / Rowlett, TX</span>
+                            <span style="font-weight: 700; color: #012143;">9.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">New York / Brooklyn / Rye, NY</span>
+                            <span style="font-weight: 700; color: #012143;">5.8%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">San Mateo / San Jose, CA</span>
+                            <span style="font-weight: 700; color: #012143;">4.6%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+                        
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+                    
+                    function initMap() {
+                        var map = L.map('map').setView([36.5, -95.0], 4);
+                        
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            maxZoom: 20
+                        }).addTo(map);
+                        
+                        var cities = [
+                            { name: "Miami, FL", lat: 25.7617, lon: -80.1918, views: "22.5%", radius: 16 },
+                            { name: "Miami Beach, FL", lat: 25.7907, lon: -80.1300, views: "18.1%", radius: 14 },
+                            { name: "Hialeah, FL", lat: 25.8576, lon: -80.2781, views: "13.2%", radius: 11 },
+                            { name: "Tampa, FL", lat: 27.9506, lon: -82.4572, views: "10.6%", radius: 10 },
+                            { name: "Dallas / Rowlett, TX", lat: 32.7767, lon: -96.7970, views: "9.2%", radius: 9 },
+                            { name: "New York / Brooklyn, NY", lat: 40.7128, lon: -74.0060, views: "5.8%", radius: 8 },
+                            { name: "San Mateo / San Jose, CA", lat: 37.5630, lon: -122.3255, views: "4.6%", radius: 7 },
+                            { name: "Vero Beach, FL", lat: 27.6386, lon: -80.3973, views: "3.5%", radius: 6 },
+                            { name: "Philadelphia, PA", lat: 39.9526, lon: -75.1652, views: "2.3%", radius: 5 },
+                            { name: "Austin, TX", lat: 30.2672, lon: -97.7431, views: "1.5%", radius: 4 }
+                        ];
+                        
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.65
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Share of Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Joanna Jimenez</strong> | Licensed Real Estate Agent</p>
+            <p>Compass One | (305) 302-6384 | joanna.jimenez@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on October 26, 2026. Internal Market &amp; Comp Analysis Report (Not Linked on Public Owner Portal).
+        </div>
+    </footer>
+</body>
+</html>

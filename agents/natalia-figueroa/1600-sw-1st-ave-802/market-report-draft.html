@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | 1600 SW 1st Ave, Unit 802</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244; 
+            --accent: #2A9D8F; 
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .feedback-category.alert {
+            color: var(--danger);
+        }
+
+        .recommendation-box {
+            background: rgba(42, 157, 143, 0.08);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .recommendation-box h3 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+        }
+
+        .recommendation-list {
+            padding-left: 1.25rem;
+        }
+
+        .recommendation-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .recommendation-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .cycle-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .cycle-card {
+            background: #F8F9FA;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .cycle-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .cycle-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+
+        .cycle-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Comprehensive Market &amp; Comp Analysis</h1>
+                <h2>1600 SW 1st Ave, Unit 802 &mdash; Le Parc at Brickell</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Brickell / The Underline &bull; Miami, FL 33129</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 61 Days on Market (Live Since Aug 28, 2026)</span>
+                <span><strong>MLS #A12078663</strong> | 2 Beds / 2 Baths | 962 SqFt | 2 Parking Spaces | Built 2016</span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing &amp; Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Tour Engagement &amp; Showing Trajectory (60-Day Milestone Review)</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">3</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Tracked Private Showings</div>
+                </div>
+                
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">61</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Days on Market (DOM)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">555</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Online Views</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">0</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Offers Received</div>
+                </div>
+            </div>
+
+            <div class="cycle-comparison-grid">
+                <div class="cycle-card">
+                    <h4>Launch Phase (Weeks 1 &ndash; 3: Aug 28 &ndash; Sep 20, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>23 Days</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>2 Showings</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>359 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>22,859 Emails</strong></div>
+                    <div class="cycle-row"><span>Initial Prospect Sentiment:</span><strong>Liked area &amp; building, but hesitated on layout space</strong></div>
+                </div>
+                <div class="cycle-card">
+                    <h4>Mid-Cycle Phase (Weeks 4 &ndash; 5: Sep 21 &ndash; Oct 4, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>14 Days</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>1 Showing (3rd Overall)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>53 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>13,007 Emails</strong></div>
+                    <div class="cycle-row"><span>Feedback Theme:</span><strong>Buyer wanted a different view / higher floor line</strong></div>
+                </div>
+                <div class="cycle-card" style="border-left: 4px solid #012143; background: #fdfaf0;">
+                    <h4>Plateau &amp; 60-Day Trigger (Weeks 6 &ndash; 9: Oct 5 &ndash; Oct 25, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>24 Days (61 Total DOM)</strong></div>
+                    <div class="cycle-row"><span>Physical Showings:</span><strong>0 Showings</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>143 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>22,892 Emails</strong></div>
+                    <div class="cycle-row"><span>Market Takeaway:</span><strong>Showing momentum stalled &bull; Price positioning adjustment required</strong></div>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.05rem; color: #333; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <strong>Executive Summary:</strong> Over the first 61 Days on Market at <strong>$625,000 ($649.69/SqFt)</strong>, <strong>1600 SW 1st Ave, Unit 802</strong> has garnered consistent digital attention across major syndication portals (<strong>555 online views</strong>, <strong>58,758 opened marketing emails</strong>, and <strong>2,157 social video views</strong>). The residence stands out with exceptionally rare functional assets: <strong>two side-by-side assigned parking spaces</strong> and <strong>two air-conditioned storage units</strong> in a 2016 boutique building facing The Underline park. However, physical tour conversion has leveled off, generating 3 private showings in September and zero physical showings throughout October. Feedback from toured buyers and cooperating agents points directly to layout comparison against competing 2-bedroom units in Le Parc and the wider Brickell market: buyers in the low-$600k range perceived the 962 sq. ft. split floor plan as compact and compared its 8th-floor city view against higher-floor lines currently listed in the building.
+            </p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance &amp; Marketing Reach
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Aggregated Multi-Channel Campaign Metrics (Aug 28 &ndash; Oct 25, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">555</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Listing Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Compass, Zillow, Realtor, Trulia</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">58,758</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Emails Sent (Opened)</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Targeted Broker &amp; Buyer Campaigns</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">2,157</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Social Media Video Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Instagram &amp; Digital Ad Impressions</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03: Buyer Sentiment & Feedback -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Buyer Sentiment &amp; Feedback Analysis
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Commentary &amp; Complete Chronological Showing Log</span>
+            </h2>
+
+            <ul class="feedback-list" style="margin-bottom: 2.5rem;">
+                <li class="feedback-item">
+                    <div class="feedback-category alert">1. Unit Size &amp; Spatial Perception for the $625,000 Price Point</div>
+                    <p>Buyers touring in September noted that while they appreciated the modern finishes and boutique atmosphere of Le Parc, the 962 sq. ft. interior felt compact for a primary 2-bedroom residence at $625,000. In particular, prospects comparing against slightly larger 1,000+ sq. ft. residences in the broader Brickell market felt they needed more living/entertaining space.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">2. Floor Level &amp; View Expectations vs. Competing Inventory</div>
+                    <p>One private tour prospect specifically commented that they were seeking a different view orientation or higher floor in the building (Le Parc has active 2-bedroom listings on the 11th and 12th floors). At the current asking price, buyers are evaluating whether an 8th-floor line offers sufficient view premium compared to units priced under $550k on lower/mid floors.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">3. Complete Showing Lull Across October (Zero In-Person Tours)</div>
+                    <p>Following the 3 tours in September, zero showing appointments were booked between October 5 and October 25. While digital email reach remained robust (+8,229 opened campaigns per week), the complete absence of physical tour requests indicates that active Brickell buyers have filtered out the unit at $625,000 in favor of units priced closer to the $500k&ndash;$550k closed comp band.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">4. Strong Appreciation for Two Parking Spaces &amp; Dual Storage Units</div>
+                    <p>Cooperating agents consistently praised the inclusion of <strong>two side-by-side second-floor parking spaces</strong> and <strong>two air-conditioned storage units</strong>&mdash;an exceedingly rare package in Brickell where extra parking spaces sell for $35,000+ and storage units rent for $150+/month. This remains our strongest competitive advantage to emphasize in future repositioning.</p>
+                </li>
+            </ul>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.35rem; margin-bottom: 1rem; color: #012143;">Chronological Verbatim Feedback Log</h3>
+            <div style="background: #F8F9FA; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-height: 480px; overflow-y: auto;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Oct 19 &ndash; Oct 25, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings this past week. Previous feedback noted that the unit was too small for them and that they wanted a different view. Strategy focusing on targeting current residents in the building and surrounding buildings; also marketing to medical students."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Oct 12 &ndash; Oct 18, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings this past week. Outreach actively focused on targeting neighborhood prospects and medical residents."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Oct 5 &ndash; Oct 11, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings this week (3 total all-time). Outreach actively focused on targeting neighborhood prospects."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Sep 22 &ndash; Sep 28, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings this week. Following up on past leads."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Sep 14 &ndash; Sep 20, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"They like the unit but they are not yet convinced on the area and they need a little more space."</p>
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Sep 7 &ndash; Sep 13, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1 private showing last week. They liked the area and the building but wanted a different view and are going to keep looking."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04: Market Intelligence & Direct Competition -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence &amp; Direct Competition
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Le Parc at Brickell &amp; 0.5-Mile Brickell MLS Comparative Analysis</span>
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Subject Property (Asking)</div>
+                    <div class="stat-value">$625,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$650 / SqFt</strong> &bull; 2 Bed / 2 Bath &bull; 962 SqFt &bull; 2 Parking + 2 A/C Storage</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Le Parc Active 2-Beds Average</div>
+                    <div class="stat-value">$640,114</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$665 / SqFt</strong> across 7 Active 2-Beds in Le Parc ($768/SF Wider Brickell Active Avg)</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Le Parc Closed 2-Beds Average</div>
+                    <div class="stat-value">$504,500</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$589 / SqFt</strong> (What buyers actually pay for 2-beds in Le Parc; $662/SF Wider Brickell)</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; margin-bottom: 3rem; padding: 1rem;">
+                <p style="font-weight: 600; margin-bottom: 4.5rem;">Price/SqFt Market Position Visualizer (Le Parc at Brickell)</p>
+                <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+                    <!-- Closed Sales Marker -->
+                    <div style="position: absolute; left: 18%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed 2-Bed Avg<br>$589/SF</div>
+                    <div style="position: absolute; left: 18%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+                    
+                    <!-- Target Property Marker -->
+                    <div style="position: absolute; left: 52%; top: -55px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #802 (Subject)<br>$650/SF</div>
+                    <div style="position: absolute; left: 52%; top: -20px; height: calc(100% + 20px); width: 3px; background: #c62828;"></div>
+                    
+                    <!-- Active Comps Marker -->
+                    <div style="position: absolute; left: 62%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active 2-Bed Avg<br>$665/SF</div>
+                    <div style="position: absolute; left: 62%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+
+                    <!-- Wider Brickell Active Marker -->
+                    <div style="position: absolute; left: 90%; top: -55px; font-weight: bold; font-size: 0.85rem; color: #666; transform: translateX(-50%); white-space: nowrap; text-align: center;">Wider Brickell 2-Bed<br>$768/SF</div>
+                    <div style="position: absolute; left: 90%; top: -20px; height: calc(100% + 20px); width: 2px; background: #888;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Direct Building Comps &mdash; Le Parc at Brickell (1600 SW 1st Ave)</h3>
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #012143; color: #ffffff;">
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Unit / Address</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Price</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">$/SqFt</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Beds/Baths</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Living SF</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Parking / Storage</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Status / Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fdfaf0; border-bottom: 2px solid #e0d5b5;">
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #b78a30;">Unit #802 (Subject Property)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #000;">$625,000</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #c62828;">$650/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">962</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">2 Assigned + 2 A/C Storage</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #b78a30;">Active (61 DOM)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">Unit #1202</td>
+                                <td style="padding: 1rem 1.25rem;">$765,000</td>
+                                <td style="padding: 1rem 1.25rem;">$619/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">1,236</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active (Top Floor Penthouse line)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">Unit #707</td>
+                                <td style="padding: 1rem 1.25rem;">$750,000</td>
+                                <td style="padding: 1rem 1.25rem;">$670/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">1,119</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active (Larger 2.5 bath corner)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">Unit #1103</td>
+                                <td style="padding: 1rem 1.25rem;">$669,000</td>
+                                <td style="padding: 1rem 1.25rem;">$710/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">942</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active (High Floor)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">Unit #307</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$567,000</td>
+                                <td style="padding: 1rem 1.25rem;">$667/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">850</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">Unit #812</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$529,900</td>
+                                <td style="padding: 1rem 1.25rem;">$663/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">799</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active (Direct Price Competitor)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">Unit #512</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$524,900</td>
+                                <td style="padding: 1rem 1.25rem;">$657/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">799</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active (Direct Price Competitor)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">Unit #1106</td>
+                                <td style="padding: 1rem 1.25rem;">$518,000</td>
+                                <td style="padding: 1rem 1.25rem;">$601/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">862</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold (Closed)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">Unit #1104</td>
+                                <td style="padding: 1rem 1.25rem;">$510,000</td>
+                                <td style="padding: 1rem 1.25rem;">$559/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">912</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold (Closed)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">Unit #906</td>
+                                <td style="padding: 1rem 1.25rem;">$500,000</td>
+                                <td style="padding: 1rem 1.25rem;">$580/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">862</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold (Closed)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">Unit #510</td>
+                                <td style="padding: 1rem 1.25rem;">$490,000</td>
+                                <td style="padding: 1rem 1.25rem;">$616/SF</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">796</td>
+                                <td style="padding: 1rem 1.25rem;">1 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Sold (Closed)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.92rem; color: #555;">
+                    <em><strong>Key Market Takeaway:</strong> In Le Parc, every recorded 2-bedroom sale closed between <strong>$490,000 and $518,000</strong> (averaging <strong>$589/SqFt</strong>). However, all closed units were smaller lines (796 to 912 SqFt) with only a single parking space and no private air-conditioned storage. Active units #812 and #512 are listed aggressively at <strong>$524,900 &ndash; $529,900 ($657&ndash;$663/SF)</strong>, pulling entry-level 2-bedroom buyers away from Unit #802 ($625,000). While Unit #802 offers 962 SqFt, two assigned parking spots, and two storage units, buyers viewing the building today see active options listed nearly $100,000 lower.</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- 05: Strategic Roadmap -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap &amp; Positioning Plan
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Actionable Recommendations to Revitalize Inquiries &amp; Secure a Contract</span>
+            </h2>
+            <div class="recommendation-box">
+                <h3>Recommended Action Plan</h3>
+                <ul class="recommendation-list">
+                    <li><strong>1. Aggressively Market the "2 Parking + 2 Storage Unit Package" ($45,000+ Tangible Asset Value):</strong> The single biggest market differentiator separating Unit #802 from all other Le Parc 2-beds (Units #512, #812, #307, #1103) is its parking and storage allocation. In Brickell, an extra deeded/assigned parking space commands $35,000&ndash;$45,000 in resale value or $200+/month in rental income, and two climate-controlled storage units add another $10,000+ in value. We recommend updating the MLS headlines and promotional marketing specifically to: <em>"Rare Corner 2BD/2BA with 2 Side-by-Side Parking Spaces &amp; 2 A/C Storage Units &mdash; Over $45k in Bonus Deeded Value."</em></li>
+                    <li><strong>2. Strategic Price Adjustment Below the $600,000 Search Filter ($585,000 &ndash; $595,000 | ~$608&ndash;$618/SqFt):</strong> After 61 Days on Market with 0 showings in October, the listing is currently priced above the psychological $600,000 barrier where many conventional and first-time Brickell buyers set their upper limit. Adjusting to <strong>$589,000 &ndash; $595,000</strong> places Unit #802 right at the sweet spot: directly in line with closed building comps ($589/SF) while preserving an appropriate premium for its extra 160+ sq. ft. of living space, 2nd parking space, and dual storage rooms over units #512 and #812 ($525k&ndash;$530k).</li>
+                    <li><strong>3. Targeted Campaign to Healthcare Professionals &amp; Underline Commuters:</strong> Positioned directly across from Publix, adjacent to Novotel, and steps from the Brickell Metrorail/Underline station, Le Parc offers direct transit to the University of Miami Miller School of Medicine / Jackson Memorial hospital campus. Launch a dedicated email campaign specifically targeting healthcare fellows, residents, and tech professionals who commute via Metrorail and require 2 cars for dual-earner households.</li>
+                    <li><strong>4. Promote the Building's 3% Down Payment Financing Approval:</strong> Highlight prominently in the MLS and broker blasts that Le Parc is approved for conventional 3% down payment programs and has no pending special assessments&mdash;a critical selling point in today's high-interest-rate environment where condo buyers are struggling with restrictive HOA lending criteria.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 06: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography &amp; Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Origin &amp; Syndication Traffic Breakdown (All Historical Compass Insights)</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Zillow</span>
+                            <span style="font-weight: 700; color: #012143;">42.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Other Syndication Portals</span>
+                            <span style="font-weight: 700; color: #012143;">39.1%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Compass.com</span>
+                            <span style="font-weight: 700; color: #012143;">11.9%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Realtor.com</span>
+                            <span style="font-weight: 700; color: #012143;">5.7%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Trulia</span>
+                            <span style="font-weight: 700; color: #012143;">0.8%</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities (Cumulative)</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami, FL</span>
+                            <span style="font-weight: 700; color: #012143;">54.6%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">15.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Missouri City / Houston, TX</span>
+                            <span style="font-weight: 700; color: #012143;">12.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Pompano Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">5.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Seattle, WA</span>
+                            <span style="font-weight: 700; color: #012143;">5.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Reston / DC Metro, VA</span>
+                            <span style="font-weight: 700; color: #012143;">2.8%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Tampa / Bradenton, FL</span>
+                            <span style="font-weight: 700; color: #012143;">4.6%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+                        
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+                    
+                    function initMap() {
+                        var map = L.map('map').setView([36.0, -93.0], 4);
+                        
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            maxZoom: 20
+                        }).addTo(map);
+                        
+                        var cities = [
+                            { name: "Miami, FL", lat: 25.7617, lon: -80.1918, views: "54.6%", radius: 18 },
+                            { name: "Miami Beach, FL", lat: 25.7907, lon: -80.1300, views: "15.0%", radius: 13 },
+                            { name: "Missouri City / Houston, TX", lat: 29.6186, lon: -95.5377, views: "12.5%", radius: 11 },
+                            { name: "Pompano Beach, FL", lat: 26.2379, lon: -80.1248, views: "5.5%", radius: 8 },
+                            { name: "Seattle, WA", lat: 47.6062, lon: -122.3321, views: "5.0%", radius: 8 },
+                            { name: "Reston / Washington DC, VA", lat: 38.9586, lon: -77.3570, views: "2.8%", radius: 6 },
+                            { name: "Tampa, FL", lat: 27.9506, lon: -82.4572, views: "2.3%", radius: 5 },
+                            { name: "Bradenton, FL", lat: 27.4989, lon: -82.5748, views: "2.3%", radius: 5 }
+                        ];
+                        
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.65
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Share of Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Natalia Figueroa</strong> | Licensed Real Estate Agent</p>
+            <p>Compass One | (786) 554-8301 | natalia.figueroa@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on October 27, 2026. Internal Market &amp; Comp Analysis Report (Not Linked on Public Owner Portal).
+        </div>
+    </footer>
+</body>
+</html>

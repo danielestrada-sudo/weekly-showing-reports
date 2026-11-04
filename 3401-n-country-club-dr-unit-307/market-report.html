@@ -1,0 +1,832 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market & Comp Analysis | 3401 N Country Club Dr Unit #307</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244; 
+            --accent: #2A9D8F; 
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+        
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+        
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA;
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.25rem;
+        }
+
+        .feedback-category.alert {
+            color: var(--danger);
+        }
+
+        .recommendation-box {
+            background: rgba(42, 157, 143, 0.08);
+            border: 1px solid var(--accent);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 1.5rem;
+        }
+
+        .recommendation-box h3 {
+            color: var(--accent);
+            margin-bottom: 0.75rem;
+            font-size: 1.15rem;
+        }
+
+        .recommendation-list {
+            padding-left: 1.25rem;
+        }
+
+        .recommendation-list li {
+            margin-bottom: 0.75rem;
+        }
+
+        .recommendation-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .cycle-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .cycle-card {
+            background: #F8F9FA;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .cycle-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .cycle-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+
+        .cycle-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Comprehensive Market &amp; Comp Analysis</h1>
+                <h2>3401 N Country Club Dr Unit #307 &mdash; Ensenada Condo</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Aventura, FL 33180 &bull; Turnberry Isle Circle</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 161 Days on Market (Live Since May 27, 2026)</span>
+                <span><strong>MLS #A12025838</strong> | 2 Beds / 2 Baths | 994 Living SqFt | 1 Assigned Space | Asking: <strong>$2,500/Month</strong></span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Weekly Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+        
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing &amp; Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Tenant Tour Activity &amp; Showing Trajectory (160-Day Milestone Review)</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">14</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Showing Appointments</div>
+                </div>
+                
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">161</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Days on Market (DOM)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">1,150+</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Online Views</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">0</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Offers Received</div>
+                </div>
+            </div>
+
+            <div class="cycle-comparison-grid">
+                <div class="cycle-card">
+                    <h4>Launch Phase (May 27 &ndash; July 27, 2026 @ $2,650/mo)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>62 Days</strong></div>
+                    <div class="cycle-row"><span>Showing Appointments:</span><strong>5 Appointments (3 Completed)</strong></div>
+                    <div class="cycle-row"><span>Pricing Trajectory:</span><strong>Listed at $2,650 / month</strong></div>
+                    <div class="cycle-row"><span>Tenant Sentiment:</span><strong>Touring multiple buildings; hesitated on unit price vs. condition</strong></div>
+                </div>
+                <div class="cycle-card">
+                    <h4>Price Reduction &amp; Mid-Cycle (July 28 &ndash; Oct 1, 2026 @ $2,500/mo)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>66 Days</strong></div>
+                    <div class="cycle-row"><span>Showing Appointments:</span><strong>9 Appointments (8 Completed Tours)</strong></div>
+                    <div class="cycle-row"><span>Price Reduction:</span><strong>Reduced on 07/28 to $2,500/mo (-$150)</strong></div>
+                    <div class="cycle-row"><span>Feedback Theme:</span><strong>"Building is older than tenant wanted"; comparing against renovated units</strong></div>
+                </div>
+                <div class="cycle-card" style="border-left: 4px solid #c62828; background: #fff8f6;">
+                    <h4>Recent Plateau &amp; Showing Drought (October 2 &ndash; November 4, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>34 Days (161 Total DOM)</strong></div>
+                    <div class="cycle-row"><span>Appointments in Last 30 Days:</span><strong>0 Appointments</strong></div>
+                    <div class="cycle-row"><span>Appointments in Last 7 Days:</span><strong>0 Appointments</strong></div>
+                    <div class="cycle-row"><span>Market Takeaway:</span><strong>Showing momentum has completely stalled; immediate repositioning required</strong></div>
+                </div>
+            </div>
+            
+            <p style="font-size: 1.05rem; color: #333; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <strong>Executive Summary:</strong> Over 161 continuous Days on Market since listing on May 27, 2026, <strong>3401 N Country Club Dr Unit #307</strong> has generated 14 total showing appointments through ShowingTime (12 completed physical walkthroughs, 1 cancellation, and 1 no-show). While the initial July 28 price improvement from $2,650 to $2,500 temporarily stimulated late-summer walkthroughs (8 appointments across August and September), showing activity has completely flatlined over the last 34 days, with <strong>zero appointments recorded in the past 30 days</strong>. Prospective renters touring the unit have expressed that while they appreciate the location along the Aventura Circle jogging path and the included utilities (water, cable, internet), the building's 1971 vintage requires a competitive pricing structure to outcompete newly renovated and cheaper alternatives. Most critically, within the Ensenada complex itself, Unit #307 sits at the very top of asking rents ($2,500), while identical and even larger 2-bedroom units in the exact same building are currently actively offered between <strong>$2,000 and $2,200/month</strong>.
+            </p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance &amp; Marketing Reach
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Aggregated Multi-Channel Campaign Metrics (May 27 &ndash; November 4, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">1,150+</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Online Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Compass, Zillow, Realtor.com, Trulia</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">67,748</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Broker Emails Opened</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Targeted Real Estate Agent Campaigns</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">493</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Social Media Engagements</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Instagram &amp; Digital Promotions</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03: Tenant Sentiment & Showing Feedback -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Tenant Sentiment &amp; Feedback Analysis
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections &amp; ShowingTime Chronological Activity Log</span>
+            </h2>
+
+            <ul class="feedback-list" style="margin-bottom: 2.5rem;">
+                <li class="feedback-item">
+                    <div class="feedback-category alert">1. Building Vintage (1971) &amp; Common Area Perceptions vs. Asking Rent</div>
+                    <p>Documented showing feedback explicitly highlighted: <em>"The building is a little older than the tenant wanted."</em> At an asking rent of $2,500/month, prospective renters in Aventura benchmark the property against 1980s condominium towers (such as Flamenco Towers and Delvista Towers) or renovated units along Country Club Drive that offer higher amenity packages. Tenants willing to pay $2,500+ consistently favor newer developments or fully upgraded properties.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">2. Direct Price Undercutting Within Ensenada (Same-Building Competition)</div>
+                    <p>There are currently 6 other active 2-bedroom residences in Ensenada. Five of these units are offered between <strong>$2,000 and $2,200/month</strong>, including Unit #311 (1,081 SF with waterfront view and 2 parking spaces for $2,100) and Unit #211 (1,081 SF for $2,200). Co-broke agents guiding prospective renters through the building naturally prioritize showing units priced $300 to $500 lower per month before considering Unit #307 at $2,500.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">3. Complete Showing Drought in October (0 Appointments in 30 Days)</div>
+                    <p>Following the final showing by Watanya Jackson on October 1, 2026, zero showing appointments have been booked throughout the entire month of October. In the South Florida rental market, a 30-day showing void on an active MLS listing indicates that the property has fallen outside current tenant search algorithm filters ($2,000&ndash;$2,250 range) for its specific asset class.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">4. Inconsistent Furnishing Status on MLS vs. Marketing</div>
+                    <p>The MLS listing currently specifies <strong>"Furnished Info: Unfurnished"</strong>, while the promotional remarks state <em>"Fully furnished and move-in ready... now we are listing furnished and at a higher price."</em> Renter search portals rely strictly on backend filter fields; tenants searching specifically for furnished turnkey rentals do not see Unit #307 in their search results, while unfurnished renters view the $2,500 price as uncompetitive compared to unfurnished comps at $2,000&ndash;$2,200.</p>
+                </li>
+            </ul>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.35rem; margin-bottom: 1rem; color: #012143;">Complete ShowingTime Chronological Showing Log</h3>
+            <div style="background: #F8F9FA; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-height: 480px; overflow-y: auto;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Watanya Jackson &bull; Beachfront Realty Inc</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">10/01/2026 &bull; 10:45 AM - 11:00 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (561) 516-2250 | Servicesprofessional96@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Jeannette Lerner &bull; Brickell Brokers LLC</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">09/09/2026 &bull; 5:15 PM - 5:30 PM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (305) 796-4858 | jeannettelerner@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Macarena Sepulveda &bull; EXP Realty LLC</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">09/05/2026 &bull; 12:00 PM - 12:30 PM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (305) 903-4835 | macarena.sepulveda@exprealty.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Anzselika Zeldi &bull; Florida Brokers Real Estate</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">09/04/2026 &bull; 10:00 AM - 10:15 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (917) 615-3863 | anzselikaz@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #E76F51;">Macarena Sepulveda &bull; EXP Realty LLC (Canceled)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/31/2026 &bull; 4:00 PM - 4:15 PM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem; font-style: italic;">Showing canceled by showing agent: "Buyer schedule changed."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Alberto Zaltzberg &bull; Adonait Business LLC</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/25/2026 &bull; 11:20 AM - 11:35 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (954) 588-7564 | adonaitemail@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Alejandra Goldstein &bull; Grand Realty of America, Corp.</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/20/2026 &bull; 9:45 AM - 10:00 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (786) 326-2319 | alejandra@grandrealtyusa.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Alexander De La Cruz &bull; Brickell Brokers LLC</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/15/2026 &bull; 10:00 AM - 10:15 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (305) 303-6144 | alex.miamiproperties@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Rodrigo Lugano &bull; Optimar International Realty</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/11/2026 &bull; 6:05 PM - 6:20 PM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (786) 609-8926 | rodrigolugano@icloud.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Anat Thaller &bull; LoKation</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/11/2026 &bull; 11:30 AM - 11:45 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (305) 970-0804 | anatthaller@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #E76F51;">Diana Atehortua &bull; Jason Mitchell Real Estate (Canceled)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/09/2026 &bull; 11:15 AM - 11:30 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem; font-style: italic;">Showing canceled by showing agent: "Buyer schedule changed."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Laura Preuss Kuhne &bull; Douglas Elliman</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">08/01/2026 &bull; 11:00 AM - 11:15 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (305) 586-1481 | laura.preusskuhne@elliman.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #b78a30;">Price Change Recorded in MLS</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">07/28/2026 &bull; 11:39 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem; font-weight: 600;">Price adjusted from $2,650 to $2,500/Month.</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #888;">Olga Maksymova &bull; Kazak Realty, Inc.</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">07/09/2026 &bull; 11:00 AM - 11:15 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing Unconfirmed. Contact: (786) 922-1715 | olgamaxymova@gmail.com</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: #E76F51;">Elham Tadrous &bull; Beachfront Realty Inc (No-Show)</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">07/09/2026 &bull; 10:45 AM - 11:00 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem; font-style: italic;">Feedback received 07/11: "Didn't show."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Sandy McLeod &bull; Belzince Luxury Estates LLC</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">06/11/2026 &bull; 10:45 AM - 11:00 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">Past Showing completed. Contact: (786) 277-7515 | sndymcld@gmail.com</p>
+                </div>
+                <div>
+                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                        <span style="font-size: 0.85rem; font-weight: 700; color: var(--accent);">Alexander De La Cruz &bull; Brickell Brokers LLC</span>
+                        <span style="font-size: 0.8rem; color: var(--text-muted);">06/07/2026 &bull; 10:30 AM - 10:45 AM</span>
+                    </div>
+                    <p style="margin-top: 0.25rem; font-size: 0.95rem;">First Showing completed: "No feedback yet &mdash; they were touring several units."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04: Market Intelligence & Direct Competition -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence &amp; Direct Competition
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Ensenada Condo &amp; 0.2-Mile Country Club Drive MLS Rental Comps</span>
+            </h2>
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Subject Property (Asking)</div>
+                    <div class="stat-value">$2,500/mo</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$2.52 / SqFt</strong> &bull; 2 Bed / 2 Bath &bull; 994 SqFt &bull; 1 Assigned Space</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Ensenada Active 2-Beds Average</div>
+                    <div class="stat-value">$2,183/mo</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$2.11 / SqFt</strong> across 6 Competing Active 2-Beds in Ensenada ($2.49/SF Wider Aventura 2-Bed Avg)</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Ensenada Closed / Rented 2-Beds</div>
+                    <div class="stat-value">$2,450/mo</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$2.37 / SqFt</strong> (What tenants actually pay in Ensenada; $2.48/SF Wider Aventura 2-Bed Rented)</p>
+                </div>
+            </div>
+            
+            <div style="margin-top: 2rem; margin-bottom: 3rem; padding: 1rem;">
+                <p style="font-weight: 600; margin-bottom: 4.5rem;">Monthly Rent / SqFt Market Position Visualizer (Ensenada &amp; Aventura 2-Bedrooms)</p>
+                <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+                    <!-- Ensenada Active Comps Marker -->
+                    <div style="position: absolute; left: 24%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Ensenada Active Avg<br>$2.11/SF ($2,183/mo)</div>
+                    <div style="position: absolute; left: 24%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+                    
+                    <!-- Ensenada Rented Comps Marker -->
+                    <div style="position: absolute; left: 52%; top: -55px; font-weight: bold; font-size: 0.9rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Ensenada Rented Avg<br>$2.37/SF ($2,450/mo)</div>
+                    <div style="position: absolute; left: 52%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+
+                    <!-- Target Property Marker -->
+                    <div style="position: absolute; left: 72%; top: -55px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #307 (Subject)<br>$2.52/SF ($2,500/mo)</div>
+                    <div style="position: absolute; left: 72%; top: -20px; height: calc(100% + 20px); width: 3px; background: #c62828;"></div>
+                    
+                    <!-- Wider Aventura Active Marker -->
+                    <div style="position: absolute; left: 88%; top: -55px; font-weight: bold; font-size: 0.85rem; color: #666; transform: translateX(-50%); white-space: nowrap; text-align: center;">Country Club Towers<br>$2.49/SF ($2,722/mo)</div>
+                    <div style="position: absolute; left: 88%; top: -20px; height: calc(100% + 20px); width: 2px; background: #888;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Direct Building &amp; Immediate Area Rental Comps</h3>
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.95rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #012143; color: #ffffff;">
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Unit / Address</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Building</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Monthly Rent</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">$/SqFt</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Beds/Baths</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Living SF</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Furnished / Parking</th>
+                                <th style="padding: 1rem 1.25rem; font-weight: 600;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fdfaf0; border-bottom: 2px solid #e0d5b5;">
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #b78a30;">3401 N Country Club Dr #307</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #012143;">Ensenada (Subject)</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #c62828;">$2,500</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #c62828;">$2.52</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">994</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600;">Furnished (Listed Unfurn) &bull; 1 Space</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 700; color: #b78a30;">Active (161 DOM)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3401 N Country Club Dr #519</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600;">$2,500</td>
+                                <td style="padding: 1rem 1.25rem;">$2.65</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">944</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 1 Space</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active (Same Building)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3475 N Country Club Dr #319</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,200</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F;">$2.21</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2.5</td>
+                                <td style="padding: 1rem 1.25rem;">994</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 1 Space &bull; Waterfront</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F; font-weight: 600;">Active (-$300/mo)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3401 N Country Club Dr #211</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,200</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F;">$2.04</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,081</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 1 Space</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F; font-weight: 600;">Active (Larger &bull; -$300/mo)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3475 N Country Club Dr #308</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,100</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F;">$1.94</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,081</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 1 Space &bull; Waterfront</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F; font-weight: 600;">Active (-$400/mo)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3401 N Country Club Dr #311</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,100</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F;">$1.94</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,081</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">Unfurnished &bull; 2 Spaces &bull; Waterfront</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F; font-weight: 600;">Active (Same Floor &bull; -$400/mo)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3475 N Country Club Dr #805</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #2A9D8F;">$2,000</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F;">$1.85</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,081</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 0 Assigned</td>
+                                <td style="padding: 1rem 1.25rem; color: #2A9D8F; font-weight: 600;">Active (-$500/mo)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3401 N Country Club Dr #812</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600;">$2,600</td>
+                                <td style="padding: 1rem 1.25rem;">$2.62</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">994</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 8th Floor Top Line</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Rented ($2,600/mo)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143; font-weight: 600;">3475 N Country Club Dr #405</td>
+                                <td style="padding: 1rem 1.25rem;">Ensenada</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600;">$2,300 <span style="font-size:0.8rem; color:#888;">(List $2,375)</span></td>
+                                <td style="padding: 1rem 1.25rem;">$2.13</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,081</td>
+                                <td style="padding: 1rem 1.25rem;">Furnished</td>
+                                <td style="padding: 1rem 1.25rem; font-weight: 600; color: #555;">Rented ($2,300/mo)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">3675 N Country Club Dr #1504</td>
+                                <td style="padding: 1rem 1.25rem;">Aventura Eldorado</td>
+                                <td style="padding: 1rem 1.25rem;">$2,450</td>
+                                <td style="padding: 1rem 1.25rem;">$2.46</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">996</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; 1 Space</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active Competitor</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">3701 N Country Club Dr #706</td>
+                                <td style="padding: 1rem 1.25rem;">Flamenco Tower I</td>
+                                <td style="padding: 1rem 1.25rem;">$2,600</td>
+                                <td style="padding: 1rem 1.25rem;">$2.29</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,135</td>
+                                <td style="padding: 1rem 1.25rem;">Unfurnished &bull; Waterfront</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active Competitor (1980 Tower)</td>
+                            </tr>
+                            <tr style="background: #ffffff;">
+                                <td style="padding: 1rem 1.25rem; color: #012143;">3701 N Country Club Dr #1706</td>
+                                <td style="padding: 1rem 1.25rem;">Flamenco Tower II</td>
+                                <td style="padding: 1rem 1.25rem;">$2,600</td>
+                                <td style="padding: 1rem 1.25rem;">$2.29</td>
+                                <td style="padding: 1rem 1.25rem;">2 / 2</td>
+                                <td style="padding: 1rem 1.25rem;">1,135</td>
+                                <td style="padding: 1rem 1.25rem;">Furnished &bull; 1 Space</td>
+                                <td style="padding: 1rem 1.25rem; color: #666;">Active Competitor (High Floor)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.92rem; color: #555;">
+                    <em><strong>Critical Market Finding:</strong> Within the Ensenada complex itself, Unit #307 at $2,500/month is priced $300 to $500 above five direct 2-bedroom competitors. Most notably, Unit #311 on the exact same floor in the exact same building offers 1,081 sq. ft. (87 sq. ft. larger), two parking spaces, and direct waterfront views for $2,100/month ($400/month less). As long as this internal pricing disconnect persists, cooperating agents and prospective tenants will continue bypassing Unit #307.</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- 05: Strategic Roadmap -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap &amp; Positioning Plan
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Actionable Recommendations to Revitalize Showings &amp; Secure a Tenant</span>
+            </h2>
+            <div class="recommendation-box">
+                <h3>Recommended 4-Point Action Plan</h3>
+                <ul class="recommendation-list">
+                    <li><strong>1. Strategic Price Adjustment to $2,150 &ndash; $2,250/Month (~$2.16&ndash;$2.26/SqFt):</strong> After 161 Days on Market and a 30-day showing drought, the listing's current $2,500 rate sits in no-man's-land. Repositioning to <strong>$2,195 &ndash; $2,250/month</strong> immediately places Unit #307 in direct contention with Unit #211 ($2,200) and Unit #319 ($2,200), effectively neutralizing the same-building price objection and capturing tenants actively looking in the $2,000&ndash;$2,250 search tier.</li>
+                    <li><strong>2. Correct the MLS Furnishing Status to "Furnished" (Critical MLS Filter Fix):</strong> While the marketing copy proudly highlights <em>"Fully furnished and move-in ready in the heart of Aventura"</em>, the backend MLS listing field is incorrectly set to <strong>"Furnished Info: Unfurnished"</strong>. Real estate agents and prospective tenants searching specifically for furnished seasonal or corporate rentals automatically filter out Unit #307. Correcting this backend field will instantly expose the listing to high-budget relocating professionals and winter seasonal tenants who require fully furnished residences.</li>
+                    <li><strong>3. Capitalize on the Incoming Winter Snowbird &amp; Relocation Season:</strong> November through January marks the peak seasonal influx in Aventura. Many snowbirds, corporate transferees, and medical residents traveling to Mount Sinai Aventura or Aventura Hospital seek turnkey furnished rentals along the Country Club Drive circle. Updating the MLS remarks to emphasize <em>"Turnkey Furnished Split-Floorplan &bull; Flexible Annual or Seasonal Lease &bull; Across from Turnberry Isle"</em> aligns perfectly with this high-demand seasonal demographic.</li>
+                    <li><strong>4. Aggressively Promote the "All-Inclusive Utility Package" ($180+/Month Net Savings):</strong> The Ensenada lease covers <strong>water, sewer, basic cable, and high-speed internet</strong>. In typical competitive rentals where tenants must pay internet ($80/mo) and water/trash ($100/mo), tenants incur an additional $180/month out-of-pocket. Emphasizing in bold marketing copy that <em>"Rent Includes Water, High-Speed Internet &amp; Cable &mdash; Over $2,000 in Annual Tenant Savings"</em> bridges the value gap and makes the unit visibly superior to comparable options.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 06: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography &amp; Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Tenant Origin &amp; Syndication Traffic Breakdown (Compass Insights History)</span>
+            </h2>
+            
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Other Syndication Portals (Zillow / Trulia)</span>
+                            <span style="font-weight: 700; color: #012143;">92.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Compass.com</span>
+                            <span style="font-weight: 700; color: #012143;">4.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Realtor.com</span>
+                            <span style="font-weight: 700; color: #012143;">3.0%</span>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities (Compass Data)</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Tampa, FL</span>
+                            <span style="font-weight: 700; color: #012143;">25.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Pompano Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">25.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">West Palm Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">20.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Los Angeles, CA</span>
+                            <span style="font-weight: 700; color: #012143;">15.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Atlanta, GA</span>
+                            <span style="font-weight: 700; color: #012143;">15.0%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+            
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+                        
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+                    
+                    function initMap() {
+                        var map = L.map('map').setView([33.0, -87.0], 4);
+                        
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            maxZoom: 20
+                        }).addTo(map);
+                        
+                        var cities = [
+                            { name: "Tampa, FL", lat: 27.9506, lon: -82.4572, views: "25.0%", radius: 14 },
+                            { name: "Pompano Beach, FL", lat: 26.2379, lon: -80.1248, views: "25.0%", radius: 14 },
+                            { name: "West Palm Beach, FL", lat: 26.7153, lon: -80.0534, views: "20.0%", radius: 12 },
+                            { name: "Atlanta, GA", lat: 33.7490, lon: -84.3880, views: "15.0%", radius: 10 },
+                            { name: "Los Angeles, CA", lat: 34.0522, lon: -118.2437, views: "15.0%", radius: 10 }
+                        ];
+                        
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.65
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Share of Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Natalia Figueroa</strong> | Licensed Real Estate Agent</p>
+            <p>Compass One | (786) 554-8301 | natalia.figueroa@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on November 4, 2026. Comprehensive Market &amp; Comp Analysis for 3401 N Country Club Dr Unit #307.
+        </div>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | 357 Almeria Ave, Unit 606</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244;
+            --accent: #2A9D8F;
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.45rem;
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+
+        .feedback-category.alert {
+            background: rgba(231, 111, 81, 0.12);
+            color: #c62828;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+            border: 1px solid rgba(42, 157, 143, 0.25);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .recommendation-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .recommendation-list {
+            padding-left: 1.5rem;
+        }
+
+        .recommendation-list li {
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .cycle-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .cycle-card {
+            background: #F8F9FA;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .cycle-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .cycle-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+
+        .cycle-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Market &amp; Comp Analysis</h1>
+                <h2>357 Almeria Ave, Unit 606 &mdash; Gables Park Tower</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Downtown Coral Gables, FL 33134</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 59 Days on Market (Live Since Sept 18, 2026 &bull; Hits 60 DOM Nov 17)</span>
+                <span><strong>MLS #A12091647</strong> | 2 Beds / 2 Baths | 932 SqFt (-06 Stack) | 6th Floor | 1 Garage | Built 2003 | HOA $1,000/mo + $253/mo Assessment</span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing &amp; Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Tour Engagement &amp; Showing Trajectory (60-Day Milestone Review)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">13</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Tracked Private Showings</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">59</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Days on Market (Hits 60 Nov 17)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">4,700</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Online Views</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">0</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Offers Received</div>
+                </div>
+            </div>
+
+            <div class="cycle-comparison-grid">
+                <div class="cycle-card">
+                    <h4>Launch &amp; Discovery (Weeks 1 &ndash; 3: Sept 18 &ndash; Oct 4, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>17 Days</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>3 Showings (+ Early Cancellations)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>2,461 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>15,922 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>532 Views</strong></div>
+                    <div class="cycle-row"><span>Early Sentiment:</span><strong>Loved Downtown Gables location; early cancellations over SqFt &amp; HOA</strong></div>
+                </div>
+                <div class="cycle-card">
+                    <h4>Mid-Cycle Momentum (Weeks 4 &ndash; 6: Oct 5 &ndash; Oct 25, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>21 Days</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>5 Showings (~1.7 / week)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>1,307 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>22,892 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>2,635 Views</strong></div>
+                    <div class="cycle-row"><span>Feedback Theme:</span><strong>Kitchen size, layout fit &amp; un-air-conditioned exterior hallways</strong></div>
+                </div>
+                <div class="cycle-card" style="border-left: 4px solid #012143; background: #fdfaf0;">
+                    <h4>Recent Activity &amp; 60-Day Trigger (Weeks 7 &ndash; 9: Oct 26 &ndash; Nov 15)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>21 Days (59 Total DOM)</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>5 Showings (~1.7 / week)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>932 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>20,154 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>+0 Weekly Tracked</strong></div>
+                    <div class="cycle-row"><span>Core Friction:</span><strong>Buyers choosing larger Unit #1507 ($560k) over #606 ($555k)</strong></div>
+                </div>
+            </div>
+
+            <p style="font-size: 1.05rem; color: #333; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <strong>Executive Summary:</strong> Over 59 Days on Market at <strong>$555,000 ($595/SqFt)</strong>, <strong>357 Almeria Ave, Unit 606</strong> has maintained remarkably consistent showing velocity&mdash;<strong>13 private showings</strong> across 8 active weeks (1&ndash;2 tours virtually every week), backed by <strong>4,700 online listing views</strong>, <strong>58,968 opened emails</strong>, and <strong>3,167 social views</strong>. Despite healthy tour traffic and praise for its unbeatable walkability (steps to Publix, Miracle Mile, and The Plaza Coral Gables) and recently updated appliances/A/C (&lt;2 years old), the unit has not converted a contract because it is losing head-to-head value comparisons both inside the building and across recent closed sales. Specifically: (1) active <strong>Unit #1507</strong> inside Gables Park Tower is listed for just <strong>$5,000 more ($560,000)</strong> while offering <strong>91 additional square feet (1,023 SqFt)</strong>, an extra den, and a 15th-floor elevation&mdash;and a Week 9 buyer explicitly chose #1507 over #606; (2) all <strong>5 closed 2-bedroom sales</strong> in Gables Park Tower in 2026 traded between <strong>$510,808 and $540,000 ($542&ndash;$574/SqFt)</strong>, including four identical 932 SqFt `-06` stack units on higher floors (floors 9, 10, 11, and 14); and (3) prospects consistently scrutinize the <strong>$1,000/month HOA + $253/month special assessment</strong> ($1,253/mo combined) against un-air-conditioned exterior hallways and older interior finishes.
+            </p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance &amp; Marketing Reach
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Aggregated Multi-Channel Campaign Metrics (Sept 18 &ndash; Nov 15, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">4,700</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Listing Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Zillow, Realtor, Trulia, Compass</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">58,968</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Emails Sent (Opened)</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Downtown Gables Broker &amp; Buyer Blasts</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">3,167</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Social Media Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Property Promotion &amp; Social Reels</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03: Buyer Sentiment & Feedback -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Buyer Sentiment &amp; Feedback Analysis
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections &amp; Complete Chronological Showing Log (Weeks 1 &ndash; 9)</span>
+            </h2>
+
+            <ul class="feedback-list" style="margin-bottom: 2.5rem;">
+                <li class="feedback-item">
+                    <div class="feedback-category alert">1. Direct In-Building Substitution: Buyers Choosing Larger Unit #1507 ($560k) Over #606 ($555k)</div>
+                    <p>During the most recent week (Nov 9&ndash;15), our first touring buyer <strong>explicitly preferred active Unit #1507 in the same building</strong> because it provides an <strong>extra room/den (1,023 SqFt vs. 932 SqFt)</strong> and a 15th-floor vantage point for only $5,000 more ($547/SqFt vs. $595/SqFt). Similarly, on Oct 26&ndash;Nov 1, a current Gables Park Tower renter noted she already occupies the larger 2BR+2BA+Den layout.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">2. Compact 932 SqFt Footprint, Kitchen Size &amp; Interior Finishes vs. $595/SqFt Ask</div>
+                    <p>Across five separate weeks (Sept 21&ndash;27, Oct 12&ndash;18, Oct 19&ndash;25, Oct 26&ndash;Nov 1, and Nov 2&ndash;8), buyers felt the 932 SqFt floor plan and kitchen were smaller than expected in person (a deal-breaker for the Oct 19 Monday buyer), while the Nov 2&ndash;8 buyer passed in favor of a more modern, renovated, turnkey interior.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">3. Exterior-Style Building Hallways Without Air Conditioning (Weeks 4, 6 &amp; 7)</div>
+                    <p>Several buyers objected to Gables Park Tower's un-air-conditioned exterior catwalk hallways (Oct 5&ndash;11, Oct 19&ndash;25, Oct 26&ndash;Nov 1), feeling the corridor appearance was less welcoming on arrival&mdash;even when they enjoyed the pool courtyard and Downtown Coral Gables location.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">4. $1,253/Mo Combined HOA/Assessment Cost &amp; Warm Port St. Lucie Lead (Week 9)</div>
+                    <p>HOA fees ($1,000/month) and the $253/month special assessment caused multiple early showing cancellations and repeated buyer scrutiny. Positively, during Nov 9&ndash;15 a <strong>couple relocating from Port St. Lucie back to Coral Gables</strong> toured and specifically requested the full HOA documents and special assessment details, creating our most actionable current follow-up lead.</p>
+                </li>
+            </ul>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.35rem; margin-bottom: 1rem; color: #012143;">Chronological Verbatim Feedback Log (Sept 14 &ndash; Nov 15, 2026)</h3>
+            <div style="background: #F8F9FA; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-height: 520px; overflow-y: auto;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 9 &bull; Nov 9 &ndash; Nov 15, 2026 (2 Private Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Two private showings last week. The first buyer preferred Unit 1507 in the building because it offers an additional room/den. The second showing was with a couple relocating from Port St. Lucie back to Coral Gables. They are currently exploring their options and requested the HOA documents and special assessment information, which we provided."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 8 &bull; Nov 2 &ndash; Nov 8, 2026 (1 Private Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One showing took place last week. The buyers felt the unit was not the right fit, as they are seeking a more modern, move-in-ready home."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 7 &bull; Oct 26 &ndash; Nov 1, 2026 (2 Private Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Two private showings took place last week. The first buyers felt the unit differed from their expectations, despite reviewing the square footage beforehand. They also felt the hallway’s exterior-style appearance was less welcoming, although they liked the pool area. The second showing was with a prospective buyer currently renting in the building. She mentioned that her floor-plan is currently larger (2 bed + 2 bath + den). We have followed up with her for more detailed feedback."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 6 &bull; Oct 19 &ndash; Oct 25, 2026 (2 Private Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Two private showings took place last week. The buyers who visited on Monday felt the kitchen was too small, which was a deal breaker for them. Following Saturday’s showing, the prospective buyer reached out with questions about what the HOA fees include. We provided the information and are awaiting an update on how he would like to proceed. Several visitors have also expressed concerns about the lack of air conditioning in the hallways."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 5 &bull; Oct 12 &ndash; Oct 18, 2026 (2 Private Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Two private showings took place last week. The buyer who visited on Tuesday felt the layout was not the right fit and will not be moving forward. The second showing took place on Sunday, and we are awaiting more detailed feedback from the agent regarding the buyer’s interest and next steps. 2 Additional showings scheduled for Monday 10/19."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 4 &bull; Oct 5 &ndash; Oct 11, 2026 (1 Private Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1 Private showing last week. Unfortunately the buyer did not like the building and will not be moving forward with an offer."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 3 &bull; Sept 28 &ndash; Oct 4, 2026 (2 Private Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1) Showing on Tuesday of last week went well. The buyer works very close to the unit. He is undecided though between Brickell and Coral Gables. He is seeing more options before making a decision. 2) Sunday showing went well. The agent said his client is thinking over his options."</p>
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 2 &bull; Sept 21 &ndash; Sept 27, 2026 (1 Private Showing + Cancellations)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One private showing took place last week. The prospective buyer is relocating from overseas and is primarily focusing his search in Coral Gables. He liked the property overall, particularly the location, but plans to explore additional options before making a decision. We also received several other showing requests that were canceled at the last minute. Feedback from those prospective buyers included concerns about the unit's overall square footage and the higher HOA fees."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04: Market Intelligence & Direct Competition -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence &amp; Direct Competition
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Gables Park Tower Same-Stack &amp; Downtown Coral Gables Condo Comps (357Comp.csv)</span>
+            </h2>
+
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Subject Property (Asking)</div>
+                    <div class="stat-value">$555,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$595 / SqFt</strong> &bull; 2 Bed / 2 Bath &bull; 932 SqFt &bull; 6th Floor (-06 Line) &bull; Direct Competitor #1507 (1,023 SF + Den) at <strong>$560k ($547/SF)</strong></p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Gables Park Tower Closed Avg (5 Sales)</div>
+                    <div class="stat-value">$528,762</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$560 / SqFt</strong> across all 5 closed 2BRs in 2026 (Range: <strong>$510,808 &ndash; $540,000</strong>) &bull; All 4 higher-floor `-06` stack sales averaged <strong>$525,952 ($564/SF)</strong></p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Mid-Market Coral Gables Condos (&lt;$1.5M)</div>
+                    <div class="stat-value">$635,476</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$572 / SqFt</strong> across 8 closed mid-market condos within 0.1 mi (2BR/2.5BA Gables Laroc closed at <strong>$477/SF</strong>; 1,111 SF Valencia TH closed at <strong>$558/SF</strong>)</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; margin-bottom: 3.5rem; padding: 1rem;">
+                <p style="font-weight: 600; margin-bottom: 4.5rem;">Price/SqFt Market Position Visualizer (Mid-Market Downtown Coral Gables: $475 &ndash; $625/SqFt)</p>
+                <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+                    <!-- Competitor #1507 Marker ($547/SF -> 30%) -->
+                    <div style="position: absolute; left: 26%; top: -55px; font-weight: bold; font-size: 0.85rem; color: #2A9D8F; transform: translateX(-50%); white-space: nowrap; text-align: center;">In-Bldg #1507 (2BR+Den)<br>$547/SF ($560k)</div>
+                    <div style="position: absolute; left: 26%; top: -20px; height: calc(100% + 20px); width: 2px; background: #2A9D8F;"></div>
+
+                    <!-- Building & -06 Stack Closed Avg ($560-$564/SF -> 50%) -->
+                    <div style="position: absolute; left: 50%; top: 32px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Building / -06 Stack Closed Avg<br>$560 &ndash; $564/SF ($526k&ndash;$529k)</div>
+                    <div style="position: absolute; left: 50%; top: 0px; height: calc(100% + 25px); width: 2px; background: #000;"></div>
+
+                    <!-- Mid-Market Coral Gables Avg ($572/SF -> 66%) -->
+                    <div style="position: absolute; left: 66%; top: -55px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Top -06 Sales / Mid-Mkt Avg<br>$572 &ndash; $574/SF</div>
+                    <div style="position: absolute; left: 66%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+
+                    <!-- Subject Property Marker ($595/SF -> 86%) -->
+                    <div style="position: absolute; left: 86%; top: 32px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #606 (Subject Asking)<br>$595/SF ($555k)</div>
+                    <div style="position: absolute; left: 86%; top: 0px; height: calc(100% + 25px); width: 3px; background: #c62828;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Direct Building &amp; Downtown Coral Gables Condo Comparables</h3>
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.93rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #012143; color: #ffffff;">
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Building / Unit</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Price</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">$/SqFt</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Beds/Baths</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Living SF</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">HOA / Parking / Built</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Status / Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fdfaf0; border-bottom: 2px solid #e0d5b5;">
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #b78a30;">357 Almeria Ave #606 (Gables Park Tower &mdash; Subject)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #000;">$555,000</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #c62828;">$595/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">932</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,000/mo (+$253 Assmt) / 1 Gar</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #b78a30;">Active (59 DOM)</td>
+                            </tr>
+                            <!-- Active Direct Comps -->
+                            <tr style="background: #eef8f6; border-bottom: 1px solid #cceae4;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 700;">357 Almeria Ave #1507 (Same Bldg &bull; 15th Flr)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #2A9D8F;">$560,000</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #2A9D8F;">$547/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2 + Den</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,023</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,000/mo / 1 Gar / 2003</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #2A9D8F;">Active Direct Competitor</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">441 Valencia Ave #801 (Gables Laroc &bull; 0.1 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$879,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$547/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">3 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,606</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,710/mo / 2 Gar / 1988</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 2px solid #e0e0e0;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">441 Valencia Ave #803 (Gables Laroc &bull; 0.1 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$999,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$622/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">3 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,606</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,710/mo / 0 Gar / 1988</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <!-- Gables Park Tower Closed Sales -->
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">357 Almeria Ave #1406 (Same -06 Stack &bull; 14th Flr)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$535,000 <span style="font-size:0.8rem; color:#888;">(List $545k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600;">$574/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">932</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,000/mo / 1 Gar / 2003</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 04/16/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">357 Almeria Ave #1106 (Same -06 Stack &bull; 11th Flr)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$533,000 <span style="font-size:0.8rem; color:#888;">(List $540k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600;">$572/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">932</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,000/mo / <strong>2 Gar</strong> / 2003</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 07/02/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">357 Almeria Ave #906 (Same -06 Stack &bull; 9th Flr)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$525,000 <span style="font-size:0.8rem; color:#888;">(List $566k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$563/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">932</td>
+                                <td style="padding: 0.95rem 1.1rem;">$851/mo / 1 Gar / 2003</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 01/15/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">357 Almeria Ave #1006 (Same -06 Stack &bull; 10th Flr)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$510,808 <span style="font-size:0.8rem; color:#888;">(List $535k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$548/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">932</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,000/mo / 1 Gar / 2003</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 06/24/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">357 Almeria Ave #804 (Gables Park Tower &bull; 8th Flr)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$540,000 <span style="font-size:0.8rem; color:#888;">(List $595k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$542/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">997</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,000/mo / 1 Gar / 2003</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 02/23/2026</td>
+                            </tr>
+                            <!-- Nearby Coral Gables Closed Condos -->
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">441 Valencia Ave #302 (Gables Laroc &bull; 0.1 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$545,000 <span style="font-size:0.8rem; color:#888;">(List $575k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$477/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,142</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,273/mo / 2 Gar / 1988</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 06/16/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">400 Valencia Ave #3 (Valencia Townhouse &bull; 0.1 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$620,000 <span style="font-size:0.8rem; color:#888;">(List $649k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$558/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,111</td>
+                                <td style="padding: 0.95rem 1.1rem;">$500/mo / 0 Gar / 1980</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 04/15/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">441 Valencia Ave #1201 (Gables Laroc &bull; 0.1 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,275,000 <span style="font-size:0.8rem; color:#888;">(List $1.35M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$744/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">3 / 3.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,713</td>
+                                <td style="padding: 0.95rem 1.1rem;">$2,265/mo / 2 Gar / 1988</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 08/26/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.92rem; color: #555;">
+                    <em><strong>Key Market Takeaway:</strong> Gables Park Tower provides an exceptionally clear, apples-to-apples valuation benchmark: four identical 932 SqFt `-06` stack units (#906, #1006, #1106, and #1406) on floors 3 to 8 stories higher than #606 closed in 2026 between <strong>$510,808 and $535,000</strong> (averaging <strong>$525,952 / $564/SqFt</strong>&mdash;and #1106 even included 2 parking spaces at $533,000). Even larger 997 SqFt Unit #804 closed at <strong>$540,000 ($542/SqFt)</strong> after listing at $595,000. At <strong>$555,000 ($595/SqFt)</strong>, Unit #606 is currently priced above every 2026 closed sale in the building and within $5,000 of active <strong>Unit #1507 ($560,000 / 1,023 SqFt / 2BR+Den)</strong>, explaining why buyers touring the building last week gravitated toward #1507. *(Note: Luxury boutique construction at 515 Valencia Ave / Villa Valencia trades in a separate $3.1M&ndash;$3.75M tier.)*</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- 05: Strategic Roadmap -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap &amp; Positioning Plan
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Actionable Recommendations as the Listing Reaches 60 Days on Market (Nov 17, 2026)</span>
+            </h2>
+            <div class="recommendation-box">
+                <h3>Recommended Next Steps to Capture a Contract</h3>
+                <ul class="recommendation-list">
+                    <li><strong>1. Decisive Price Repositioning Below Unit #1507 &amp; Into the `-06` Stack Sweet Spot ($525,000 &ndash; $529,000 | $563 &ndash; $568/SqFt):</strong> At $555,000, Unit #606 currently acts as a foil that sells Unit #1507 ($560,000 for 91 extra SqFt + den + 15th floor). Reducing the asking price to <strong>$525,000 &ndash; $529,000</strong> establishes an unmistakable <strong>$31,000&ndash;$35,000 discount</strong> below Unit #1507, matches the verified 2026 `-06` stack closing average ($525,952 / $564/SqFt), and allows room to negotiate a closing right around $515,000&ndash;$522,000.</li>
+                    <li><strong>2. Offer a Seller Closing Credit to Pay Off the $253/Month Special Assessment Balance:</strong> Because buyers repeatedly raised concerns about the combined $1,253/month carrying cost ($1,000 HOA + $253 assessment), structure our marketing around a <strong>Seller Credit at Closing to Satisfy the Special Assessment</strong> (or cover 12&ndash;24 months of assessment payments). Neutralizing the assessment eliminates the #1 monthly affordability objection without forcing a steeper headline price cut.</li>
+                    <li><strong>3. Direct Re-Engagement &amp; HOA Value Comparison for the Port St. Lucie Relocating Couple:</strong> Follow up immediately with the Port St. Lucie buyers who requested HOA and special assessment documents during Nov 9&ndash;15 (plus the Saturday Oct 24 buyer who asked about HOA inclusions). Provide a clean side-by-side sheet highlighting that Gables Park Tower's <strong>$1,000/mo HOA (24/7 concierge/doorman, water, sewer, trash, building insurance, gym, pool &amp; track)</strong> is <strong>$273&ndash;$710/month lower</strong> than nearby older Gables Laroc ($1,273&ndash;$1,710/mo), and emphasize Unit #606's &lt;2-year-old A/C, refrigerator, washer/dryer, and impact glass.</li>
+                    <li><strong>4. Cosmetic Modernization Touches to Counter the "Move-In-Ready" Feedback:</strong> Since the Week 8 buyer passed in search of a more modern look, minor high-ROI staging/refresh steps (neutralizing any dated light fixtures, decluttering countertops to visually expand the kitchen, and maintaining bright, crisp showing lighting prior to entry from the open-air corridor) will make the 932 SqFt layout photograph and show noticeably larger.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 06: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography &amp; Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Origin &amp; Syndication Traffic Breakdown (6 Compass Insights PDFs: Oct 5 &ndash; Nov 15, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Zillow</span>
+                            <span style="font-weight: 700; color: #012143;">49.6% (1,110 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Realtor.com</span>
+                            <span style="font-weight: 700; color: #012143;">25.9% (580 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Other Syndication Portals</span>
+                            <span style="font-weight: 700; color: #012143;">17.5% (391 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Trulia</span>
+                            <span style="font-weight: 700; color: #012143;">3.8% (85 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Compass.com</span>
+                            <span style="font-weight: 700; color: #012143;">3.3% (73 Views)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities (Cumulative Weighted Share)</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami, FL</span>
+                            <span style="font-weight: 700; color: #012143;">60.3%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Bradenton / Sarasota, FL</span>
+                            <span style="font-weight: 700; color: #012143;">10.4%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">8.4%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Hialeah, FL</span>
+                            <span style="font-weight: 700; color: #012143;">6.9%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Tamarac / Broward, FL</span>
+                            <span style="font-weight: 700; color: #012143;">4.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">New York, NY</span>
+                            <span style="font-weight: 700; color: #012143;">2.9%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Naples / Fort Myers, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.8%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Homestead, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.4%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+
+                    function initMap() {
+                        var map = L.map('map').setView([32.0, -82.0], 5);
+
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            maxZoom: 20
+                        }).addTo(map);
+
+                        var cities = [
+                            { name: "Miami, FL", lat: 25.7617, lon: -80.1918, views: "60.3%", radius: 19 },
+                            { name: "Bradenton / Sarasota, FL", lat: 27.4989, lon: -82.5748, views: "10.4%", radius: 11 },
+                            { name: "Miami Beach, FL", lat: 25.7907, lon: -80.1300, views: "8.4%", radius: 10 },
+                            { name: "Hialeah, FL", lat: 25.8576, lon: -80.2781, views: "6.9%", radius: 9 },
+                            { name: "Tamarac / Broward, FL", lat: 26.2129, lon: -80.2498, views: "4.2%", radius: 8 },
+                            { name: "New York, NY", lat: 40.7128, lon: -74.0060, views: "2.9%", radius: 7 },
+                            { name: "Naples / Fort Myers, FL", lat: 26.6406, lon: -81.8723, views: "2.8%", radius: 7 },
+                            { name: "Homestead, FL", lat: 25.4687, lon: -80.4776, views: "2.4%", radius: 6 }
+                        ];
+
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.65
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Share of Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Karina Reyes</strong> | Licensed Real Estate Advisor</p>
+            <p>Compass One | (786) 554-0814 | karina.reyes@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on November 16, 2026. Internal Market &amp; Comp Analysis Report (Not Linked on Public Owner Portal).
+        </div>
+    </footer>
+</body>
+</html>

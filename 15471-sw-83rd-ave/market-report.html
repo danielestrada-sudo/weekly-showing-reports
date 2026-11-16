@@ -1,0 +1,859 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | 15471 SW 83rd Ave</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244;
+            --accent: #2A9D8F;
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.45rem;
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+
+        .feedback-category.alert {
+            background: rgba(231, 111, 81, 0.12);
+            color: #c62828;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+            border: 1px solid rgba(42, 157, 143, 0.25);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .recommendation-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .recommendation-list {
+            padding-left: 1.5rem;
+        }
+
+        .recommendation-list li {
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .cycle-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .cycle-card {
+            background: #F8F9FA;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .cycle-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .cycle-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+
+        .cycle-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Market &amp; Comp Analysis</h1>
+                <h2>15471 SW 83rd Ave &mdash; Southwood, Palmetto Bay</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Southwood &bull; Palmetto Bay, FL 33157</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 56 Days on Market (Live Since Sept 21, 2026 &bull; 60-Day Milestone Nov 20)</span>
+                <span><strong>MLS #A12094580</strong> | 4 Beds / 2.5 Baths | 2,382 SqFt LA | 15,000 SqFt Lot | 2-Car A/C Garage + Pool | Built 1965 (Permitted Remodel)</span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing &amp; Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Tour Engagement &amp; Showing Trajectory (Weeks 1 &ndash; 8 | Approaching 60-Day Review)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">29</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Total Showings &amp; Open House Visitors</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">56</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Days on Market (Hits 60 Nov 20)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">2,208</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Online Views</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">0</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Formal Offers (1 Held Over Plumbing)</div>
+                </div>
+            </div>
+
+            <div class="cycle-comparison-grid">
+                <div class="cycle-card">
+                    <h4>Launch Surge (Weeks 1 &ndash; 2: Sept 21 &ndash; Oct 4, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>14 Days</strong></div>
+                    <div class="cycle-row"><span>Showings / Open House:</span><strong>23 Total (18 OH + 5 Private)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>253 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>13,007 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>6,227 Views</strong></div>
+                    <div class="cycle-row"><span>Initial Sentiment:</span><strong>Loved finishes, lot &amp; pool; 1 buyer stalled on plumbing</strong></div>
+                </div>
+                <div class="cycle-card">
+                    <h4>Mid-Cycle Normalization (Weeks 3 &ndash; 5: Oct 5 &ndash; Oct 25, 2026)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>21 Days</strong></div>
+                    <div class="cycle-row"><span>Private Showings:</span><strong>2 Showings (~0.7 / week)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>1,037 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>22,892 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>11,525 Views</strong></div>
+                    <div class="cycle-row"><span>Market Takeaway:</span><strong>Strong video/portal views; slow tour conversion</strong></div>
+                </div>
+                <div class="cycle-card" style="border-left: 4px solid #012143; background: #fdfaf0;">
+                    <h4>Recent Activity &amp; 60-Day Trigger (Weeks 6 &ndash; 8: Oct 26 &ndash; Nov 15)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>21 Days (56 Total DOM)</strong></div>
+                    <div class="cycle-row"><span>Showings / Open House:</span><strong>4 Total (3 Private + 1 OH)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>918 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>20,154 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>+0 Weekly Tracked</strong></div>
+                    <div class="cycle-row"><span>Recent Objections:</span><strong>Kitchen size for $1.575M &bull; Loose door trim</strong></div>
+                </div>
+            </div>
+
+            <p style="font-size: 1.05rem; color: #333; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <strong>Executive Summary:</strong> Through its first 56 Days on Market at <strong>$1,575,000 ($661/SqFt)</strong>, <strong>15471 SW 83rd Ave</strong> has captured heavy top-of-funnel visibility: <strong>2,208 online listing views</strong>, <strong>56,053 opened marketing emails</strong>, <strong>17,752 social media video views</strong>, and <strong>29 total showings and open house visits</strong>. Renovated with permits (new metal roof, impact picture windows and pivot doors, new electrical panel, new A/C, custom Taj Mahal quartzite kitchen with Miele induction cooktop, resurfaced pool, summer kitchen, and A/C 2-car garage), the property clearly impresses buyers upon entry. However, at <strong>$661/SqFt</strong>&mdash;at the very ceiling of Southwood closed history&mdash;physical feedback highlights four recurring friction points preventing an offer: (1) repeated buyer perception in Weeks 6 and 7 that the kitchen footprint feels compact relative to $1.575M, (2) a Week 2 prospect who held back over underground plumbing completion and cabana bath interior access, (3) visible cosmetic/punch-list items including a loose front door trim flagged on the most recent tour (Nov 9&ndash;15), and (4) neighboring 2,650&ndash;3,085 SqFt pool homes closing between <strong>$486/SqFt and $636/SqFt</strong>.
+            </p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance &amp; Marketing Reach
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Aggregated Multi-Channel Campaign Metrics (Sept 21 &ndash; Nov 15, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">2,208</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Listing Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Zillow, Compass, Realtor, Trulia</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">56,053</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Emails Sent (Opened)</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">8 Weeks of Broker &amp; Buyer Campaigns</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">17,752</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Social Media Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Property Video Reel &amp; Social Promotion</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03: Buyer Sentiment & Feedback -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Buyer Sentiment &amp; Feedback Analysis
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections &amp; Complete 8-Week Chronological Showing Log</span>
+            </h2>
+
+            <ul class="feedback-list" style="margin-bottom: 2.5rem;">
+                <li class="feedback-item">
+                    <div class="feedback-category alert">1. Kitchen Footprint vs. $1,575,000 Price Expectations (Flagged in Both Weeks 6 &amp; 7)</div>
+                    <p>While prospects admire the Taj Mahal countertops, Miele induction cooktop, and panel-ready appliances, two separate buyers in consecutive weeks (the Oct 26&ndash;Nov 1 open house visitor and the Nov 2&ndash;8 private showing) felt the <strong>kitchen was too small for their needs</strong> at the $1.575M price point, where competing 2,750&ndash;3,100 SqFt homes in Palmetto Bay offer expansive open family-kitchen wings.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">2. Underground Plumbing Clarity &amp; Cabana Bath Interior Access (Week 2 Near-Offer)</div>
+                    <p>During Week 2 (Sept 28&ndash;Oct 4), an active prospect explicitly stated they <strong>would have submitted an offer if the plumbing was fully completed</strong>, while several visitors noted that the cabana half-bath lacks a direct interior entry point for everyday family use without stepping outside to the patio.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">3. Finish Punch-List &amp; Exterior First-Impression Maintenance (Weeks 1 &amp; 8)</div>
+                    <p>In the most recent tour (Nov 9&ndash;15), the showing agent reported that the <strong>front door trim is loose and partially detached</strong>, recommending prompt repair to protect first impressions. This echoes Week 1 feedback (Sept 21&ndash;27) citing exposed nails on the garage door, paint splatter on the garage floor, a small gap between the ceiling and kitchen cabinetry, and chipping caulk in the primary bath&mdash;details that stand out heavily on a newly renovated $1.5M+ listing.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">4. Active High-Intent Pipeline Opportunity &mdash; Relocating NYC Couple (Week 8)</div>
+                    <p>The couple relocating from New York City who toured during Nov 9&ndash;15 loved the home overall. Although their purchase is not strictly contingent on selling their NYC apartment, they prefer to sell first due to elevated interest rates&mdash;making them our highest-priority follow-up prospect if paired with flexible terms or rate-buydown incentives.</p>
+                </li>
+            </ul>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.35rem; margin-bottom: 1rem; color: #012143;">Chronological Verbatim Feedback Log (Weeks 1 &ndash; 8)</h3>
+            <div style="background: #F8F9FA; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-height: 520px; overflow-y: auto;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 8 &bull; Nov 9 &ndash; Nov 15, 2026 (1 Showing, 1 Cancellation)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One completed showing and one cancellation last week. The couple who toured is relocating from New York City. While purchasing is not contingent on selling their NYC apartment, they would prefer to sell first due to the higher interest rates right now. They loved the home overall so we will continue to follow up with them. Maintenance note: The front door trim is loose and partially detached. We recommend repairing it promptly to maintain a positive first impression."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 7 &bull; Nov 2 &ndash; Nov 8, 2026 (1 Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One showing took place last week. The buyer felt the kitchen was too small for their needs."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 6 &bull; Oct 26 &ndash; Nov 1, 2026 (2 Showings: 1 Private + 1 Open House)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One private showing took place on Wednesday with a family who liked the home, we are pending more detailed feedback from their agent to see how they want to proceed. One visitor attended the weekend open house but felt the kitchen was too small for their needs."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 5 &bull; Oct 19 &ndash; Oct 25, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings took place last week. One is scheduled for this Wednesday, and we are planning an open house for Sunday, along with email blasts to our database ahead of the upcoming price reductions."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 4 &bull; Oct 12 &ndash; Oct 18, 2026 (1 Private Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"One private showing took place last week and went well. The buyers would like to explore additional options before making a decision. We continue to follow up with their agent for updates."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 3 &bull; Oct 5 &ndash; Oct 11, 2026 (1 Private Showing)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1 Private Showing last week. Showing with clients went well overall. We are pending more detailed feedback from the agent. Social media video generated over 3,800 views."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 2 &bull; Sept 28 &ndash; Oct 4, 2026 (4 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"1 Person would have put in offer if the plumbing was fully done. A couple people mentioned they wish there was entry point from inside to the cabana bathroom. Feedback overall is positive. Pending more detailed feedback from a few agents."</p>
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 1 &bull; Sept 21 &ndash; Sept 27, 2026 (19 Total: 1 Private + 18 Open House Visitors)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"We had one private showing last week, along with 18 visitors at the weekend open house. Attendees responded very positively to the home's finishes, expansive lot, pool, spacious backyard and generously sized primary bedroom. One visitor noted a few finishing details, including exposed nails on the garage door, paint splatter on the garage floor, a gap between the ceiling and the kitchen cabinetry, and caulking in the primary bathroom that is beginning to chip."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04: Market Intelligence & Direct Competition -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence &amp; Direct Competition
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">0.5-Mile Palmetto Bay MLS Comparative Analysis (47 Direct Comps: Southwood, Mangowood &amp; Clinton Grove)</span>
+            </h2>
+
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Subject Property (Asking)</div>
+                    <div class="stat-value">$1,575,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$661 / SqFt</strong> &bull; 4 Bed / 2.5 Bath &bull; 2,382 SqFt &bull; 15,000 SqFt Lot</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Active &amp; Pending Comps Avg</div>
+                    <div class="stat-value">$1,531,767</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$605 / SqFt</strong> across 9 Active Comps ($1,524,500 / <strong>$586/SF</strong> for 2 Pending AC Comps)</p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Closed Sales Average (36 Comps)</div>
+                    <div class="stat-value">$1,289,069</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$537 / SqFt</strong> All 36 Closed &bull; <strong>$1,448,249 ($509/SF)</strong> across 22 Closed 4+BR Pool Homes (&ge;2,000 SF) &bull; <strong>$543/SF</strong> Southwood Avg</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; margin-bottom: 3.5rem; padding: 1rem;">
+                <p style="font-weight: 600; margin-bottom: 4.5rem;">Price/SqFt Market Position Visualizer (0.5-Mile Palmetto Bay Range: $430 &ndash; $730/SqFt)</p>
+                <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+                    <!-- Closed 4+BR Pool Marker ($509/SF -> 26%) -->
+                    <div style="position: absolute; left: 26%; top: -55px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed 4+BR Pool<br>$509/SF</div>
+                    <div style="position: absolute; left: 26%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+
+                    <!-- Closed All & Southwood Marker ($537-$543/SF -> 41%) -->
+                    <div style="position: absolute; left: 42%; top: 32px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Closed All / Southwood<br>$537 &ndash; $543/SF</div>
+                    <div style="position: absolute; left: 42%; top: 0px; height: calc(100% + 25px); width: 2px; background: #000;"></div>
+
+                    <!-- Pending AC Marker ($586/SF -> 54%) -->
+                    <div style="position: absolute; left: 53%; top: -55px; font-weight: bold; font-size: 0.85rem; color: #2A9D8F; transform: translateX(-50%); white-space: nowrap; text-align: center;">Pending Avg<br>$586/SF</div>
+                    <div style="position: absolute; left: 53%; top: -20px; height: calc(100% + 20px); width: 2px; background: #2A9D8F;"></div>
+
+                    <!-- Active Comps Marker ($605/SF -> 62%) -->
+                    <div style="position: absolute; left: 65%; top: 32px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Active Comps Avg<br>$605/SF</div>
+                    <div style="position: absolute; left: 65%; top: 0px; height: calc(100% + 25px); width: 2px; background: #000;"></div>
+
+                    <!-- Subject Property Marker ($661/SF -> 82%) -->
+                    <div style="position: absolute; left: 82%; top: -55px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">15471 SW 83rd (Subject)<br>$661/SF</div>
+                    <div style="position: absolute; left: 82%; top: -20px; height: calc(100% + 20px); width: 3px; background: #c62828;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Direct Competition &amp; Recent Closed Sales (Palmetto Bay 0.5-Mile Radius)</h3>
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.93rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #012143; color: #ffffff;">
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Address / Subdivision</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Price</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">$/SqFt</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Beds/Baths</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Living SF</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Lot / Garage / Built</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fdfaf0; border-bottom: 2px solid #e0d5b5;">
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #b78a30;">15471 SW 83rd Ave (Southwood &mdash; Subject)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #000;">$1,575,000</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #c62828;">$661/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,382</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,000 SF / 2-Car / 1965</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #b78a30;">Active (56 DOM)</td>
+                            </tr>
+                            <!-- Active Comps -->
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">15321 SW 82nd Ave (Eastgrove Estates &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$2,350,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$678/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">6 / 4</td>
+                                <td style="padding: 0.95rem 1.1rem;">3,467</td>
+                                <td style="padding: 0.95rem 1.1rem;">16,698 SF / 2-Car / 1969</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">8230 SW 151st St (Mangowood &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,769,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$616/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,873</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,173 SF / 0-Gar / 1959</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">16100 SW 81st Ave (Clinton Grove &bull; 0.5 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,662,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$547/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">3,039</td>
+                                <td style="padding: 0.95rem 1.1rem;">17,424 SF / 2-Car / 1979</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">8520 SW 151st St (Country Club Grove &bull; 0.4 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$1,495,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$693/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,156</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,525 SF / 2-Car / 1967</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active (Direct Price Cap)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">8201 SW 151st St (Mangowood &bull; 0.3 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$1,495,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$592/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">5 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,525</td>
+                                <td style="padding: 0.95rem 1.1rem;">16,334 SF / 0-Gar / 1959</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active (Direct Price Cap)</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">15401 SW 81st Ave (East Grove East &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,450,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$534/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">5 / 4</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,713</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,851 SF / 1-Gar / 1969</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">8331 SW 156th St (Southwood &bull; 0.1 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,295,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$707/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,832</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,080 SF / 2-Car / 1970</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">15922 SW 83rd Ct (Southwood &bull; 0.3 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,275,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$607/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,101</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,000 SF / 0-Gar / 1960</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active</td>
+                            </tr>
+                            <!-- Pending Comps -->
+                            <tr style="background: #eef8f6; border-bottom: 1px solid #cceae4;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">8320 SW 161st St (Southwood 1st Addn &bull; 0.4 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$1,699,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$535/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">5 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">3,178</td>
+                                <td style="padding: 0.95rem 1.1rem;">16,800 SF / 2-Car / 1961</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #2A9D8F;">Pending (AC)</td>
+                            </tr>
+                            <tr style="background: #eef8f6; border-bottom: 2px solid #cceae4;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">14721 SW 84th Ct (Mangowood Pt 2 &bull; 0.5 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$1,350,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$638/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">3 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,117</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,500 SF / 2-Car / 1960</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #2A9D8F;">Pending (AC)</td>
+                            </tr>
+                            <!-- Closed Sales -->
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">15804 SW 82nd Ct (Clinton Grove &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,750,000 <span style="font-size:0.8rem; color:#888;">(List $1.849M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600;">$636/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,750</td>
+                                <td style="padding: 0.95rem 1.1rem;">16,117 SF / 2-Car / 1981</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 11/10/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">15421 SW 79th Ave (Stonehaven South &bull; 0.4 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,740,000 <span style="font-size:0.8rem; color:#888;">(List $1.750M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$627/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,773</td>
+                                <td style="padding: 0.95rem 1.1rem;">18,018 SF / 2-Car / 1966</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 08/05/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">8300 SW 158th St (Southwood &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,575,000 <span style="font-size:0.8rem; color:#888;">(List $1.599M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600;">$666/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,364</td>
+                                <td style="padding: 0.95rem 1.1rem;">16,974 SF / 1-Car / 1967</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 05/12/2026 (Southwood Peak)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">8445 SW 158th St (Southwood &bull; 0.3 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,542,000 <span style="font-size:0.8rem; color:#888;">(List $1.595M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$582/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,651</td>
+                                <td style="padding: 0.95rem 1.1rem;">14,985 SF / 2-Car / 1968</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 06/22/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">7915 SW 155th St (F &amp; L Estates &bull; 0.4 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,500,000 <span style="font-size:0.8rem; color:#888;">(List $1.599M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$486/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">3,085</td>
+                                <td style="padding: 0.95rem 1.1rem;">17,448 SF / 2-Car / 1984</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 11/04/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">15812 SW 83rd Ct (Southwood &bull; 0.3 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,500,000 <span style="font-size:0.8rem; color:#888;">(List $1.600M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$527/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,849</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,000 SF / 1-Car / 1959</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 02/27/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">8201 SW 150th Dr (Mangowood &bull; 0.3 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,480,000 <span style="font-size:0.8rem; color:#888;">(List $1.600M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$617/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">3 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,400</td>
+                                <td style="padding: 0.95rem 1.1rem;">18,667 SF / 2-Car / 1959</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 09/10/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">8240 SW 150th Dr (Mangowood &bull; 0.3 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,375,000 <span style="font-size:0.8rem; color:#888;">(List $1.399M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600;">$577/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 2.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,382</td>
+                                <td style="padding: 0.95rem 1.1rem;">Exact 2,382 SF Match / 1-Car / 1959</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 08/21/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">8265 SW 149th Dr (Mangowood &bull; 0.4 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,250,000 <span style="font-size:0.8rem; color:#888;">(List $1.275M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$661/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">3 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,890</td>
+                                <td style="padding: 0.95rem 1.1rem;">15,120 SF / 2-Car / 1959</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 11/06/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">15200 SW 81st Ave (Eastgrove Estates &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,250,000 <span style="font-size:0.8rem; color:#888;">(List $1.350M)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$435/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">4 / 3</td>
+                                <td style="padding: 0.95rem 1.1rem;">2,875</td>
+                                <td style="padding: 0.95rem 1.1rem;">18,216 SF / 2-Car / 1969</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 10/23/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.92rem; color: #555;">
+                    <em><strong>Key Market Takeaway:</strong> At <strong>$1,575,000 ($661/SqFt)</strong>, 15471 SW 83rd Ave matches the single highest Southwood closed price in the 12-month comp set (<strong>8300 SW 158th St</strong> at $1,575,000 / $666/SqFt in May 2026). Across all 22 closed 4+ bedroom pool homes &ge;2,000 SqFt within 0.5 miles, the average closed sale price is <strong>$1,448,249 ($509/SqFt)</strong>. Notably, an exact 2,382 SqFt 4BD/2.5BA pool home in Mangowood (<strong>8240 SW 150th Dr</strong>) closed at <strong>$1,375,000 ($577/SqFt)</strong> in August 2026, while much larger 2,750&ndash;3,085 SqFt November 2026 closings traded at <strong>$636/SqFt</strong> (15804 SW 82nd Ct, renovated) and <strong>$486/SqFt</strong> (7915 SW 155th St). On the active side, direct Southwood/Mangowood competition sits right at <strong>$1,495,000</strong> (8520 SW 151st St and 8201 SW 151st St), creating a clear psychological ceiling at the $1.50M search filter.</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- 05: Strategic Roadmap -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap &amp; Positioning Plan
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Actionable Recommendations Ahead of the 60-Day Milestone (Nov 20, 2026)</span>
+            </h2>
+            <div class="recommendation-box">
+                <h3>Recommended Next Steps to Capture a Contract</h3>
+                <ul class="recommendation-list">
+                    <li><strong>1. Immediate Exterior &amp; Interior Punch-List Resolution:</strong> Repair the <strong>loose and partially detached front door trim</strong> flagged on the Week 8 tour immediately, and confirm every Week 1 finishing detail (garage door exposed nails, garage floor paint splatter, kitchen cabinet-to-ceiling gap, and primary bathroom caulking) is 100% resolved before the next private tour. At $1.5M+, buyers demand flawless turnkey execution.</li>
+                    <li><strong>2. Prepare a Proactive Permitted Upgrade &amp; Plumbing Verification Packet:</strong> Since a Week 2 prospect explicitly held back over plumbing uncertainty, create a clean 1-page "Permitted Systems &amp; Upgrades Fact Sheet" summarizing final inspections and dates for the new metal roof, electrical panel, A/C, impact picture windows/pivot doors, and exact plumbing lines replaced (under-slab PVC vs. fixtures). Place printed copies at the kitchen island and attach to ShowingTime confirmations.</li>
+                    <li><strong>3. Strategic Price Positioning at the $1.50M Search Filter ($1,495,000 &ndash; $1,525,000 | $628 &ndash; $640/SqFt):</strong> With the listing approaching 60 Days on Market on November 20 and buyers repeatedly comparing the compact kitchen footprint against $1.5M&ndash;$1.75M homes, positioning between <strong>$1,495,000 and $1,525,000</strong> ($628&ndash;$640/SqFt) accomplishes two goals: (a) it aligns squarely with the November 10 renovated comp benchmark at 15804 SW 82nd Ct ($636/SqFt) while honoring the turnkey 2-car A/C garage + new roof premium over 8240 SW 150th Dr ($1,375,000 / $577/SqFt), and (b) pricing at or just under <strong>$1,500,000</strong> unlocks a fresh tier of MLS/Zillow buyers capped at $1.50M.</li>
+                    <li><strong>4. Creative Terms &amp; Rate-Buydown Follow-Up with the NYC Relocation Couple:</strong> Re-engage the NYC buyers who toured in Week 8 and loved the property. Propose a seller-paid 2-1 interest rate buydown or a flexible post-closing timeline (30&ndash;60 day closing flexibility) rather than an across-the-board price concession, directly solving their hesitation around higher borrowing costs before selling their New York apartment.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 06: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography &amp; Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Origin &amp; Syndication Traffic Breakdown (6 Compass Insights PDFs: Oct 5 &ndash; Nov 15, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Zillow</span>
+                            <span style="font-weight: 700; color: #012143;">52.5% (1,027 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Other Syndication Portals</span>
+                            <span style="font-weight: 700; color: #012143;">29.9% (585 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Realtor.com</span>
+                            <span style="font-weight: 700; color: #012143;">9.5% (186 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Compass.com</span>
+                            <span style="font-weight: 700; color: #012143;">4.3% (84 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Trulia</span>
+                            <span style="font-weight: 700; color: #012143;">3.7% (73 Views)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities (Cumulative Weighted Share)</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami, FL</span>
+                            <span style="font-weight: 700; color: #012143;">56.8%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Hialeah, FL</span>
+                            <span style="font-weight: 700; color: #012143;">7.7%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Tampa, FL</span>
+                            <span style="font-weight: 700; color: #012143;">5.0%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Fort Lauderdale, FL</span>
+                            <span style="font-weight: 700; color: #012143;">4.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Boca Raton, FL</span>
+                            <span style="font-weight: 700; color: #012143;">4.4%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">3.6%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Fort Myers, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.8%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Apopka / Orlando Metro, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.8%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+
+                    function initMap() {
+                        var map = L.map('map').setView([27.5, -81.5], 6);
+
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            maxZoom: 20
+                        }).addTo(map);
+
+                        var cities = [
+                            { name: "Miami, FL", lat: 25.7617, lon: -80.1918, views: "56.8%", radius: 19 },
+                            { name: "Hialeah, FL", lat: 25.8576, lon: -80.2781, views: "7.7%", radius: 10 },
+                            { name: "Tampa, FL", lat: 27.9506, lon: -82.4572, views: "5.0%", radius: 8 },
+                            { name: "Fort Lauderdale, FL", lat: 26.1224, lon: -80.1373, views: "4.5%", radius: 8 },
+                            { name: "Boca Raton, FL", lat: 26.3683, lon: -80.1289, views: "4.4%", radius: 8 },
+                            { name: "Miami Beach, FL", lat: 25.7907, lon: -80.1300, views: "3.6%", radius: 7 },
+                            { name: "Fort Myers, FL", lat: 26.6406, lon: -81.8723, views: "2.8%", radius: 6 },
+                            { name: "Apopka / Orlando Metro, FL", lat: 28.6934, lon: -81.5322, views: "2.8%", radius: 6 }
+                        ];
+
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.65
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Share of Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Karina Reyes</strong> | Licensed Real Estate Advisor</p>
+            <p>Compass One | (786) 554-0814 | karina.reyes@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on November 16, 2026. Internal Market &amp; Comp Analysis Report (Not Linked on Public Owner Portal).
+        </div>
+    </footer>
+</body>
+</html>

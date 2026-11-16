@@ -1,0 +1,764 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Market Analysis | 1650 Coral Way, Unit 607</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #002244;
+            --accent: #2A9D8F;
+            --bg-light: #FFFFFF;
+            --card-bg: #FFFFFF;
+            --text-main: #333333;
+            --text-muted: #666666;
+            --border: #E0E0E0;
+            --gradient: linear-gradient(135deg, #002244 0%, #004488 100%);
+            --shadow: 0 4px 20px rgba(0, 0, 0, 0.05);
+            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --danger: #E76F51;
+            --warning: #F4A261;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Outfit', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-main);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        header {
+            background: var(--card-bg);
+            padding: 2rem 5%;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow);
+        }
+
+        .property-title h1 {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: 700;
+            margin-bottom: 0.25rem;
+        }
+
+        .property-title h2 {
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-meta {
+            display: flex;
+            gap: 1.5rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            flex-wrap: wrap;
+        }
+
+        .back-link {
+            text-decoration: none;
+            color: var(--accent);
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        main {
+            padding: 3rem 5%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .report-section {
+            background: var(--card-bg);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow);
+            border: 1px solid var(--border);
+        }
+
+        .report-section h2 {
+            font-size: 1.5rem;
+            color: var(--primary);
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .stat-card {
+            background: #F8F9FA;
+            border: 1px solid #E0E0E0;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.03);
+            border-radius: 8px;
+            padding: 1.5rem;
+            border-left: 4px solid var(--accent);
+        }
+
+        .stat-card.danger {
+            border-left-color: var(--danger);
+        }
+
+        .stat-card.warning {
+            border-left-color: var(--warning);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-top: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05rem;
+            color: var(--text-muted);
+            font-weight: 600;
+        }
+
+        .feedback-list {
+            list-style: none;
+        }
+
+        .feedback-item {
+            padding: 1.25rem 0;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .feedback-item:last-child {
+            border-bottom: none;
+        }
+
+        .feedback-category {
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.45rem;
+            display: inline-block;
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--accent);
+            padding: 0.2rem 0.8rem;
+            border-radius: 99px;
+            font-size: 0.85rem;
+        }
+
+        .feedback-category.alert {
+            background: rgba(231, 111, 81, 0.12);
+            color: #c62828;
+        }
+
+        .recommendation-box {
+            background: linear-gradient(135deg, rgba(0, 34, 68, 0.05) 0%, rgba(42, 157, 143, 0.05) 100%);
+            border: 1px solid rgba(42, 157, 143, 0.25);
+            border-radius: 8px;
+            padding: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .recommendation-box h3 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .recommendation-list {
+            padding-left: 1.5rem;
+        }
+
+        .recommendation-list li {
+            margin-bottom: 1rem;
+        }
+
+        .recommendation-list li:last-child {
+            margin-bottom: 0;
+        }
+
+        .cycle-comparison-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .cycle-card {
+            background: #F8F9FA;
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .cycle-card h4 {
+            color: var(--primary);
+            font-size: 1.05rem;
+            margin-bottom: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 0.5rem;
+        }
+
+        .cycle-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.4rem 0;
+            font-size: 0.95rem;
+            border-bottom: 1px dashed rgba(0,0,0,0.06);
+        }
+
+        .cycle-row:last-child {
+            border-bottom: none;
+        }
+
+        footer {
+            margin-top: 5rem;
+            padding: 3rem 5%;
+            background: var(--primary);
+            color: white;
+            text-align: center;
+        }
+
+        .agent-contact {
+            margin-bottom: 1.5rem;
+        }
+
+        .footer-note {
+            font-size: 0.8rem;
+            opacity: 0.6;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; text-align: center; gap: 1rem; }
+            .property-meta { justify-content: center; flex-wrap: wrap; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div>
+            <div class="property-title">
+                <h1>Market &amp; Comp Analysis</h1>
+                <h2>1650 Coral Way, Unit 607 &mdash; Marbella Condominium</h2>
+            </div>
+            <div class="property-meta">
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path><circle cx="12" cy="10" r="3"></circle></svg> Coral Way / Shenandoah &bull; Miami, FL 33145</span>
+                <span><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align: middle; margin-right: 4px;"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg> 61 DOM (Nov 8 Report) &bull; 68 DOM Current (Through Nov 15)</span>
+                <span><strong>MLS #A12085916</strong> | 2 Beds / 2 Baths | 1,030 SqFt (-07 Stack) | 2025 Renovated | 2 Assigned Covered Parking | HOA $1,260/mo | Built 2002</span>
+            </div>
+            <a href="index.html" class="back-link">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+                Back to Progress Report
+            </a>
+        </div>
+    </header>
+
+    <main>
+
+        <!-- 01: Showing & Pipeline Activity -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                01 &mdash; Showing &amp; Pipeline Activity
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Tour Engagement &amp; Showing Trajectory (60-Day Milestone Review)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2.5rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">3</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Tracked Showings (+ Sept 16 Broker Open)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">61</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">DOM (Nov 8 Report) &bull; 68 DOM Nov 15</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">2,201</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Online Views Thru Nov 8 (2,331 Thru Nov 15)</div>
+                </div>
+
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">0</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Offers Received</div>
+                </div>
+            </div>
+
+            <div class="cycle-comparison-grid">
+                <div class="cycle-card">
+                    <h4>Launch &amp; Broker's Open (Weeks 1 &ndash; 3: Sept 7 &ndash; Sept 28)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>21 Days</strong></div>
+                    <div class="cycle-row"><span>Physical Activity:</span><strong>1 Private Showing + 1 Broker Open</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>1,336 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>21,388 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>660 Views</strong></div>
+                    <div class="cycle-row"><span>Initial Sentiment:</span><strong>Strong portal interest; 1 buyer chose another building</strong></div>
+                </div>
+                <div class="cycle-card">
+                    <h4>Mid-Cycle Showing Lull (Weeks 4 &ndash; 7: Sept 29 &ndash; Oct 25)</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>26 Days</strong></div>
+                    <div class="cycle-row"><span>Physical Showings:</span><strong>0 Showings (1 OH Rescheduled)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>568 Views</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>30,147 Emails</strong></div>
+                    <div class="cycle-row"><span>Social Media Views:</span><strong>1,297 Views</strong></div>
+                    <div class="cycle-row"><span>Market Dynamic:</span><strong>In-bldg 1,030 SF units priced $15k&ndash;$35k lower</strong></div>
+                </div>
+                <div class="cycle-card" style="border-left: 4px solid #012143; background: #fdfaf0;">
+                    <h4>Open House &amp; 60-Day Trigger (Oct 26 &ndash; Nov 8 [+ Nov 15])</h4>
+                    <div class="cycle-row"><span>Days Elapsed:</span><strong>14 Days (61 DOM &bull; 68 DOM Nov 15)</strong></div>
+                    <div class="cycle-row"><span>Open House Tours:</span><strong>2 Open House Showings (Oct 31)</strong></div>
+                    <div class="cycle-row"><span>Online Listing Views:</span><strong>297 Views (+130 Nov 9&ndash;15 PDF)</strong></div>
+                    <div class="cycle-row"><span>Emails Delivered:</span><strong>12,332 Emails (+7,822 Nov 9&ndash;15)</strong></div>
+                    <div class="cycle-row"><span>Recent Objections:</span><strong>Liked 2025 remodel; concerned over upcoming building work</strong></div>
+                </div>
+            </div>
+
+            <p style="font-size: 1.05rem; color: #333; margin-top: 1.5rem; margin-bottom: 1rem;">
+                <strong>Executive Summary:</strong> Since launching on September 7, 2026 at <strong>$460,000 ($447/SqFt)</strong>, <strong>1650 Coral Way, Unit 607</strong> has accumulated strong digital exposure (<strong>2,201 online views</strong> through Nov 8 and <strong>2,331</strong> through Nov 15, along with <strong>63,867+ opened emails</strong> and <strong>1,957 social media views</strong>). Inside the unit, buyers appreciate the 2025 interior renovation, two oversized west-facing sunset balconies, in-unit laundry, immediate 1-year rental flexibility, and rare <strong>two assigned covered parking spaces</strong>. However, after 61+ Days on Market with only <strong>3 total showings</strong> and 0 offers, MLS comp and showing evidence reveal three concrete bottlenecks: (1) both Oct 31 Open House visitors expressed concern about <strong>upcoming building work</strong> alongside a <strong>$1,260/month HOA</strong> in a building with no swimming pool, (2) three competing <strong>1,030 SqFt units inside 1650 Coral Way</strong> (#601 at $425k, #507 at $430k, and #702 at $445k) undercut #607 by $15,000&ndash;$35,000, and (3) the sole 2025&ndash;2026 closed 2-bedroom comp in the building (higher-floor `-07` stack <strong>Unit #807</strong> with 2 parking spaces) closed at <strong>$400,000 ($388/SqFt)</strong>.
+            </p>
+        </section>
+
+        <!-- 02: Digital Performance -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                02 &mdash; Digital Performance &amp; Marketing Reach
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Aggregated Multi-Channel Campaign Metrics (Through Nov 8 Published Report + Nov 9&ndash;15 PDF)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; text-align: center; margin-bottom: 2rem;">
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">2,201</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Views (2,331 w/ Nov 9&ndash;15)</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Zillow, Compass, Realtor, Trulia</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">63,867</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Emails Opened (71,689 w/ Nov 9&ndash;15)</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Compass Agent &amp; Buyer Campaigns</div>
+                </div>
+                <div>
+                    <div style="font-size: 2.5rem; font-weight: 700; color: #012143;">1,957</div>
+                    <div style="font-size: 0.75rem; color: #888; text-transform: uppercase; letter-spacing: 1px; font-weight: 600;">Cumulative Social Media Views</div>
+                    <div style="font-size: 0.8rem; color: #666; margin-top: 0.25rem;">Coral Way Corridor &amp; Property Promos</div>
+                </div>
+            </div>
+        </section>
+
+        <!-- 03: Buyer Sentiment & Feedback -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                03 &mdash; Buyer Sentiment &amp; Feedback Analysis
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Prospect Objections &amp; Complete Chronological Showing Log</span>
+            </h2>
+
+            <ul class="feedback-list" style="margin-bottom: 2.5rem;">
+                <li class="feedback-item">
+                    <div class="feedback-category alert">1. Concern Over Upcoming Building Work &amp; $1,260/Mo HOA (Oct 31 Open House)</div>
+                    <p>Both touring groups during the Oct 31 Open House&mdash;(a) a mother/daughter team shopping for a remote-work primary residence, and (b) an agent previewing for an out-of-state executive buying a second home&mdash;liked Unit #607's renovated interior, but <strong>both expressed concern about upcoming work required on the building</strong>. Without transparent reserve/assessment clarity, a $1,260/month HOA (in a building without a pool) creates hesitation around potential special assessments.</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">2. Severe Internal Building Price Competition ($425k &ndash; $445k for Same 1,030 SqFt)</div>
+                    <p>Because Marbella Condo currently has five other active listings, buyers comparing square footage online see three identical 1,030 SqFt apartments priced $15,000 to $35,000 lower (#601 with 2 parking spaces at $425,000, #507 one floor down in the same `-07` line at $430,000, and #702 one floor up at $445,000), plus massive 1,447 SqFt Penthouse #PH-9 asking just $30,000 more ($490,000).</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category alert">3. Cross-Shopping Against Coral Sea View ($852/Mo HOA + Swimming Pool)</div>
+                    <p>Following the Week 2 showing (Sept 16&ndash;22), the buyer liked Unit #607 but chose a residence in another building. At nearby <strong>Coral Sea View (1401 SW 22nd St, built 2004)</strong> two blocks away, buyers get a swimming pool, cabana, and fitness center for an <strong>$852/month HOA</strong> ($408/month less than Marbella's $1,260/month), where 1,046 SqFt 2BD/2BA units closed at $510,000 ($488/SqFt).</p>
+                </li>
+                <li class="feedback-item">
+                    <div class="feedback-category">4. Two Covered Parking Spaces &amp; Immediate Leasing Flexibility (Untapped Advantage)</div>
+                    <p>Cooperating buyers have not fully capitalized on two rare assets unique to #607: unlike Units #702 ($445k) and #507 ($430k) which each have only 1 parking space, #607 includes <strong>two assigned covered parking spaces</strong> plus <strong>immediate rental eligibility</strong> (1-year minimum lease).</p>
+                </li>
+            </ul>
+
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.35rem; margin-bottom: 1rem; color: #012143;">Chronological Verbatim Feedback Log (Sept 7 &ndash; Nov 8, 2026)</h3>
+            <div style="background: #F8F9FA; border: 1px solid var(--border); border-radius: 12px; padding: 1.5rem; max-height: 480px; overflow-y: auto;">
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 9 &bull; Nov 2 &ndash; Nov 8, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings took place last week."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 8 &bull; Oct 26 &ndash; Nov 1, 2026 (2 Open House Showings &bull; Oct 31)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"Both were a bit concerned about the upcoming work but liked the units. One showing was a mother/daughter looking at it for the daughter who works from home. The other showing was a realtor previewing it for her client that would be purchasing as a second home because he comes to Miami a lot for work."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Weeks 6 &ndash; 7 &bull; Oct 12 &ndash; Oct 25, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No physical showings or new feedback reported for this period. Scheduled Open House on 10/31 (10am&ndash;12pm) and initiated reverse prospecting to Realtors with matching buyer searches."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 5 &bull; Oct 5 &ndash; Oct 11, 2026 (0 Showings)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No showings this week. Reschedule open house that was cancelled on Saturday; listing remains active and populated in prospective buyers' property searches."</p>
+                </div>
+                <div style="margin-bottom: 1rem; padding-bottom: 1rem; border-bottom: 1px solid #e0e0e0;">
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 2 &bull; Sept 16 &ndash; Sept 22, 2026 (1 Showing + Broker's Open)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"She liked the unit but found another unit in a different building that she liked more. Brokers Open on Wednesday; 1 agent showed up."</p>
+                </div>
+                <div>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: var(--accent); text-transform: uppercase;">Week 1 &bull; Sept 7 &ndash; Sept 13, 2026 (Launch)</span>
+                    <p style="font-style: italic; margin-top: 0.25rem;">"No Showings yet. Mailers, digital ads and emails sent."</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- 04: Market Intelligence & Direct Competition -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                04 &mdash; Market Intelligence &amp; Direct Competition
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Marbella Condo (1650 Coral Way) &amp; 0.2-Mile Coral Way Corridor MLS Comps (1650 Coral Comp.csv)</span>
+            </h2>
+
+            <div class="stats-grid">
+                <div class="stat-card danger">
+                    <div class="stat-label">Subject Property (Asking)</div>
+                    <div class="stat-value">$460,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$447 / SqFt</strong> &bull; 2 Bed / 2 Bath &bull; 1,030 SqFt &bull; 2 Covered Parking &bull; Highest-priced 1,030 SF unit in Marbella</p>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-label">Marbella Active Comps (5 Units)</div>
+                    <div class="stat-value">$431,800</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$416 / SqFt</strong> Avg across all 5 Marbella actives &bull; Competing 1,030 SF units (#601, #507, #702) ask <strong>$425k &ndash; $445k ($413 &ndash; $432/SF)</strong></p>
+                </div>
+                <div class="stat-card warning">
+                    <div class="stat-label">Exact-Stack Closed (#807) &amp; 2BR Comps</div>
+                    <div class="stat-value">$400,000</div>
+                    <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 0.5rem;"><strong>$388 / SqFt</strong> closed inside Marbella (#807, same `-07` stack, 2 Gar) &bull; <strong>$384,375 ($390/SF)</strong> avg across 8 closed 0.2-mi 2BRs</p>
+                </div>
+            </div>
+
+            <div style="margin-top: 2rem; margin-bottom: 3.5rem; padding: 1rem;">
+                <p style="font-weight: 600; margin-bottom: 4.5rem;">Price/SqFt Market Position Visualizer (Marbella &amp; 0.2-Mile 2BR Range: $320 &ndash; $490/SqFt)</p>
+                <div style="position: relative; width: 100%; height: 24px; background: linear-gradient(to right, #4caf50, #ffeb3b, #f44336); border-radius: 12px;">
+                    <!-- Closed #807 & 2BR Avg ($388-$390/SF -> 26%) -->
+                    <div style="position: absolute; left: 26%; top: -55px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Marbella #807 &amp; 2BR Closed Avg<br>$388 &ndash; $390/SF ($400k)</div>
+                    <div style="position: absolute; left: 26%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+
+                    <!-- Marbella Active #601/#507 ($413-$417/SF -> 48%) -->
+                    <div style="position: absolute; left: 48%; top: 32px; font-weight: bold; font-size: 0.85rem; color: #2A9D8F; transform: translateX(-50%); white-space: nowrap; text-align: center;">Marbella Active Avg (#601 / #507)<br>$413 &ndash; $417/SF ($425k&ndash;$430k)</div>
+                    <div style="position: absolute; left: 48%; top: 0px; height: calc(100% + 25px); width: 2px; background: #2A9D8F;"></div>
+
+                    <!-- In-Bldg #702 Active ($432/SF -> 66%) -->
+                    <div style="position: absolute; left: 66%; top: -55px; font-weight: bold; font-size: 0.85rem; transform: translateX(-50%); white-space: nowrap; text-align: center;">Marbella #702 Active<br>$432/SF ($445k)</div>
+                    <div style="position: absolute; left: 66%; top: -20px; height: calc(100% + 20px); width: 2px; background: #000;"></div>
+
+                    <!-- Subject #607 ($447/SF -> 82%) -->
+                    <div style="position: absolute; left: 82%; top: 32px; font-weight: bold; font-size: 0.9rem; color: #c62828; transform: translateX(-50%); white-space: nowrap; text-align: center;">Unit #607 (Subject Asking)<br>$447/SF ($460k)</div>
+                    <div style="position: absolute; left: 82%; top: 0px; height: calc(100% + 25px); width: 3px; background: #c62828;"></div>
+                </div>
+            </div>
+
+            <div style="margin-top: 4rem;">
+                <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143; text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Marbella Building Inventory &amp; 0.2-Mile Coral Way Corridor Comps</h3>
+                <div style="width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; padding-bottom: 1rem;">
+                    <table style="width: 100%; border-collapse: collapse; text-align: left; font-size: 0.93rem; box-shadow: 0 4px 10px rgba(0,0,0,0.05); border-radius: 8px; overflow: hidden;">
+                        <thead>
+                            <tr style="background: #012143; color: #ffffff;">
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Building / Unit</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Price</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">$/SqFt</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Beds/Baths</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Living SF</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">HOA / Parking / Built</th>
+                                <th style="padding: 1rem 1.1rem; font-weight: 600;">Status / Notes</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr style="background: #fdfaf0; border-bottom: 2px solid #e0d5b5;">
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #b78a30;">1650 Coral Way #607 (Marbella &mdash; Subject)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #000;">$460,000</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #c62828;">$447/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,030</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,260/mo / <strong>2 Gar</strong> / 2002</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #b78a30;">Active (61+ DOM)</td>
+                            </tr>
+                            <!-- Marbella Active Direct Competition -->
+                            <tr style="background: #ffffff; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">1650 Coral Way #PH-9 (Marbella &bull; Same Bldg)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$490,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$339/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,447</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,512/mo / 1 Gar / 2002</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active (Penthouse +417 SF)</td>
+                            </tr>
+                            <tr style="background: #eef8f6; border-bottom: 1px solid #cceae4;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">1650 Coral Way #702 (Marbella &bull; Same Bldg)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$445,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$432/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,030</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,260/mo / 1 Gar / 2002</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">Active Direct Competitor</td>
+                            </tr>
+                            <tr style="background: #eef8f6; border-bottom: 1px solid #cceae4;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">1650 Coral Way #507 (Marbella &bull; Same -07 Stack)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$430,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$417/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">1 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,030</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,260/mo / 1 Gar / 2002</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">Active Direct Competitor</td>
+                            </tr>
+                            <tr style="background: #eef8f6; border-bottom: 1px solid #cceae4;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">1650 Coral Way #601 (Marbella &bull; Same 6th Floor)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">$425,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$413/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,030</td>
+                                <td style="padding: 0.95rem 1.1rem;">$1,583/mo / <strong>2 Gar</strong> / 2002</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #2A9D8F;">Active Direct Competitor</td>
+                            </tr>
+                            <tr style="background: #ffffff; border-bottom: 2px solid #e0e0e0;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">1401 SW 22nd St #1502 (Coral Sea View &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$520,000</td>
+                                <td style="padding: 0.95rem 1.1rem;">$497/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,046</td>
+                                <td style="padding: 0.95rem 1.1rem;">$858/mo (Pool) / 2 Gar / 2004</td>
+                                <td style="padding: 0.95rem 1.1rem; color: #666;">Active Nearby Pool Building</td>
+                            </tr>
+                            <!-- Closed Direct Comps -->
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 700;">1650 Coral Way #807 (Marbella &bull; Same -07 Stack)</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700;">$400,000 <span style="font-size:0.8rem; color:#888;">(List $400k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #012143;">$388/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,030</td>
+                                <td style="padding: 0.95rem 1.1rem;">$875/mo / <strong>2 Gar</strong> / 2002</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 700; color: #555;">Sold 11/25/2025 (100% List)</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143; font-weight: 600;">1401 SW 22nd St #1401 (Coral Sea View &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$510,000 <span style="font-size:0.8rem; color:#888;">(List $525k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$488/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,046</td>
+                                <td style="padding: 0.95rem 1.1rem;">$852/mo (Pool) / 2 Gar / 2004</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 05/06/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">1401 SW 22nd St #1001 (Coral Sea View &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$510,000 <span style="font-size:0.8rem; color:#888;">(List $515k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$488/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 2</td>
+                                <td style="padding: 0.95rem 1.1rem;">1,046</td>
+                                <td style="padding: 0.95rem 1.1rem;">$852/mo (Pool) / 1 Gar / 2004</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 03/06/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">1910 SW 17th Ave #8 (La Arboleda TH &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$390,000 <span style="font-size:0.8rem; color:#888;">(List $395k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$402/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 1.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">970</td>
+                                <td style="padding: 0.95rem 1.1rem;">$400/mo (Pool) / 0 Gar / 1977</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 09/28/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9; border-bottom: 1px solid #eee;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">1916 SW 17th Ave #34 (La Arboleda &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$355,000 <span style="font-size:0.8rem; color:#888;">(List $365k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$366/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 1.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">970</td>
+                                <td style="padding: 0.95rem 1.1rem;">$400/mo (Pool) / 0 Gar / 1977</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 06/18/2026</td>
+                            </tr>
+                            <tr style="background: #f9f9f9;">
+                                <td style="padding: 0.95rem 1.1rem; color: #012143;">1914 SW 17th Ave #24 (La Arboleda &bull; 0.2 mi)</td>
+                                <td style="padding: 0.95rem 1.1rem;">$345,000 <span style="font-size:0.8rem; color:#888;">(List $365k)</span></td>
+                                <td style="padding: 0.95rem 1.1rem;">$356/SF</td>
+                                <td style="padding: 0.95rem 1.1rem;">2 / 1.5</td>
+                                <td style="padding: 0.95rem 1.1rem;">970</td>
+                                <td style="padding: 0.95rem 1.1rem;">$400/mo (Pool) / 1 Gar / 1977</td>
+                                <td style="padding: 0.95rem 1.1rem; font-weight: 600; color: #555;">Sold 10/30/2026</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p style="margin-top: 1rem; font-size: 0.92rem; color: #555;">
+                    <em><strong>Key Market Takeaway:</strong> Inside Marbella Condo (`1650 Coral Way`), Unit #607 at <strong>$460,000 ($447/SqFt)</strong> sits at the top of all 1,030 SqFt active competition&mdash;$15,000 above Unit #702 ($445k), $30,000 above same-stack #507 ($430k), $35,000 above #601 ($425k, also with 2 parking spaces), and <strong>$60,000 (+15%) above the sole 1,030 SqFt `-07` closed comp (#807 at $400,000 / $388/SqFt)</strong>. While Coral Sea View (1401 SW 22nd St) achieves $510,000 ($488/SqFt), it offers a swimming pool and a $408/month lower HOA ($852/mo vs. $1,260/mo).</em>
+                </p>
+            </div>
+        </section>
+
+        <!-- 05: Strategic Roadmap -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                05 &mdash; Strategic Roadmap &amp; Positioning Plan
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Actionable Recommendations to Outposition In-Building Competition &amp; Capture Offers</span>
+            </h2>
+            <div class="recommendation-box">
+                <h3>Recommended Next Steps to Capture a Contract</h3>
+                <ul class="recommendation-list">
+                    <li><strong>1. Strategic Price Repositioning Below Unit #702 &amp; Into the $429,000 &ndash; $435,000 Window ($417 &ndash; $422/SqFt):</strong> Pricing at <strong>$429,000 &ndash; $435,000</strong> immediately undercuts active #702 ($445,000), aligns right alongside unrenovated #601 ($425k) and #507 ($430k), and preserves a justifiable <strong>$29,000&ndash;$35,000 premium for the 2025 renovation</strong> over closed `-07` comp #807 ($400,000). With 2 covered parking spaces and turnkey finishes at ~$430k, #607 instantly becomes the undisputed best value in 1650 Coral Way.</li>
+                    <li><strong>2. Prepare a 1-Page Building Work &amp; HOA Reserve Clarification Sheet (Follow Up with Both Oct 31 Prospects):</strong> Both Oct 31 Open House groups liked the unit but hesitated over upcoming building work. Obtain written confirmation from Marbella management outlining (a) exact upcoming project scope &amp; timeline, (b) reserve funding vs. whether any assessment is expected, and (c) full $1,260/mo HOA inclusions&mdash;and send this directly back to the work-from-home mother/daughter prospect and the second-home Realtor.</li>
+                    <li><strong>3. Offer a 6-to-12 Month HOA Offset Credit ($5,000 at Closing):</strong> Bridge the monthly carrying-cost gap against Coral Sea View ($852/mo vs. $1,260/mo) by offering a <strong>$5,000 seller credit toward Year-1 HOA dues</strong>, reducing the buyer's effective first-year HOA to ~$843/month.</li>
+                    <li><strong>4. Lead All Marketing Copy with "2025 Renovated + 2 Covered Parking Spaces + Immediate 1-Year Rental Eligibility":</strong> Neither #702 ($445k) nor #507 ($430k) offers two parking spaces. Make "2 Assigned Covered Spaces + Day-1 Lease Flexibility + 2025 Remodel + Sunset Balconies" the headline across MLS remarks, reverse-prospecting emails, and broker blasts.</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- 06: Audience Geography & Source -->
+        <section class="report-section" style="border: none; box-shadow: none; padding: 0; margin-bottom: 4rem; background: transparent;">
+            <h2 style="font-family: 'Georgia', serif; font-size: 2rem; color: #012143; border-bottom: 2px solid #012143; padding-bottom: 0.5rem; margin-bottom: 2rem;">
+                06 &mdash; Audience Geography &amp; Source
+                <span style="display: block; font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif; font-size: 0.8rem; color: #888; text-transform: uppercase; letter-spacing: 1.5px; margin-top: 0.5rem; font-weight: 500;">Buyer Origin &amp; Syndication Traffic Breakdown (9 Compass Insights PDFs: May &ndash; Nov 15, 2026)</span>
+            </h2>
+
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; margin-bottom: 2rem;">
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Traffic Sources</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Zillow</span>
+                            <span style="font-weight: 700; color: #012143;">40.1% (617 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Compass.com</span>
+                            <span style="font-weight: 700; color: #012143;">23.3% (358 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Other Syndication Portals</span>
+                            <span style="font-weight: 700; color: #012143;">22.2% (341 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Realtor.com</span>
+                            <span style="font-weight: 700; color: #012143;">10.9% (167 Views)</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Trulia</span>
+                            <span style="font-weight: 700; color: #012143;">3.6% (56 Views)</span>
+                        </li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Top Viewing Cities (Cumulative Weighted Share)</h3>
+                    <ul style="list-style: none; padding: 0; margin: 0; line-height: 2;">
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami, FL</span>
+                            <span style="font-weight: 700; color: #012143;">49.7%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Miami Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">11.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Detroit, MI</span>
+                            <span style="font-weight: 700; color: #012143;">4.7%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Pompano Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">3.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Hialeah, FL</span>
+                            <span style="font-weight: 700; color: #012143;">3.5%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Boca Raton, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.3%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; border-bottom: 1px solid #eee; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Fort Lauderdale, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.2%</span>
+                        </li>
+                        <li style="display: flex; justify-content: space-between; padding: 0.5rem 0;">
+                            <span style="font-weight: 600; color: #333;">Boynton Beach, FL</span>
+                            <span style="font-weight: 700; color: #012143;">2.1%</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Leaflet Interactive Map -->
+            <h3 style="font-family: 'Georgia', serif; font-size: 1.4rem; margin-bottom: 1rem; color: #012143;">Interactive Viewing Heatmap</h3>
+            <div id="map" style="width: 100%; height: 400px; border-radius: 8px; border: 1px solid #E0E0E0; box-shadow: 0 4px 6px rgba(0,0,0,0.05); z-index: 1;"></div>
+
+            <script>
+                document.addEventListener('DOMContentLoaded', function() {
+                    if (!document.getElementById('leaflet-css')) {
+                        var link = document.createElement('link');
+                        link.id = 'leaflet-css';
+                        link.rel = 'stylesheet';
+                        link.href = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.css';
+                        document.head.appendChild(link);
+
+                        var script = document.createElement('script');
+                        script.src = 'https://unpkg.com/leaflet@1.9.4/dist/leaflet.js';
+                        script.onload = initMap;
+                        document.head.appendChild(script);
+                    } else {
+                        initMap();
+                    }
+
+                    function initMap() {
+                        var map = L.map('map').setView([33.0, -83.0], 5);
+
+                        L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}', {
+                            attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ',
+                            maxZoom: 20
+                        }).addTo(map);
+
+                        var cities = [
+                            { name: "Miami, FL", lat: 25.7617, lon: -80.1918, views: "49.7%", radius: 19 },
+                            { name: "Miami Beach, FL", lat: 25.7907, lon: -80.1300, views: "11.2%", radius: 12 },
+                            { name: "Detroit, MI", lat: 42.3314, lon: -83.0458, views: "4.7%", radius: 8 },
+                            { name: "Pompano Beach, FL", lat: 26.2379, lon: -80.1248, views: "3.5%", radius: 7 },
+                            { name: "Hialeah, FL", lat: 25.8576, lon: -80.2781, views: "3.5%", radius: 7 },
+                            { name: "Boca Raton, FL", lat: 26.3683, lon: -80.1289, views: "2.3%", radius: 6 },
+                            { name: "Fort Lauderdale, FL", lat: 26.1224, lon: -80.1373, views: "2.2%", radius: 6 },
+                            { name: "Boynton Beach, FL", lat: 26.5253, lon: -80.0664, views: "2.1%", radius: 6 }
+                        ];
+
+                        cities.forEach(function(city) {
+                            L.circleMarker([city.lat, city.lon], {
+                                radius: city.radius,
+                                fillColor: "#012143",
+                                color: "#012143",
+                                weight: 1,
+                                opacity: 1,
+                                fillOpacity: 0.65
+                            })
+                            .bindPopup('<b>' + city.name + '</b><br>Share of Views: ' + city.views)
+                            .addTo(map);
+                        });
+                    }
+                });
+            </script>
+        </section>
+    </main>
+
+    <footer>
+        <div class="agent-contact">
+            <p><strong>Natalia Figueroa</strong> | Licensed Real Estate Agent</p>
+            <p>Compass One | (786) 554-8301 | natalia.figueroa@compass.com</p>
+        </div>
+        <div class="footer-note">
+            Generated on November 16, 2026. Internal Market &amp; Comp Analysis Report (Not Linked on Public Owner Portal).
+        </div>
+    </footer>
+</body>
+</html>
